@@ -22,6 +22,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
 
   TextEditingController cntrNo = TextEditingController();
   TextEditingController bkNo = TextEditingController();
+  String fullStatus = '';
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +155,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
   }
 
   Future<List<ContainerTracking>> fetchContainerTracking(String cntrNo, String bkNo) async {
-    var url = 'https://14.161.21.84:2214/TrackingContainer?CntrNo=$cntrNo&BookingNo=$bkNo';
+    var url = 'http://222.252.166.214:6505/api/Tracking?BookingNo=$bkNo&CntrNo=$cntrNo';
     // final url = 'https://14.161.21.84:2214/TrackingContainer?BookingNo=$bkNo';
     // if (cntrNo.isNotEmpty && bkNo.isNotEmpty) {
       // EasyLoading.show(
@@ -163,11 +164,10 @@ class _TrackingScreenState extends State<TrackingScreen> {
       //   dismissOnTap: true,
       //   );
     if (bkNo.isNotEmpty) {
-      final response = await http.post(Uri.parse(url),
+      final response = await http.get(Uri.parse(url),
           headers: {
             "Access-Control-Allow-Origin": "*",
-            'Content-Type': 'application/json',
-            'Accept': '*/*'
+            "Access-Control-Allow-Methods": "POST, GET",
           }
           );
         print(response.statusCode);
@@ -207,6 +207,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                   columns: [
                           DataColumn(
                             label: Expanded(
+                              flex: 1,
                               child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -283,6 +284,25 @@ class _TrackingScreenState extends State<TrackingScreen> {
                         ], 
                         rows: List.generate(snapshot.data!.length, (index) {
                           var data = snapshot.data![index];
+                          if (data.logStatus == 'MIA') {
+                            fullStatus = 'EMPTY IN AVAILABLE';
+                          } else if (data.logStatus == 'MOS') {
+                            fullStatus = 'EMPTY OUT SHIPPER';
+                          } else if (data.logStatus == 'MOS') {
+                            fullStatus = 'EMPTY OUT SHIPPER';
+                          } else if (data.logStatus == 'FEX') {
+                            fullStatus = 'FULL EXPORT VESSEL';
+                          } else if (data.logStatus == 'MOB') {
+                            fullStatus = 'EMPTY ON BOARD';
+                          } else if (data.logStatus == 'FOB') {
+                            fullStatus = ' FULL ON BOARD';
+                          } else if (data.logStatus == 'FIM') {
+                            fullStatus = ' FULL IMPORT VESSEL';
+                          } else if (data.logStatus == 'FOS') {
+                            fullStatus = ' FULL OUT SHIPPER';
+                          } else {
+                            fullStatus = '';
+                          }
                           return DataRow(cells: [
                             DataCell(
                               Container(
@@ -311,7 +331,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                             DataCell(
                               Container(
                                 child: Center(
-                                  child: Text(data.logStatus.toString(), style: style11,)))),
+                                  child: Text(fullStatus, style: style11,)))),
                             DataCell(
                               Container(
                                 child: Center(

@@ -23,6 +23,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
   TextEditingController cntrNo = TextEditingController();
   TextEditingController bkNo = TextEditingController();
   String fullStatus = '';
+  String fullVessel = '';
 
   @override
   Widget build(BuildContext context) {
@@ -228,7 +229,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                               child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Vessel", style: style11),
+                                Text("Size", style: style11),
                               ],
                             )),
                           ),
@@ -237,7 +238,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                               child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Voyage", style: style11),
+                                Text("Vessel", style: style11),
                               ],
                             )),
                           ),
@@ -245,7 +246,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                             label: Expanded(child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Size', style: style11),
+                                Text('Voyage', style: style11),
                               ],
                             )),
                           ),
@@ -303,6 +304,31 @@ class _TrackingScreenState extends State<TrackingScreen> {
                           } else {
                             fullStatus = '';
                           }
+                          if (data.vessel == 'HAW') {
+                            fullVessel = 'HAIAN WEST';
+                          } else if (data.vessel == 'HAM') {
+                            fullVessel = 'HAIAN MIND';
+                          } else if (data.vessel == 'HAV') {
+                            fullVessel = 'HAIAN VIEW';
+                          } else if (data.vessel == 'HAE') {
+                            fullVessel = 'HAIAN EAST';
+                          } else if (data.vessel == 'HAB') {
+                            fullVessel = 'HAIAN BELL';
+                          } else if (data.vessel == 'HAL') {
+                            fullVessel = 'HAIAN LINK';
+                          } else if (data.vessel == 'HAP') {
+                            fullVessel = 'HAIAN PARK';
+                          } else if (data.vessel == 'HAT') {
+                            fullVessel = 'HAIAN TIME';
+                          } else if (data.vessel == 'HAC') {
+                            fullVessel = 'HAIAN CITY';
+                          } else if (data.vessel == 'HAR') {
+                            fullVessel = 'HAIAN ROSE';
+                          } else if (data.vessel == 'ABB') {
+                            fullVessel = 'ANBIEN BAY';
+                          } else {
+                            fullVessel = 'null';
+                          } 
                           return DataRow(cells: [
                             DataCell(
                               Container(
@@ -319,7 +345,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                             DataCell(
                               Container(
                                 child: Center(
-                                  child: Text(data.vessel.toString(), style: style11,)))),
+                                  child: Text(fullVessel, style: style11,)))),
                             DataCell(
                               Container(
                                 child: Center(

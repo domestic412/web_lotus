@@ -164,12 +164,13 @@ class _TrackingScreenState extends State<TrackingScreen> {
   }
 
   Future<List<ContainerTracking>> fetchContainerTracking(String cntrNo, String bkNo) async {
-    var url = 'http://222.252.166.214:6505/api/Tracking?BookingNo=$bkNo&CntrNo=$cntrNo';
+    var url = 'https://222.252.166.214:2214/api/Tracking?BookingNo=$bkNo&CntrNo=$cntrNo';
+    // var url = 'http://222.252.166.214:6505/api/Tracking?BookingNo=$bkNo&CntrNo=$cntrNo';
     if (bkNo.isNotEmpty) {
       final response = await http.get(Uri.parse(url),
           headers: {
             "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "POST, GET",
+            // "Access-Control-Allow-Methods": "POST, GET", use fot http
           }
           );
         print(response.statusCode);

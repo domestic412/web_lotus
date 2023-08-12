@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../../assets/color.dart';
 import '../../assets/style.dart';
+import '../../assets/text.dart';
 import '../../model/tracking.dart';
 import '../../widgets/appbar.dart';
 import 'alert.dart';
@@ -22,8 +23,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
 
   TextEditingController cntrNo = TextEditingController();
   TextEditingController bkNo = TextEditingController();
-  String fullStatus = '';
-  String fullVessel = '';
+  String showTextError = '';
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,9 @@ class _TrackingScreenState extends State<TrackingScreen> {
               child: Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(top: 50, bottom: 70),
+                    padding: const EdgeInsets.only(top: 40, bottom: 50),
                     child: const Center(
-                      child: Text(
+                      child: SelectableText(
                         'Container Tracking',
                         style: TextStyle(fontSize: 50, color: Colors.white, fontWeight: FontWeight.w500),
                       ),
@@ -48,8 +48,8 @@ class _TrackingScreenState extends State<TrackingScreen> {
                       color: MyColor1.backgroundColor,
                       borderRadius: BorderRadius.circular(7)
                     ),
-                    padding:const EdgeInsets.only(top: 20),
-                    height: 200,
+                    padding:const EdgeInsets.only(top: 20, left: 50, right: 50),
+                    height: 167,
                     width: 1024,
                     child: Column(
                       children: [
@@ -58,30 +58,11 @@ class _TrackingScreenState extends State<TrackingScreen> {
                             Expanded(
                               flex: 2,
                               child: Container(
-                                padding: EdgeInsets.fromLTRB(50, 10, 30, 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                  Text(' Container Number', style: style1,),
-                                  SizedBox(height: 10,),
-                                  TextField(
-                                    controller: cntrNo,
-                                    decoration: const InputDecoration(
-                                      hintText: 'Container Number',
-                                      border: OutlineInputBorder()
-                                    ),
-                                  )
-                                ],),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Container(
                                 padding: const EdgeInsets.fromLTRB(20, 10, 30, 10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                  Text(' Booking / Bill Number', style: style1,),
+                                  Text(' Booking / Bill Number', style: style18_black,),
                                   const SizedBox(height: 10,),
                                   TextField(
                                     controller: bkNo,
@@ -94,9 +75,28 @@ class _TrackingScreenState extends State<TrackingScreen> {
                               ),
                             ),
                             Expanded(
+                              flex: 2,
+                              child: Container(
+                                padding: EdgeInsets.fromLTRB(0, 10, 30, 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                  Text(' Container Number', style: style18_black,),
+                                  SizedBox(height: 10,),
+                                  TextField(
+                                    controller: cntrNo,
+                                    decoration: const InputDecoration(
+                                      hintText: 'Container Number',
+                                      border: OutlineInputBorder()
+                                    ),
+                                  )
+                                ],),
+                              ),
+                            ),
+                            Expanded(
                               flex: 1,
                               child: Container(
-                                padding: EdgeInsets.fromLTRB(30, 10, 10, 10),
+                                padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -104,7 +104,6 @@ class _TrackingScreenState extends State<TrackingScreen> {
                                     SizedBox(height: 15,),
                                     InkWell(
                                       onTap: () {
-                                        fetchContainerTracking(cntrNo.text, bkNo.text);
                                     setState(() {
                                     containerTrackings = fetchContainerTracking(cntrNo.text, bkNo.text);
                                 });
@@ -116,13 +115,23 @@ class _TrackingScreenState extends State<TrackingScreen> {
                                         ),
                                         height: 50,
                                         width: 120,
-                                        child: Center(child: Text('Search', style: style2,)),
+                                        child: Center(child: Text('Search', style: style18_white,)),
                                       ),
                                     )
                                 ],),
                               ),
                             )
                         ],),
+                        SizedBox(height: 5),
+                        Container(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(showTextError, style: style20_red,),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -131,7 +140,6 @@ class _TrackingScreenState extends State<TrackingScreen> {
                   ),
                   Container(
                     padding: EdgeInsets.all(30),
-                    // height: 1000,
                     width: 1024,
                     decoration: BoxDecoration(
                       color: MyColor1.backgroundColor,
@@ -140,7 +148,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('Details', style: style10,),
+                        Text('Details', style: style32_black,),
                         // Divider(),
                         SizedBox(
                           height: 30,
@@ -157,13 +165,6 @@ class _TrackingScreenState extends State<TrackingScreen> {
 
   Future<List<ContainerTracking>> fetchContainerTracking(String cntrNo, String bkNo) async {
     var url = 'http://222.252.166.214:6505/api/Tracking?BookingNo=$bkNo&CntrNo=$cntrNo';
-    // final url = 'https://14.161.21.84:2214/TrackingContainer?BookingNo=$bkNo';
-    // if (cntrNo.isNotEmpty && bkNo.isNotEmpty) {
-      // EasyLoading.show(
-      //   status: 'Loading...',
-      //   maskType: EasyLoadingMaskType.black,
-      //   dismissOnTap: true,
-      //   );
     if (bkNo.isNotEmpty) {
       final response = await http.get(Uri.parse(url),
           headers: {
@@ -173,18 +174,32 @@ class _TrackingScreenState extends State<TrackingScreen> {
           );
         print(response.statusCode);
       if (response.statusCode == 200) {
-        // EasyLoading.dismiss();
         var body = response.body;
         print(body);
-        List dataCntrTracking = jsonDecode(body);
-        return dataCntrTracking.map((data) => ContainerTracking.fromJson(data)).toList();
+        if (body == '[]') {
+          if (cntrNo.isEmpty) {
+            setState(() {
+              showTextError = errorInput;
+            });
+          } else {
+            setState(() {
+              showTextError = error2Input;
+            });
+          };
         } else {
-          // EasyLoading.dismiss();
-          contTrackingAlert.showContTrackingAlert(context);
+          setState(() {
+            showTextError = '';
+          });
+        }
+          List dataCntrTracking = jsonDecode(body);
+          return dataCntrTracking.map((data) => ContainerTracking.fromJson(data)).toList();
+        } else {
           throw Exception('Error');
         }
     } else {
-      // EasyLoading.dismiss();
+      setState(() {
+        showTextError = errorInput;
+      });
       throw Exception('Failed to load');
     }
   }
@@ -197,7 +212,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
       return const Center(
         child: CircularProgressIndicator()
         );}
-      else if (snapshot.hasData) {
+      else if (snapshot.hasData & (snapshot.data != [])) {
         return SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Center(
@@ -207,20 +222,18 @@ class _TrackingScreenState extends State<TrackingScreen> {
                   // columnSpacing: 10,
                   columns: [
                           DataColumn(
-                            label: Expanded(
-                              flex: 1,
-                              child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Number", style: style11),
-                              ],
-                            )),
+                            label: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Number", style: style13_black),
+                            ],
+                            ),
                           ),
                           DataColumn(
                             label: Expanded(child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Container', style: style11),
+                                Text('Container', style: style13_black),
                               ],
                             )),
                           ),
@@ -229,7 +242,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                               child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Size", style: style11),
+                                Text("Size", style: style13_black),
                               ],
                             )),
                           ),
@@ -238,7 +251,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                               child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Vessel", style: style11),
+                                Text("Vessel", style: style13_black),
                               ],
                             )),
                           ),
@@ -246,7 +259,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                             label: Expanded(child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Voyage', style: style11),
+                                Text('Voyage', style: style13_black),
                               ],
                             )),
                           ),
@@ -254,7 +267,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                             label: Expanded(child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Depot', style: style11),
+                                Text('Depot', style: style13_black),
                               ],
                             )),
                           ),
@@ -262,7 +275,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                             label: Expanded(child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Status', style: style11),  //logstatus
+                                Text('Status', style: style13_black),  //logstatus
                               ],
                             )),
                           ),
@@ -270,15 +283,7 @@ class _TrackingScreenState extends State<TrackingScreen> {
                             label: Expanded(child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Update', style: style11),
-                              ],
-                            )),
-                          ),
-                          DataColumn(
-                            label: Expanded(child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('Remark', style: style11),
+                                Text('Update', style: style13_black),
                               ],
                             )),
                           ),
@@ -286,88 +291,79 @@ class _TrackingScreenState extends State<TrackingScreen> {
                         rows: List.generate(snapshot.data!.length, (index) {
                           var data = snapshot.data![index];
                           if (data.logStatus == 'MIA') {
-                            fullStatus = 'EMPTY IN AVAILABLE';
+                            detailStatus = 'EMPTY IN AVAILABLE';
                           } else if (data.logStatus == 'MOS') {
-                            fullStatus = 'EMPTY OUT SHIPPER';
+                            detailStatus = 'EMPTY OUT SHIPPER';
                           } else if (data.logStatus == 'MOS') {
-                            fullStatus = 'EMPTY OUT SHIPPER';
+                            detailStatus = 'EMPTY OUT SHIPPER';
                           } else if (data.logStatus == 'FEX') {
-                            fullStatus = 'FULL EXPORT VESSEL';
+                            detailStatus = 'FULL EXPORT VESSEL';
                           } else if (data.logStatus == 'MOB') {
-                            fullStatus = 'EMPTY ON BOARD';
+                            detailStatus = 'EMPTY ON BOARD';
                           } else if (data.logStatus == 'FOB') {
-                            fullStatus = ' FULL ON BOARD';
+                            detailStatus = 'FULL ON BOARD';
                           } else if (data.logStatus == 'FIM') {
-                            fullStatus = ' FULL IMPORT VESSEL';
+                            detailStatus = 'FULL IMPORT VESSEL';
                           } else if (data.logStatus == 'FOS') {
-                            fullStatus = ' FULL OUT SHIPPER';
+                            detailStatus = 'FULL OUT SHIPPER';
                           } else {
-                            fullStatus = '';
+                            detailStatus = '#';
                           }
+                          
                           if (data.vessel == 'HAW') {
-                            fullVessel = 'HAIAN WEST';
+                            detailVessel = 'HAIAN WEST';
                           } else if (data.vessel == 'HAM') {
-                            fullVessel = 'HAIAN MIND';
+                            detailVessel = 'HAIAN MIND';
                           } else if (data.vessel == 'HAV') {
-                            fullVessel = 'HAIAN VIEW';
+                            detailVessel = 'HAIAN VIEW';
                           } else if (data.vessel == 'HAE') {
-                            fullVessel = 'HAIAN EAST';
+                            detailVessel = 'HAIAN EAST';
                           } else if (data.vessel == 'HAB') {
-                            fullVessel = 'HAIAN BELL';
+                            detailVessel = 'HAIAN BELL';
                           } else if (data.vessel == 'HAL') {
-                            fullVessel = 'HAIAN LINK';
+                            detailVessel = 'HAIAN LINK';
                           } else if (data.vessel == 'HAP') {
-                            fullVessel = 'HAIAN PARK';
+                            detailVessel = 'HAIAN PARK';
                           } else if (data.vessel == 'HAT') {
-                            fullVessel = 'HAIAN TIME';
+                            detailVessel = 'HAIAN TIME';
                           } else if (data.vessel == 'HAC') {
-                            fullVessel = 'HAIAN CITY';
+                            detailVessel = 'HAIAN CITY';
                           } else if (data.vessel == 'HAR') {
-                            fullVessel = 'HAIAN ROSE';
+                            detailVessel = 'HAIAN ROSE';
                           } else if (data.vessel == 'ABB') {
-                            fullVessel = 'ANBIEN BAY';
+                            detailVessel = 'ANBIEN BAY';
+                          } else if (data.vessel == null) {
+                            detailVessel = '';
                           } else {
-                            fullVessel = 'null';
-                          } 
+                            detailVessel = '#';
+                          }
+
+                          if (data.voyage == null) {
+                            detailVoyage = '';
+                          } else {
+                            detailVoyage = data.voyage.toString();
+                          }
                           return DataRow(cells: [
                             DataCell(
-                              Container(
-                                child: Center(
-                                  child: Text((index+1).toString(), style: style11,)))),
+                              Center(
+                                child: Text((index+1).toString(), style: style12_black,))),
                             DataCell(
-                              Container(
-                                child: Center(
-                                  child: Text(data.container.toString(), style: style11,)))),
+                              Center(
+                                child: Text(data.container.toString(), style: style12_black,))),
                             DataCell(
-                              Container(
-                                child: Center(
-                                  child: Text(data.size.toString(), style: style11,)))),
+                              Text(data.size.toString(), style: style12_black,)),
                             DataCell(
-                              Container(
-                                child: Center(
-                                  child: Text(fullVessel, style: style11,)))),
+                              Text(detailVessel, style: style12_black,)),
                             DataCell(
-                              Container(
-                                child: Center(
-                                  child: Text(data.voyage.toString(), style: style11,)))),
+                              Text('$detailVoyage', style: style12_black,)),
                             DataCell(
-                              Container(
-                                child: Center(
-                                  child: Text(data.depot.toString(), style: style11,)))),
+                              Center(
+                                child: Text(data.depot.toString(), style: style12_black,))),
                             DataCell(
-                              Container(
-                                child: Center(
-                                  child: Text(fullStatus, style: style11,)))),
+                              Text(detailStatus, style: style12_green,)),
                             DataCell(
-                              Container(
-                                child: Center(
-                                  child: Text(data.logDate.toString().substring(0, 10), style: style11,)),
-                              )),
-                            DataCell(
-                              Container(
-                                child: Center(
-                                  child: Text(data.remark.toString(), style: style11,)),
-                              )),
+                              Center(
+                                child: Text(data.logDate.toString().substring(0, 10), style: style12_black))),
                           ]);
                         })
                         ),
@@ -380,9 +376,3 @@ class _TrackingScreenState extends State<TrackingScreen> {
   }
   ,);}
 }
-
-
-
-  
-
-  

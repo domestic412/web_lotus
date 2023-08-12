@@ -35,7 +35,7 @@ class WidgetAppBar extends StatelessWidget implements PreferredSizeWidget  {
                   alignment: Alignment.center,
                   height: 30,
                   padding: EdgeInsets.only(left: 10, right: 10),
-                  child: Text('Booking', style: style1)),
+                  child: Text('Booking', style: style18_black)),
               ),
             ),
             Container(
@@ -46,7 +46,7 @@ class WidgetAppBar extends StatelessWidget implements PreferredSizeWidget  {
                   alignment: Alignment.center,
                   height: 30,
                   padding: EdgeInsets.only(left: 10, right: 10),
-                  child: Text('Tracking', style: style1)),
+                  child: Text('Tracking', style: style18_black)),
               ),
             )
           ],

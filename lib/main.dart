@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:web_lotus/screen/tracking/tracking.dart';
 import 'package:web_lotus/screen/tracking/tracking_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides{
@@ -23,9 +24,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Lotus Link',
       debugShowCheckedModeBanner: false,
-      home: TrackingScreen()
+      home: Tracking()
     );
   }
 }

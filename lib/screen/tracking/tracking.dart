@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import '../../model/model_tracking.dart';
 import '../../widgets/appbar_fake.dart';
 import '../../widgets/combobox.dart';
-import '../../fetchdata/data_container.dart';
+import '../../fetchdata/data_booking.dart';
 
 class Tracking extends StatefulWidget {
   const Tracking({super.key});
@@ -77,7 +77,7 @@ class _TrackingState extends State<Tracking> {
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                    containerTracking1 = fetchContainerTracking1(input.text);
+                                    containerTracking = fetchContainerTracking(input.text);
                                 });
                               },
                               child: Container(
@@ -98,7 +98,7 @@ class _TrackingState extends State<Tracking> {
                         child: Text('Our system does not accept House BL number assigned by NVOCC or Freight Forwarder.', style: style13_black,),
                       ),
                       SizedBox(height: 30,),
-                      dataTrucking(),
+                      Data_Booking(),
                     ],
                   ),
                 ),
@@ -109,7 +109,7 @@ class _TrackingState extends State<Tracking> {
     );
   }
 
-  Future<ContainerTracking> fetchContainerTracking1(String inputt) async {
+  Future<ContainerTracking> fetchContainerTracking(String inputt) async {
   final url_bk = 'http://222.252.166.214:6505/api/Tracking?BookingNo=$inputt';
   final url_cntr = 'http://222.252.166.214:6505/api/Tracking?BookingNo=&CntrNo=$inputt';
   var url = url_bk;
@@ -136,14 +136,10 @@ class _TrackingState extends State<Tracking> {
 
   if (response.statusCode == 200) {
     var body = response.body;
-
     if (body == '[]') {
       return throw Exception();
     }
-
     var dataCntrTracking = jsonDecode(body);
-
-
     return ContainerTracking.fromJson(dataCntrTracking);
   } else {
     print('Error');

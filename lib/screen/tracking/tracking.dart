@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/style.dart';
 import 'package:http/http.dart' as http;
+import 'package:web_lotus/assets/text.dart';
+import 'package:web_lotus/fetchdata/data_container.dart';
 
 import '../../model/model_tracking.dart';
 import '../../widgets/appbar_fake.dart';
@@ -78,6 +80,7 @@ class _TrackingState extends State<Tracking> {
                               onTap: () {
                                 setState(() {
                                     containerTracking = fetchContainerTracking(input.text);
+                                    bool_data_container = false;
                                 });
                               },
                               child: Container(
@@ -98,7 +101,10 @@ class _TrackingState extends State<Tracking> {
                         child: Text('Our system does not accept House BL number assigned by NVOCC or Freight Forwarder.', style: style13_black,),
                       ),
                       SizedBox(height: 30,),
-                      Data_Booking(),
+                      Data_Booking(updateDataContainer),
+                      Container(
+                        child: bool_data_container?  Data_Container() : null,
+                      )
                     ],
                   ),
                 ),
@@ -110,10 +116,11 @@ class _TrackingState extends State<Tracking> {
   }
 
   Future<ContainerTracking> fetchContainerTracking(String inputt) async {
-  final url_bk = 'http://222.252.166.214:6505/api/Tracking?BookingNo=$inputt';
-  final url_cntr = 'http://222.252.166.214:6505/api/Tracking?BookingNo=&CntrNo=$inputt';
-  var url = url_bk;
-
+  // final url_bk = 'http://222.252.166.214:6505/api/Tracking?BookingNo=$inputt';
+  // final url_cntr = 'http://222.252.166.214:6505/api/Tracking?BookingNo=&CntrNo=$inputt';
+  final url_bk = 'http://222.252.166.214:2602/TrackingContainer?CntrNo=&BookingNo=$inputt';
+  final url_cntr = 'http://222.252.166.214:2602/TrackingContainer?CntrNo=$inputt&BookingNo=';
+  String? url;
   if (selectedValue == 'bk') {
     setState(() {
       url = url_bk;
@@ -125,7 +132,7 @@ class _TrackingState extends State<Tracking> {
   }
 
   final response = await http.get(
-    Uri.parse(url),
+    Uri.parse(url!),
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET", //use fot http, not use https
@@ -146,6 +153,12 @@ class _TrackingState extends State<Tracking> {
     throw Exception('Error');
   }
 }
+
+  void updateDataContainer() {
+    setState(() {
+      bool_data_container = true;
+    });
+  }
 }
 
 

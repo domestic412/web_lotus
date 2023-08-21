@@ -9,7 +9,7 @@ String errorInput =  'Please check your Booking / Bill Number or Container Numbe
 String errorInput2 =  'Please enter your Booking / Bill Number or Container Number';
 String errorServer =  'Server error';
 String Ccontainer = '';
-bool bool_data = false;
+bool bool_data_container = false;
 
 int seq = 1;
 String? cntr_no;

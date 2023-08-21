@@ -11,7 +11,7 @@ class DropdownButtonExample extends StatefulWidget {
   State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
 }
 
-String selectedValue = 'cntr';
+String selectedValue = 'bk';
 
 class _DropdownButtonExampleState extends State<DropdownButtonExample> {
 

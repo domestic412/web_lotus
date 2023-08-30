@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/text.dart';
@@ -6,6 +7,7 @@ import 'package:web_lotus/fetchdata/data_container.dart';
 
 import 'package:web_lotus/model/model_tracking.dart';
 import 'package:web_lotus/screen/tracking/tracking.dart';
+import 'package:web_lotus/widgets/appbar_fake.dart';
 
 import '../assets/style.dart';
 
@@ -18,7 +20,9 @@ class Data_Booking extends StatefulWidget {
 }
 
 Future<ContainerTracking>? containerTracking;
-List<TrackingZims>? list_filter;
+List? list_filter;
+// List<TrackingZimsEN>? list_filter_en;
+// List<TrackingZimsVN>? list_filter_vn;
 
 class _Data_BookingState extends State<Data_Booking> {
 
@@ -38,8 +42,16 @@ class _Data_BookingState extends State<Data_Booking> {
         );}
       else if (snapshot.hasData) {
           var data_bk = snapshot.data!.trackingContainers;
-          var data_cntr = snapshot.data!.trackingZims;
+          var data_cntr_en = snapshot.data!.trackingZimsEN;
+          var data_cntr_vn = snapshot.data!.trackingZimsVN;
           if (data_bk.toString() != [].toString()) {
+            if (data_cntr_en.toString() != [].toString() && cntr_no != null) {
+                if (bool_lang == false) {
+                  list_filter = data_cntr_en!.where((item) => item.container!.contains(cntr_no!)).toList();
+                } else {
+                  list_filter = data_cntr_vn!.where((item) => item.container!.contains(cntr_no!)).toList();
+                }
+              }
             return Container(
           padding: const EdgeInsets.only(bottom: 30),
           width: 1024,
@@ -51,10 +63,10 @@ class _Data_BookingState extends State<Data_Booking> {
             children: <Widget> [
               Container(
                 padding: EdgeInsets.only(left: 45),
-                child: const Row(
+                child: Row(
                   children: [
                     Icon(Icons.arrow_right),
-                    Text('Booking Detail')
+                    SelectableText('title_booking'.tr())
                   ],
                 ),
               ),
@@ -66,7 +78,7 @@ class _Data_BookingState extends State<Data_Booking> {
                           label: Expanded(child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Seq', style: style15_black_bold),
+                              SelectableText('seq'.tr(), style: style15_black_bold),
                             ],
                           )),
                         ),                        
@@ -74,7 +86,7 @@ class _Data_BookingState extends State<Data_Booking> {
                           label: Expanded(child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Container', style: style15_black_bold),
+                              SelectableText('container'.tr(), style: style15_black_bold),
                             ],
                           )),
                         ),
@@ -82,7 +94,7 @@ class _Data_BookingState extends State<Data_Booking> {
                           label: Expanded(child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Size', style: style15_black_bold),
+                              SelectableText('size_booking'.tr(), style: style15_black_bold),
                             ],
                           )),
                         ),
@@ -94,7 +106,7 @@ class _Data_BookingState extends State<Data_Booking> {
                             Container(
                               width: 30,
                               child: Center(
-                                child: Text((index+1).toString(), style: style13_black,)),
+                                child: SelectableText((index+1).toString(), style: style13_black,)),
                             )),
                           DataCell(
                             Row(
@@ -102,9 +114,14 @@ class _Data_BookingState extends State<Data_Booking> {
                                 Container(
                                   child: InkWell(
                                     onTap: () {
+                                      print(bool_lang);
                                       cntr_no = data_bk[index].container.toString();
-                                      list_filter = data_cntr!.where((item) => item.container!.contains(cntr_no!)).toList();
-                                      print(list_filter);
+                                      if (bool_lang == false) {
+                                        list_filter = data_cntr_en!.where((item) => item.container!.contains(cntr_no!)).toList();
+                                      } else {
+                                        list_filter = data_cntr_vn!.where((item) => item.container!.contains(cntr_no!)).toList();
+                                      }
+                                      print('$list_filter');
                                       this.widget.updateDataContainer();
                                     },
                                     child: Container(
@@ -124,7 +141,7 @@ class _Data_BookingState extends State<Data_Booking> {
                             Container(
                               width: 120,
                               child: Center(
-                                child: Text(data_bk[index].size.toString(), style: style13_black)),
+                                child: SelectableText(data_bk[index].size.toString(), style: style13_black)),
                             )),
                         ]);
                       })
@@ -133,9 +150,13 @@ class _Data_BookingState extends State<Data_Booking> {
           ),
         );
           } else {
-              if (data_cntr.toString() != [].toString()) {
-                cntr_no = input.text.toString();
-                list_filter = data_cntr!.where((item) => item.container!.contains(cntr_no!)).toList();
+              if (data_cntr_en.toString() != [].toString()) {
+                cntr_no = input.text.toUpperCase().toString();
+                if (bool_lang == false) {
+                  list_filter = data_cntr_en!.where((item) => item.container!.contains(cntr_no!)).toList();
+                } else {
+                  list_filter = data_cntr_vn!.where((item) => item.container!.contains(cntr_no!)).toList();
+                }
                 print(list_filter);
                 return Data_Container();
               } else {
@@ -146,4 +167,9 @@ class _Data_BookingState extends State<Data_Booking> {
       return Text('');
   }
   ,);}
+
+  // void updateLanguage() {
+  //   setState(() {
+  //   });
+  // }
 }

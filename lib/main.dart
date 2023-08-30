@@ -1,8 +1,8 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:web_lotus/screen/tracking/tracking.dart';
-import 'package:web_lotus/screen/tracking/tracking_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides{
   @override
@@ -11,9 +11,23 @@ class MyHttpOverrides extends HttpOverrides{
       ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }
-void main() {
+void main() async {
   HttpOverrides.global = MyHttpOverrides();
-  runApp(const MyApp());
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(EasyLocalization(
+  // startLocale: Locale('vi','VN'),
+  startLocale: Locale('en','EN'),
+  supportedLocales: const [
+    Locale('en','EN'),
+    Locale('vi','VN'),
+  ],
+  saveLocale: false,
+  path: "lib/resources/langs",
+  child: const MyApp(),
+  ));
 }
 
 
@@ -26,6 +40,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Lotus Link',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       home: Tracking()
     );
   }

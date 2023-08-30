@@ -1,12 +1,12 @@
 
 
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/fetchdata/data_booking.dart';
 
-import '../model/model_tracking.dart';
 
 class Data_Container extends StatefulWidget {
   const Data_Container({super.key});
@@ -26,11 +26,11 @@ class _Data_ContainerState extends State<Data_Container> {
         children: [
           Container(
             padding: EdgeInsets.only(left: 45),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Icon(Icons.arrow_right),
-                Text('Container Tracking Detail'),
+                SelectableText('title_container'.tr()),
               ],
             ),
           ),
@@ -42,7 +42,7 @@ class _Data_ContainerState extends State<Data_Container> {
                 label: Expanded(child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Seq', style: style12_black,)
+                    SelectableText('seq'.tr(), style: style15_black_bold,)
                   ],
                 ))
                 ),
@@ -50,7 +50,7 @@ class _Data_ContainerState extends State<Data_Container> {
                 label: Expanded(child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Container', style: style12_black,)
+                    SelectableText('container'.tr(), style: style15_black_bold,)
                   ],
                 ))
                 ),
@@ -58,7 +58,7 @@ class _Data_ContainerState extends State<Data_Container> {
                 label: Expanded(child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Status', style: style12_black,)
+                    SelectableText('status_container'.tr(), style: style15_black_bold,)
                   ],
                 ))
                 ),
@@ -66,7 +66,7 @@ class _Data_ContainerState extends State<Data_Container> {
                 label: Expanded(child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Location', style: style12_black,)
+                    SelectableText('location_container'.tr(), style: style15_black_bold,)
                   ],
                 ))
                 ),
@@ -74,7 +74,7 @@ class _Data_ContainerState extends State<Data_Container> {
                 label: Expanded(child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Event Date', style: style12_black,)
+                    SelectableText('eventDate_container'.tr(), style: style15_black_bold,)
                   ],
                 ))
                 )
@@ -93,31 +93,32 @@ class _Data_ContainerState extends State<Data_Container> {
                   DataCell(
                     Container(
                       width: 30,
-                      child: Center(child: Text((index+1).toString(), style: style13_black,)),
+                      child: Center(child: SelectableText((index+1).toString(), style: style13_black,)),
                     )
                   ),
                   DataCell(
                     Container(
                       width: 100,
-                      child: Center(child: Text(list_filter![index].container.toString(), style: style13_black,)),
+                      child: Center(child: SelectableText(list_filter![index].container.toString(), style: style13_black,)),
                     )
                   ),
                   DataCell(
                     Container(
                       width: 220,
-                      child: Text(list_filter![index].status.toString(), style: style13_black,),
+                      child: SelectableText(list_filter![index].status.toString(), style: style13_black,),
                     )
                   ),
                   DataCell(
                     Container(
                       width: 170,
-                      child: Center(child: Text(list_filter![index].location.toString(), style: style13_black,)),
+                      child: Center(
+                        child: SelectableText(list_filter![index].location.toString(), style: style13_black,)),
                     )
                   ),
                   DataCell(
                     Container(
                       width: 120,
-                      child: Center(child: Text('$date   $time', style: TextStyle(fontSize: 13, color: color_time,),)),
+                      child: Center(child: SelectableText('$date   $time', style: TextStyle(fontSize: 13, color: color_time,),)),
                     )
                   )
                 ]);

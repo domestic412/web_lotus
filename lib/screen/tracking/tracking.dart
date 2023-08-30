@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/style.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_lotus/assets/text.dart';
 import 'package:web_lotus/fetchdata/data_container.dart';
+import 'package:web_lotus/widgets/footer.dart';
 
 import '../../model/model_tracking.dart';
 import '../../widgets/appbar_fake.dart';
@@ -20,43 +22,42 @@ class Tracking extends StatefulWidget {
 }
 
 TextEditingController input = TextEditingController();
+final ScrollController horizontalScroll = ScrollController();
+double width_20 = 20;
 
 class _TrackingState extends State<Tracking> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColor.backgroundColor,
+      bottomSheet: Footer(),
       body: SafeArea(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const AppbarWidget(),
-              // const SizedBox(
-              //   height: 10,
-              // ),
+              AppbarWidget(),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(
-                  margin: EdgeInsets.all(10),
+                  margin: EdgeInsets.fromLTRB(10, 10, 10, 40),
                   decoration: BoxDecoration(
                     color: MyColor.contentColor, 
                     borderRadius: BorderRadius.circular(10)
                   ),
-                  // height: 720,
-                  width: 1024,
+                  width: 1004,
                   padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('Container Tracking', style: style20_blue,),
+                      SelectableText('containerTracking'.tr(), style: style20_blue,),
                       const SizedBox(height: 10,),
                       const Divider(
                         color: MyColor.normalColor,
                         height: 1,
                       ),
-                      const SizedBox(height: 10,),
+                      const SizedBox(height: 20,),
                       Container(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Row(
@@ -79,7 +80,7 @@ class _TrackingState extends State<Tracking> {
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                    containerTracking = fetchContainerTracking(input.text);
+                                    containerTracking = fetchContainerTracking(input.text.toUpperCase());
                                     bool_data_container = false;
                                 });
                               },
@@ -91,14 +92,14 @@ class _TrackingState extends State<Tracking> {
                                   borderRadius: BorderRadius.circular(5),
                                   color: MyColor.normalColor
                                 ),
-                                child: Text('Search', style: style15_white,),
+                                child: Text('search'.tr(), style: style15_white,),
                               ),
                             )
                           ],
                         ),
                       ),
                       Container(
-                        child: Text('Our system does not accept House BL number assigned by NVOCC or Freight Forwarder.', style: style13_black,),
+                        child: SelectableText('note'.tr(), style: style13_black,),
                       ),
                       SizedBox(height: 30,),
                       Data_Booking(updateDataContainer),
@@ -108,26 +109,27 @@ class _TrackingState extends State<Tracking> {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
-        ))
+        ),
+        ),
     );
   }
 
   Future<ContainerTracking> fetchContainerTracking(String inputt) async {
-  // final url_bk = 'http://222.252.166.214:6505/api/Tracking?BookingNo=$inputt';
-  // final url_cntr = 'http://222.252.166.214:6505/api/Tracking?BookingNo=&CntrNo=$inputt';
-  final url_bk = 'http://222.252.166.214:2602/TrackingContainer?CntrNo=&BookingNo=$inputt';
-  final url_cntr = 'http://222.252.166.214:2602/TrackingContainer?CntrNo=$inputt&BookingNo=';
+  final url_bk_en = 'http://222.252.166.214:6505/api/Tracking?BookingNo=$inputt&CntrNo=';
+  final url_cntr_en = 'http://222.252.166.214:6505/api/Tracking?BookingNo=&CntrNo=$inputt';
+  // final url_bk = 'http://222.252.166.214:2602/TrackingContainer?CntrNo=&BookingNo=$inputt';
+  // final url_cntr = 'http://222.252.166.214:2602/TrackingContainer?CntrNo=$inputt&BookingNo=';
   String? url;
   if (selectedValue == 'bk') {
     setState(() {
-      url = url_bk;
+      url = url_bk_en;
     });
   } else {
     setState(() {
-      url = url_cntr;
+      url = url_cntr_en;
     });
   }
 

@@ -104,7 +104,9 @@ class _TrackingState extends State<Tracking> {
                       SizedBox(height: 30,),
                       Data_Booking(updateDataContainer),
                       Container(
-                        child: bool_data_container?  Data_Container() : null,
+                        height: 500,
+                        child: bool_data_container ?  
+                        Data_Container() : null,
                       )
                     ],
                   ),

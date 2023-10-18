@@ -80,6 +80,7 @@ class _Data_ContainerState extends State<Data_Container> {
                 )
             ],
             rows: List.generate(list_filter!.length, (index) {
+              print(list_filter!.length);
               var date = list_filter![index].eventDate.toString().substring(0,10);
               var time = list_filter![index].eventDate.toString().substring(11,16);
               var dt = DateTime.tryParse(list_filter![index].eventDate.toString());

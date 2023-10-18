@@ -19,15 +19,15 @@ void main() async {
 
   runApp(EasyLocalization(
   // startLocale: Locale('vi','VN'),
-  startLocale: Locale('en','EN'),
-  supportedLocales: const [
-    Locale('en','EN'),
-    Locale('vi','VN'),
-  ],
-  saveLocale: false,
-  path: "lib/resources/langs",
-  child: const MyApp(),
-  ));
+    startLocale: Locale('en','EN'),
+    supportedLocales: const [
+      Locale('en','EN'),
+      Locale('vi','VN'),
+    ],
+    saveLocale: false,
+    path: "lib/resources/langs",
+    child: const MyApp(),
+    ));
 }
 
 

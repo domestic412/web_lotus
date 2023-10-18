@@ -100,6 +100,7 @@ class _Data_BookingState extends State<Data_Booking> {
                         ),
                       ], 
                 rows: List.generate(data_bk!.length, (index) {
+                  print(data_bk.length);
                         return DataRow(
                           cells: [
                           DataCell(
@@ -115,6 +116,7 @@ class _Data_BookingState extends State<Data_Booking> {
                                   child: InkWell(
                                     onTap: () {
                                       print(bool_lang);
+                                      print(bool_data_container);
                                       cntr_no = data_bk[index].container.toString();
                                       if (bool_lang == false) {
                                         list_filter = data_cntr_en!.where((item) => item.container!.contains(cntr_no!)).toList();

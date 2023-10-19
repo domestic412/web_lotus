@@ -22,9 +22,13 @@ Future<void> PopUpTest(BuildContext context) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SelectableText('title_container'.tr()),
+                    SelectableText('title_container'.tr(),
+                        style: TextStyle(fontWeight: FontWeight.bold)),
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 5,
               ),
               DataTable(
                   border: TableBorder.all(),

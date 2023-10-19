@@ -4,13 +4,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:web_lotus/screen/tracking/tracking.dart';
 
-class MyHttpOverrides extends HttpOverrides{
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
+
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
@@ -18,18 +20,17 @@ void main() async {
   await EasyLocalization.ensureInitialized();
 
   runApp(EasyLocalization(
-  // startLocale: Locale('vi','VN'),
-    startLocale: Locale('en','EN'),
+    // startLocale: Locale('vi','VN'),
+    startLocale: Locale('en', 'EN'),
     supportedLocales: const [
-      Locale('en','EN'),
-      Locale('vi','VN'),
+      Locale('en', 'EN'),
+      Locale('vi', 'VN'),
     ],
     saveLocale: false,
     path: "lib/resources/langs",
     child: const MyApp(),
-    ));
+  ));
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -43,8 +44,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      home: Tracking()
+      home: const Tracking(),
     );
   }
 }
-

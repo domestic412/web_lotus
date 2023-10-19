@@ -147,8 +147,6 @@ class _TrackingState extends State<Tracking> {
         url = url_cntr_en;
       });
     }
-    print(inputt);
-    print(str);
     final response = await http.get(
       Uri.parse(url!),
       headers: {

@@ -132,7 +132,6 @@ class _Data_BookingState extends State<Data_Booking> {
                                               .toList();
                                         }
                                         PopUpTest(context);
-                                        this.widget.updateDataContainer();
                                       },
                                       child: Container(
                                           padding: EdgeInsets.only(bottom: 2),

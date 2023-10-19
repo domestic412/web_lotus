@@ -43,21 +43,27 @@ class _TrackingState extends State<Tracking> {
                 child: Container(
                   margin: EdgeInsets.fromLTRB(10, 10, 10, 40),
                   decoration: BoxDecoration(
-                    color: MyColor.contentColor, 
-                    borderRadius: BorderRadius.circular(10)
-                  ),
+                      color: MyColor.contentColor,
+                      borderRadius: BorderRadius.circular(10)),
                   width: 1004,
                   padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SelectableText('containerTracking'.tr(), style: style20_blue,),
-                      const SizedBox(height: 10,),
+                      SelectableText(
+                        'containerTracking'.tr(),
+                        style: style20_blue,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       const Divider(
                         color: MyColor.normalColor,
                         height: 1,
                       ),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Container(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Row(
@@ -69,19 +75,20 @@ class _TrackingState extends State<Tracking> {
                               height: 40,
                               width: 500,
                               child: TextField(
-                                controller: input,
-                                style: style15_black,
-                                decoration:const InputDecoration(
-                                  border: OutlineInputBorder()
-                                )
-                              ),
+                                  controller: input,
+                                  style: style15_black,
+                                  decoration: const InputDecoration(
+                                      border: OutlineInputBorder())),
                             ),
-                            const SizedBox(width: 20,),
+                            const SizedBox(
+                              width: 20,
+                            ),
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                    containerTracking = fetchContainerTracking(input.text.toUpperCase());
-                                    bool_data_container = false;
+                                  containerTracking = fetchContainerTracking(
+                                      input.text.toUpperCase());
+                                  bool_data_container = false;
                                 });
                               },
                               child: Container(
@@ -89,23 +96,30 @@ class _TrackingState extends State<Tracking> {
                                 height: 40,
                                 width: 80,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: MyColor.normalColor
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: MyColor.normalColor),
+                                child: Text(
+                                  'search'.tr(),
+                                  style: style15_white,
                                 ),
-                                child: Text('search'.tr(), style: style15_white,),
                               ),
                             )
                           ],
                         ),
                       ),
                       Container(
-                        child: SelectableText('note'.tr(), style: style13_black,),
+                        child: SelectableText(
+                          'note'.tr(),
+                          style: style13_black,
+                        ),
                       ),
-                      SizedBox(height: 30,),
+                      SizedBox(
+                        height: 30,
+                      ),
                       Data_Booking(updateDataContainer),
-                      Container(
-                        child: bool_data_container?  Data_Container() : null,
-                      )
+                      // Container(
+                      //   child: bool_data_container ? Data_Container() : null,
+                      // )
                     ],
                   ),
                 ),
@@ -113,48 +127,50 @@ class _TrackingState extends State<Tracking> {
             ],
           ),
         ),
-        ),
+      ),
     );
   }
 
   Future<ContainerTracking> fetchContainerTracking(String inputt) async {
-  final url_bk_en = 'http://222.252.166.214:6505/api/Tracking?BookingNo=$inputt&CntrNo=';
-  final url_cntr_en = 'http://222.252.166.214:6505/api/Tracking?BookingNo=&CntrNo=$inputt';
-  // final url_bk = 'http://222.252.166.214:2602/TrackingContainer?CntrNo=&BookingNo=$inputt';
-  // final url_cntr = 'http://222.252.166.214:2602/TrackingContainer?CntrNo=$inputt&BookingNo=';
-  String? url;
-  if (selectedValue == 'bk') {
-    setState(() {
-      url = url_bk_en;
-    });
-  } else {
-    setState(() {
-      url = url_cntr_en;
-    });
-  }
-
-  final response = await http.get(
-    Uri.parse(url!),
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET", //use fot http, not use https
-    },
-  );
-
-  print(response.statusCode);
-
-  if (response.statusCode == 200) {
-    var body = response.body;
-    if (body == '[]') {
-      return throw Exception();
+    String str = inputt.trim().tr();
+    final url_bk_en =
+        'http://222.252.166.214:6505/api/Tracking?BookingNo=$str&CntrNo=';
+    final url_cntr_en =
+        'http://222.252.166.214:6505/api/Tracking?BookingNo=&CntrNo=$str';
+    String? url;
+    if (selectedValue == 'bk') {
+      setState(() {
+        url = url_bk_en;
+      });
+    } else {
+      setState(() {
+        url = url_cntr_en;
+      });
     }
-    var dataCntrTracking = jsonDecode(body);
-    return ContainerTracking.fromJson(dataCntrTracking);
-  } else {
-    print('Error');
-    throw Exception('Error');
+    print(inputt);
+    print(str);
+    final response = await http.get(
+      Uri.parse(url!),
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET", //use fot http, not use https
+      },
+    );
+
+    print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      var body = response.body;
+      if (body == '[]') {
+        return throw Exception();
+      }
+      var dataCntrTracking = jsonDecode(body);
+      return ContainerTracking.fromJson(dataCntrTracking);
+    } else {
+      print('Error');
+      throw Exception('Error');
+    }
   }
-}
 
   void updateDataContainer() {
     setState(() {
@@ -162,5 +178,3 @@ class _TrackingState extends State<Tracking> {
     });
   }
 }
-
-

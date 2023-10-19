@@ -6,7 +6,7 @@
     "size_booking":     "Size",
     "seq":              "Seq",
     "container":        "Container",
-    "title_container":  "Contianer Tracking Detail",
+    "title_container":  "Container Tracking Detail",
     "status_container": "Status",
     "location_container":"Location",
     "eventDate_container":"Event Date"

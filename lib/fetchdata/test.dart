@@ -24,13 +24,14 @@ Future<void> PopUpTest(BuildContext context) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Icon(Icons.arrow_right),
                     SelectableText('title_container'.tr(),
                         style: TextStyle(fontWeight: FontWeight.bold)),
                   ],
                 ),
               ),
               SizedBox(
-                height: 5,
+                height: 10,
               ),
               DataTable(
                   border: TableBorder.all(),
@@ -92,21 +93,9 @@ Future<void> PopUpTest(BuildContext context) {
                     )))
                   ],
                   rows: List.generate(list_filter!.length, (index) {
-                    // var date = list_filter?[index]
-                    //     .eventDate
-                    //     .toString()
-                    //     .substring(0, 10);
-                    // var time = list_filter?[index]
-                    //     .eventDate
-                    //     .toString()
-                    //     .substring(11, 16);
-                    // var dt = DateTime.tryParse(
-                    //     list_filter![index].eventDate.toString());
-                    // if (dt!.compareTo(DateTime.now()) < 0) {
-                    //   color_time = MyColor.normalColor;
-                    // } else {
-                    //   color_time = Colors.black;
-                    // }
+                    String dt = DateFormat("yyyy-MM-dd  hh:mm").format(
+                        DateTime.parse(
+                            list_filter![index].eventDate.toString()));
                     return DataRow(cells: [
                       DataCell(Container(
                         width: 30,
@@ -142,7 +131,7 @@ Future<void> PopUpTest(BuildContext context) {
                         width: 120,
                         child: Center(
                             child: SelectableText(
-                          list_filter![index].eventDate.toString(),
+                          (dt),
                           style: TextStyle(
                             fontSize: 13,
                             color: color_time,
@@ -150,70 +139,7 @@ Future<void> PopUpTest(BuildContext context) {
                         )),
                       ))
                     ]);
-                  })
-
-                  // rows: List.generate(list_filter!.length, (index) {
-                  //   var date = list_filter?[index]
-                  //       .eventDate
-                  //       .toString()
-                  //       .substring(0, 10);
-                  //   var time = list_filter?[index]
-                  //       .eventDate
-                  //       .toString()
-                  //       .substring(11, 16);
-                  //   var dt = DateTime.tryParse(
-                  //       list_filter![index].eventDate.toString());
-                  //   if (dt!.compareTo(DateTime.now()) < 0) {
-                  //     color_time = MyColor.normalColor;
-                  //   } else {
-                  //     color_time = Colors.black;
-                  //   }
-                  //   return DataRow(cells: [
-                  //     DataCell(Container(
-                  //       width: 30,
-                  //       child: Center(
-                  //           child: SelectableText(
-                  //         (index + 1).toString(),
-                  //         style: style13_black,
-                  //       )),
-                  //     )),
-                  //     DataCell(Container(
-                  //       width: 100,
-                  //       child: Center(
-                  //           child: SelectableText(
-                  //         list_filter![index].container.toString(),
-                  //         style: style13_black,
-                  //       )),
-                  //     )),
-                  //     DataCell(Container(
-                  //       width: 220,
-                  //       child: SelectableText(
-                  //         list_filter![index].status.toString(),
-                  //         style: style13_black,
-                  //       ),
-                  //     )),
-                  //     DataCell(Container(
-                  //       width: 170,
-                  //       child: Center(
-                  //           child: SelectableText(
-                  //         list_filter![index].location.toString(),
-                  //         style: style13_black,
-                  //       )),
-                  //     )),
-                  //     DataCell(Container(
-                  //       width: 120,
-                  //       child: Center(
-                  //           child: SelectableText(
-                  //         '$date   $time',
-                  //         style: TextStyle(
-                  //           fontSize: 13,
-                  //           color: color_time,
-                  //         ),
-                  //       )),
-                  //     ))
-                  //   ]);
-                  // })
-                  ),
+                  })),
             ]),
           ),
         ),

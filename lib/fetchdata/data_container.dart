@@ -93,17 +93,8 @@ class _Data_ContainerState extends State<Data_Container> {
                 )))
               ],
               rows: List.generate(list_filter!.length, (index) {
-                // var date =
-                //     list_filter![index].eventDate.toString().substring(0, 10);
-                // var time =
-                //     list_filter![index].eventDate.toString().substring(11, 16);
-                // var dt =
-                //     DateTime.tryParse(list_filter![index].eventDate.toString());
-                // if (dt!.compareTo(DateTime.now()) < 0) {
-                //   color_time = MyColor.normalColor;
-                // } else {
-                //   color_time = Colors.black;
-                // }
+                String dt = DateFormat("yyyy-MM-dd  hh:mm").format(
+                    DateTime.parse(list_filter![index].eventDate.toString()));
                 return DataRow(cells: [
                   DataCell(Container(
                     width: 30,
@@ -140,7 +131,7 @@ class _Data_ContainerState extends State<Data_Container> {
                     width: 120,
                     child: Center(
                         child: SelectableText(
-                      list_filter![index].eventDate.toString(),
+                      dt,
                       style: TextStyle(
                         fontSize: 13,
                         color: color_time,

@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/fetchdata/data_booking.dart';
 
@@ -12,6 +11,7 @@ class Data_Container extends StatefulWidget {
 }
 
 Color? color_time;
+String dt = '';
 
 class _Data_ContainerState extends State<Data_Container> {
   @override
@@ -93,8 +93,8 @@ class _Data_ContainerState extends State<Data_Container> {
                 )))
               ],
               rows: List.generate(list_filter!.length, (index) {
-                String dt = DateFormat("yyyy-MM-dd  hh:mm").format(
-                    DateTime.parse(list_filter![index].eventDate.toString()));
+                list_filter![index].eventDate != null ? dt = DateFormat("yyyy-MM-dd  hh:mm").format(
+                    DateTime.parse(list_filter![index].eventDate)) : dt = '';
                 return DataRow(cells: [
                   DataCell(Container(
                     width: 30,

@@ -1,35 +1,38 @@
 import 'dart:convert';
 
-import 'package:easy_localization/easy_localization.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/style.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_lotus/assets/text.dart';
+import 'package:web_lotus/assets/variable.dart';
+import 'package:web_lotus/controller/info_signin_controller.dart';
 import 'package:web_lotus/fetchdata/data_booking.dart';
 import 'package:web_lotus/model/model_tracking.dart';
-import 'package:web_lotus/widgets/appbar.dart';
-import 'package:web_lotus/widgets/appbar_fake.dart';
+import 'package:web_lotus/screen/quote/quote_page.dart';
+import 'package:web_lotus/screen/signin/signin_page.dart';
+import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/combobox.dart';
 import 'package:web_lotus/widgets/footer.dart';
 
-
-
-class Tracking extends StatefulWidget {
-  const Tracking({super.key});
+class TrackingPage extends StatefulWidget {
+  const TrackingPage({super.key});
 
   @override
-  State<Tracking> createState() => _TrackingState();
+  State<TrackingPage> createState() => _TrackingPageState();
 }
 
 TextEditingController input = TextEditingController();
 final ScrollController horizontalScroll = ScrollController();
 double width_20 = 20;
 
-class _TrackingState extends State<Tracking> {
+class _TrackingPageState extends State<TrackingPage> {
   @override
   Widget build(BuildContext context) {
+    var FHeight = deviceHeight(context);
+    var FWidth = deviceWidth(context);
+
     return Scaffold(
       // appBar: WidgetAppBar(),
       backgroundColor: MyColor.backgroundColor,
@@ -41,6 +44,41 @@ class _TrackingState extends State<Tracking> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               AppbarWidget(),
+              Container(
+                margin: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TrackingPage()));
+                        },
+                        child: Text('Tracking')),
+                    SizedBox(width: 30),
+                    ElevatedButton(
+                        onPressed: () {
+                          switch (inforUserController.shipperName.value) {
+                            case '':
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignInPage()));
+                              break;
+                            default:
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => QuoteListPage()));
+                              break;
+                          }
+                        },
+                        child: Text('Quote')),
+                  ],
+                ),
+              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(
@@ -49,19 +87,21 @@ class _TrackingState extends State<Tracking> {
                       color: MyColor.contentColor,
                       borderRadius: BorderRadius.circular(10)),
                   width: 1004,
+                  // constraints: BoxConstraints(minWidth: 1004, maxWidth: 1400),
+                  // width: FWidth,
                   padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SelectableText(
-                        'containerTracking'.tr(),
+                        'containerTracking'.tr,
                         style: style20_blue,
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       const Divider(
-                        color: MyColor.normalColor,
+                        color: MyColor.haian,
                         height: 1,
                       ),
                       const SizedBox(
@@ -100,9 +140,9 @@ class _TrackingState extends State<Tracking> {
                                 width: 80,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
-                                    color: MyColor.normalColor),
+                                    color: MyColor.haian),
                                 child: Text(
-                                  'search'.tr(),
+                                  'search'.tr,
                                   style: style15_white,
                                 ),
                               ),
@@ -112,7 +152,7 @@ class _TrackingState extends State<Tracking> {
                       ),
                       Container(
                         child: SelectableText(
-                          'note'.tr(),
+                          'note'.tr,
                           style: style13_black,
                         ),
                       ),
@@ -135,7 +175,7 @@ class _TrackingState extends State<Tracking> {
   }
 
   Future<ContainerTracking> fetchContainerTracking(String inputt) async {
-    String str = inputt.trim().tr();
+    String str = inputt.trim().tr;
     final url_bk_en =
         'http://222.252.166.214:6505/api/Tracking?BookingNo=$str&CntrNo=';
     final url_cntr_en =

@@ -1,9 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/fetchdata/data_booking.dart';
 import 'package:web_lotus/fetchdata/data_container.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 Future<void> PopUpTest(BuildContext context) {
   return showDialog(
@@ -25,7 +25,7 @@ Future<void> PopUpTest(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Icon(Icons.arrow_right),
-                    SelectableText('title_container'.tr(),
+                    SelectableText('title_container'.tr,
                         style: TextStyle(fontWeight: FontWeight.bold)),
                   ],
                 ),
@@ -42,7 +42,7 @@ Future<void> PopUpTest(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SelectableText(
-                          'seq'.tr(),
+                          'seq'.tr,
                           style: style15_black_bold,
                         )
                       ],
@@ -53,7 +53,7 @@ Future<void> PopUpTest(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SelectableText(
-                          'container'.tr(),
+                          'container'.tr,
                           style: style15_black_bold,
                         )
                       ],
@@ -64,7 +64,7 @@ Future<void> PopUpTest(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SelectableText(
-                          'status_container'.tr(),
+                          'status_container'.tr,
                           style: style15_black_bold,
                         )
                       ],
@@ -75,7 +75,7 @@ Future<void> PopUpTest(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SelectableText(
-                          'location_container'.tr(),
+                          'location_container'.tr,
                           style: style15_black_bold,
                         )
                       ],
@@ -86,7 +86,7 @@ Future<void> PopUpTest(BuildContext context) {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SelectableText(
-                          'eventDate_container'.tr(),
+                          'eventDate_container'.tr,
                           style: style15_black_bold,
                         )
                       ],

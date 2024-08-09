@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class MyColor {
-  static const normalColor = Color(0xff1E338C);
+  static const haian = Color(0xff1E338C);
   static const backgroundColor = Color(0xFFEEF2F7);
   static const contentColor = Color(0xfffffffff);
   // static const primaryColor = Color(0x00000000);
@@ -13,3 +13,10 @@ class MyColor {
   // static const dataColor = Color.fromARGB(255, 214, 214, 214);
   static const footerColor = Color(0xFF99A0A4);
 }
+
+Color haian = Color(0xff1E338C);
+Color white = Colors.white;
+Color blue = Colors.blue;
+Color black = Colors.black;
+Color grey = Colors.grey;
+Color button = Color(0xFF2E3192);

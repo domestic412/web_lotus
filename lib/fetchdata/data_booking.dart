@@ -1,15 +1,15 @@
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:web_lotus/assets/color.dart';
+import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/assets/text.dart';
 import 'package:web_lotus/fetchdata/data_container.dart';
 import 'package:web_lotus/fetchdata/test.dart';
 
 import 'package:web_lotus/model/model_tracking.dart';
-import 'package:web_lotus/screen/tracking/tracking.dart';
-import 'package:web_lotus/widgets/appbar_fake.dart';
-
-import '../assets/style.dart';
+import 'package:web_lotus/screen/tracking/tracking_page.dart';
+import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
+import 'package:get/get.dart';
 
 class Data_Booking extends StatefulWidget {
   Function updateDataContainer;
@@ -62,7 +62,7 @@ class _Data_BookingState extends State<Data_Booking> {
                       child: Row(
                         children: [
                           Icon(Icons.arrow_right),
-                          SelectableText('title_booking'.tr())
+                          SelectableText('title_booking'.tr)
                         ],
                       ),
                     ),
@@ -77,7 +77,7 @@ class _Data_BookingState extends State<Data_Booking> {
                                 child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SelectableText('seq'.tr(),
+                                SelectableText('seq'.tr,
                                     style: style15_black_bold),
                               ],
                             )),
@@ -87,7 +87,7 @@ class _Data_BookingState extends State<Data_Booking> {
                                 child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SelectableText('container'.tr(),
+                                SelectableText('container'.tr,
                                     style: style15_black_bold),
                               ],
                             )),
@@ -97,7 +97,7 @@ class _Data_BookingState extends State<Data_Booking> {
                                 child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SelectableText('size_booking'.tr(),
+                                SelectableText('size_booking'.tr,
                                     style: style15_black_bold),
                               ],
                             )),
@@ -138,7 +138,7 @@ class _Data_BookingState extends State<Data_Booking> {
                                           decoration: BoxDecoration(
                                               border: Border(
                                                   bottom: BorderSide(
-                                            color: MyColor.normalColor,
+                                            color: MyColor.haian,
                                             width: 1,
                                           ))),
                                           child: Text(

@@ -1,7 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/fetchdata/data_booking.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class Data_Container extends StatefulWidget {
   const Data_Container({super.key});
@@ -26,7 +27,7 @@ class _Data_ContainerState extends State<Data_Container> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Icon(Icons.arrow_right),
-                SelectableText('title_container'.tr()),
+                SelectableText('title_container'.tr),
               ],
             ),
           ),
@@ -42,7 +43,7 @@ class _Data_ContainerState extends State<Data_Container> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SelectableText(
-                      'seq'.tr(),
+                      'seq'.tr,
                       style: style15_black_bold,
                     )
                   ],
@@ -53,7 +54,7 @@ class _Data_ContainerState extends State<Data_Container> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SelectableText(
-                      'container'.tr(),
+                      'container'.tr,
                       style: style15_black_bold,
                     )
                   ],
@@ -64,7 +65,7 @@ class _Data_ContainerState extends State<Data_Container> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SelectableText(
-                      'status_container'.tr(),
+                      'status_container'.tr,
                       style: style15_black_bold,
                     )
                   ],
@@ -75,7 +76,7 @@ class _Data_ContainerState extends State<Data_Container> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SelectableText(
-                      'location_container'.tr(),
+                      'location_container'.tr,
                       style: style15_black_bold,
                     )
                   ],
@@ -86,15 +87,17 @@ class _Data_ContainerState extends State<Data_Container> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SelectableText(
-                      'eventDate_container'.tr(),
+                      'eventDate_container'.tr,
                       style: style15_black_bold,
                     )
                   ],
                 )))
               ],
               rows: List.generate(list_filter!.length, (index) {
-                list_filter![index].eventDate != null ? dt = DateFormat("yyyy-MM-dd  hh:mm").format(
-                    DateTime.parse(list_filter![index].eventDate)) : dt = '';
+                list_filter![index].eventDate != null
+                    ? dt = DateFormat("yyyy-MM-dd  hh:mm")
+                        .format(DateTime.parse(list_filter![index].eventDate))
+                    : dt = '';
                 return DataRow(cells: [
                   DataCell(Container(
                     width: 30,

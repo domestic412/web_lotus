@@ -2,7 +2,13 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:web_lotus/screen/tracking/tracking.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:web_lotus/assets/variable.dart';
+import 'package:web_lotus/screen/tracking/tracking_page.dart';
+
+import 'resources/localization_service.dart';
+import 'widgets/horizontal_scroll.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -17,19 +23,9 @@ void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
+  await GetStorage.init();
 
-  runApp(EasyLocalization(
-    // startLocale: Locale('vi','VN'),
-    startLocale: Locale('en', 'EN'),
-    supportedLocales: const [
-      Locale('en', 'EN'),
-      Locale('vi', 'VN'),
-    ],
-    saveLocale: false,
-    path: "lib/resources/langs",
-    child: const MyApp(),
-  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -38,13 +34,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    fullSizeHeight = deviceHeight(context);
+    fullSizeWidth = deviceWidth(context);
+    return GetMaterialApp(
       title: 'Lotus Link',
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      home: const Tracking(),
+      scrollBehavior: CustomHorizontalScroll(),
+      // localizationsDelegates: context.localizationDelegates,
+      // supportedLocales: context.supportedLocales,
+      // locale: context.locale,
+      translations: Languages(),
+      locale: Locale('en', 'US'),
+      fallbackLocale: Locale('en', 'US'),
+      home: const TrackingPage(),
     );
   }
 }

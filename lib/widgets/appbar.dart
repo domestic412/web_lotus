@@ -24,48 +24,48 @@
 //               padding: EdgeInsets.only(bottom: 5),
 //               child: Image.asset('lib/assets/images/logo_appbar_web_lotus.png')
 //               ),
-//       //       // Container(
-//       //       //   width: 600,
-//       //       // ),
-//       //       // Container(
-//       //       //   alignment: Alignment.bottomLeft,
-//       //       //   child: Container(
-//       //       //     alignment: Alignment.center,
-//       //       //     height: 30,
-//       //       //     padding: EdgeInsets.only(left: 10, right: 10),
-//       //       //     child: Text('Language', style: style18_black)),
-//       //       // ),
-//       //       // Row(
-//       //       //   children: [
-//       //       //     Container(
-//       //       //       alignment: Alignment.bottomLeft,
-//       //       //       child: InkWell(
-//       //       //         onTap: () {},
-//       //       //         child: Container(
-//       //       //           alignment: Alignment.center,
-//       //       //           height: 30,
-//       //       //           padding: EdgeInsets.only(left: 10, right: 10),
-//       //       //           child: Text('VI', style: style18_black)),
-//       //       //       ),
-//       //       //     ),
-//       //       //     Container(
-//       //       //       alignment: Alignment.bottomLeft,
-//       //       //       child: InkWell(
-//       //       //         onTap: () {},
-//       //       //         child: Container(
-//       //       //           alignment: Alignment.center,
-//       //       //           height: 30,
-//       //       //           padding: EdgeInsets.only(left: 10, right: 10),
-//       //       //           child: Text('EN', style: style18_black)),
-//       //       //       ),
-//       //       //     ),
-//       //       //   ],
-//       //       // )
+//             Container(
+//               width: 600,
+//             ),
+//             Container(
+//               alignment: Alignment.bottomLeft,
+//               child: Container(
+//                 alignment: Alignment.center,
+//                 height: 30,
+//                 padding: EdgeInsets.only(left: 10, right: 10),
+//                 child: Text('Language', style: style18_black)),
+//             ),
+//             Row(
+//               children: [
+//                 Container(
+//                   alignment: Alignment.bottomLeft,
+//                   child: InkWell(
+//                     onTap: () {},
+//                     child: Container(
+//                       alignment: Alignment.center,
+//                       height: 30,
+//                       padding: EdgeInsets.only(left: 10, right: 10),
+//                       child: Text('VI', style: style18_black)),
+//                   ),
+//                 ),
+//                 Container(
+//                   alignment: Alignment.bottomLeft,
+//                   child: InkWell(
+//                     onTap: () {},
+//                     child: Container(
+//                       alignment: Alignment.center,
+//                       height: 30,
+//                       padding: EdgeInsets.only(left: 10, right: 10),
+//                       child: Text('EN', style: style18_black)),
+//                   ),
+//                 ),
+//               ],
+//             )
 //           ],
 //         ),
 //       ),
-//       // title: Image.asset('lib/assets/images/hats_logo.png', height: 50,),
-//       backgroundColor: MyColor.appbarColor,
+//       title: Image.asset('lib/assets/images/logo_white_appbar_web_lotus.png',),
+//       backgroundColor: MyColor.normalColor,
 //     );
 //   }
 // }

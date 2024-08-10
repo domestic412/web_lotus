@@ -25,7 +25,7 @@ class _SignInPageState extends State<SignInPage> {
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/background_lotus.png'),
+              image: AssetImage('lib/assets/images/background_lotus.png'),
               fit: BoxFit.cover)),
       child: SingleChildScrollView(
         child: Column(
@@ -33,7 +33,7 @@ class _SignInPageState extends State<SignInPage> {
           children: <Widget>[
             AppbarWidget(),
             Container(
-              height: 440,
+              height: 350,
               width: 400,
               margin: EdgeInsets.only(top: 160, bottom: 20),
               decoration: BoxDecoration(
@@ -44,11 +44,8 @@ class _SignInPageState extends State<SignInPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  // _buildAppbarImage(),
-                  SizedBox(
-                    height: 100,
-                  ),
-                  _buildAppbarName(),
+                  _buildAppbarImage(),
+                  // _buildAppbarName(),
                   const SizedBox(
                     height: 30,
                   ),
@@ -202,26 +199,26 @@ class _SignInPageState extends State<SignInPage> {
   }
 }
 
-// Widget _buildAppbarImage() {
-//   return Padding(
-//     padding: const EdgeInsets.only(top: 30),
-//     child: Image.asset(
-//       'assets/images/hact_logo.png',
-//       height: 100,
-//       width: 200,
-//     ),
-//   );
-// }
-
-Widget _buildAppbarName() {
+Widget _buildAppbarImage() {
   return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: Text(
-        'welcome to LOTUS'.tr,
-        style: TextStyle(
-            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.blue[900]),
-      ));
+    padding: const EdgeInsets.only(top: 30),
+    child: Image.asset(
+      'lib/assets/images/logo_lotus.png',
+      height: 100,
+      width: 200,
+    ),
+  );
 }
+
+// Widget _buildAppbarName() {
+//   return Padding(
+//       padding: const EdgeInsets.only(top: 20),
+//       child: Text(
+//         'welcome to LOTUS'.tr,
+//         style: TextStyle(
+//             fontSize: 30, fontWeight: FontWeight.bold, color: Colors.blue[900]),
+//       ));
+// }
 
 Widget _buildInputUser() {
   // InformationNewSignInController infoSignInController =
@@ -244,7 +241,7 @@ Widget _buildInputUser() {
               style: const TextStyle(fontSize: 18, color: Colors.black87),
               autofocus: true,
               decoration: InputDecoration(
-                  hintText: "user name".tr,
+                  hintText: 'user name'.tr,
                   // 'User Name',
                   hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
                   border: InputBorder.none),
@@ -259,7 +256,7 @@ Widget _buildInputUser() {
               controller: inforUserController.password.value,
               style: const TextStyle(fontSize: 18, color: Colors.black87),
               decoration: InputDecoration(
-                  hintText: "password".tr,
+                  hintText: 'password'.tr,
                   // 'Password',
                   hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
                   border: InputBorder.none),

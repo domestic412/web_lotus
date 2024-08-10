@@ -6,6 +6,8 @@ import 'package:web_lotus/controller/info_signin_controller.dart';
 import 'package:web_lotus/screen/signin/signin_page.dart';
 import 'package:web_lotus/screen/tracking/tracking_page.dart';
 
+import 'check_login_appbar.dart';
+
 Color color_vn = MyColor.haian; //Lang EN
 Color color_text_vn = Colors.white;
 Color color_en = MyColor.backgroundColor;
@@ -26,6 +28,7 @@ class AppbarWidget extends StatefulWidget {
 class _AppbarWidgetState extends State<AppbarWidget> {
   @override
   Widget build(BuildContext context) {
+    checkInfoUser();
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
@@ -90,7 +93,7 @@ class _AppbarWidgetState extends State<AppbarWidget> {
                                 Get.to(SignInPage());
                               },
                               child: Container(
-                                  width: 70,
+                                  width: 100,
                                   child: Text(
                                     'signin'.tr,
                                     // style: style14_white,

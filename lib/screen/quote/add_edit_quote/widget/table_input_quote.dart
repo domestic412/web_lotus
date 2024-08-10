@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -9,6 +10,7 @@ import 'package:universal_html/html.dart' as html;
 import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
+import 'package:web_lotus/widgets/removeBeforeSlash.dart';
 
 class TableInputQuote extends StatefulWidget {
   const TableInputQuote({super.key});
@@ -314,7 +316,6 @@ class _TableInputQuoteState extends State<TableInputQuote> {
             onPressed: () {
               PostImgQuote(
                   cntr: cntr, date: changeDatetoSend(date: DateTime.now()));
-              // quoteController.pathImg.value = '';
             },
             child: Text(
               'Send',
@@ -323,7 +324,6 @@ class _TableInputQuoteState extends State<TableInputQuote> {
         cancel: ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: grey),
             onPressed: () {
-              // quoteController.pathImg.value = '';
               Get.back();
             },
             child: Text(
@@ -337,6 +337,11 @@ class _TableInputQuoteState extends State<TableInputQuote> {
   Future<void> PostImgQuote(
       {required String cntr, required String date}) async {
     try {
+      EasyLoading.show(
+        status: 'Loading...',
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: true,
+      );
       //PostRequest with multipartFile
       // Create a FormData object to store your files
       final formData = html.FormData();
@@ -361,13 +366,18 @@ class _TableInputQuoteState extends State<TableInputQuote> {
       request.onLoad.listen((html.ProgressEvent event) {
         switch (request.status) {
           case 200:
+            EasyLoading.showSuccess('Upload Success');
             print('Success send Image quote');
-            Get.back();
+            if (Get.isDialogOpen == true) {
+              Get.back();
+            }
           default:
+            EasyLoading.showError('Upload Fail');
             print('Error ${request.status} send Image quote ' + cntr);
         }
       });
     } on Exception catch (e) {
+      EasyLoading.showError('Upload Fail');
       print(e);
       throw Exception('Error fetch Image - $e');
     }
@@ -378,6 +388,12 @@ class _TableInputQuoteState extends State<TableInputQuote> {
   Future<void> downloadAndExtractZip(
       {required String cntr, required String esdate}) async {
     try {
+      EasyLoading.show(
+        status: 'Loading...',
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: true,
+      );
+
       var url =
           '$SERVER/EQCQuote/DownloadImage?Container=$cntr&EstimateDate=$esdate';
 
@@ -389,7 +405,10 @@ class _TableInputQuoteState extends State<TableInputQuote> {
         case 200:
           Uint8List bytes = response.bodyBytes;
           List<dynamic> files = await _extractZipFile(bytes);
-          quoteController.pathImg.value = files[0];
+          quoteController.pathImg.value = files[0]['path'];
+
+          EasyLoading.dismiss();
+
           return Get.defaultDialog(
             title: 'Preview Image',
             content: Container(
@@ -410,10 +429,12 @@ class _TableInputQuoteState extends State<TableInputQuote> {
                               margin: EdgeInsets.all(15),
                               child: InkWell(
                                 onTap: () {
-                                  quoteController.pathImg.value = files[index];
+                                  quoteController.pathImg.value =
+                                      files[index]['path'];
                                   // print(quoteController.pathImg.value);
                                 },
-                                child: Text('$index'),
+                                child: Text(
+                                    removeBeforeSlash(files[index]['name'])),
                               ));
                         }),
                   ),
@@ -444,28 +465,30 @@ class _TableInputQuoteState extends State<TableInputQuote> {
                 )),
           );
         case 404:
-          return Get.defaultDialog(
-            title: 'ERROR',
-            middleText: 'No Image',
-            textConfirm: 'OK',
-            onConfirm: () {
-              Get.back();
-            },
-          );
+          return EasyLoading.showError('No Image');
+        // Get.defaultDialog(
+        //   title: 'ERROR',
+        //   middleText: 'No Image',
+        //   textConfirm: 'OK',
+        //   onConfirm: () {
+        //     Get.back();
+        //   },
+        // );
         default:
-          return Get.defaultDialog(
-            title: 'ERROR',
-            middleText: 'Error ${response.reasonPhrase}',
-            textConfirm: 'OK',
-            onConfirm: () {
-              Get.back();
-            },
-          );
+          return EasyLoading.showError('Error: ${response.reasonPhrase}');
+        // Get.defaultDialog(
+        //   title: 'ERROR',
+        //   middleText: 'Error ${response.reasonPhrase}',
+        //   textConfirm: 'OK',
+        //   onConfirm: () {
+        //     Get.back();
+        //   },
+        // );
         // throw Exception(response.reasonPhrase);
       }
     } on Exception catch (e) {
-      print(e);
-      throw Exception('Error fetch Image - $e');
+      EasyLoading.showError('Error: $e');
+      // throw Exception('Error fetch Image - $e');
     }
   }
 
@@ -475,9 +498,10 @@ class _TableInputQuoteState extends State<TableInputQuote> {
     for (final file in archive) {
       if (file.isFile) {
         final data = file.content as List<int>;
+        final name = file.name;
         final blob = html.Blob([data], 'image/png');
         final url = html.Url.createObjectUrlFromBlob(blob);
-        extractedFiles.add(url);
+        extractedFiles.add({'name': name, 'path': url});
       }
     }
     return extractedFiles;

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_lotus/assets/variable.dart';
 
@@ -66,6 +67,11 @@ class EQCQuoteList {
   Future<List<EQCQuoteList>> fetchQuoteList(
       String fromDate, String toDate) async {
     try {
+      EasyLoading.show(
+        status: 'Loading...',
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: true,
+      );
       var url =
           '$SERVER/EQCQuote/LoadEQCQuote?fromDate=$fromDate&toDate=$toDate';
       final response = await http.post(Uri.parse(url), headers: {
@@ -73,6 +79,7 @@ class EQCQuoteList {
       });
       switch (response.statusCode) {
         case 200:
+          EasyLoading.dismiss();
           var body = response.body;
           print('Data EQC Quote List');
           List dataQuoteList = json.decode(body);
@@ -80,9 +87,11 @@ class EQCQuoteList {
               .map((data) => EQCQuoteList.fromJson(data))
               .toList();
         default:
+          EasyLoading.dismiss();
           throw Exception('Error: EQC_QuoteList ${response.reasonPhrase}');
       }
     } on Exception catch (e) {
+      EasyLoading.dismiss();
       throw Exception('Error: $e EQC_QuoteList');
     }
   }

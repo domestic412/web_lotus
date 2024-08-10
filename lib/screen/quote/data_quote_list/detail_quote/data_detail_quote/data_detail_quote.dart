@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:archive/archive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -10,6 +11,7 @@ import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_quote_detail.dart';
+import 'package:web_lotus/widgets/removeBeforeSlash.dart';
 
 class DataTableQuoteDetails extends DataTableSource {
   List<EQCQuoteDetail>? data;
@@ -179,6 +181,11 @@ class DataTableQuoteDetails extends DataTableSource {
   Future<void> downloadAndExtractZip(
       {required String cntr, required String esdate}) async {
     try {
+      EasyLoading.show(
+        status: 'Loading...',
+        maskType: EasyLoadingMaskType.black,
+        dismissOnTap: true,
+      );
       var url =
           '$SERVER/EQCQuote/DownloadImage?Container=$cntr&EstimateDate=$esdate';
 
@@ -191,6 +198,9 @@ class DataTableQuoteDetails extends DataTableSource {
           Uint8List bytes = response.bodyBytes;
           List<dynamic> files = await _extractZipFile(bytes);
           quoteController.pathImg.value = files[0]['path'];
+
+          EasyLoading.dismiss();
+
           return Get.defaultDialog(
             title: 'Preview Image',
             content: Container(
@@ -248,28 +258,31 @@ class DataTableQuoteDetails extends DataTableSource {
                 )),
           );
         case 404:
-          return Get.defaultDialog(
-            title: 'ERROR',
-            middleText: 'No Image',
-            textConfirm: 'OK',
-            onConfirm: () {
-              Get.back();
-            },
-          );
+          return EasyLoading.showError('No Image');
+        // Get.defaultDialog(
+        //   title: 'ERROR',
+        //   middleText: 'No Image',
+        //   textConfirm: 'OK',
+        //   onConfirm: () {
+        //     Get.back();
+        //   },
+        // );
         default:
-          return Get.defaultDialog(
-            title: 'ERROR',
-            middleText: 'Error ${response.reasonPhrase}',
-            textConfirm: 'OK',
-            onConfirm: () {
-              Get.back();
-            },
-          );
+          return EasyLoading.showError('Error: ${response.reasonPhrase}');
+        // Get.defaultDialog(
+        //   title: 'ERROR',
+        //   middleText: 'Error ${response.reasonPhrase}',
+        //   textConfirm: 'OK',
+        //   onConfirm: () {
+        //     Get.back();
+        //   },
+        // );
         // throw Exception(response.reasonPhrase);
       }
     } on Exception catch (e) {
-      print(e);
-      throw Exception('Error fetch Image - $e');
+      EasyLoading.showError('Error: $e');
+      // print(e);
+      // throw Exception('Error fetch Image - $e');
     }
   }
 
@@ -287,17 +300,4 @@ class DataTableQuoteDetails extends DataTableSource {
     }
     return extractedFiles;
   }
-}
-
-String removeBeforeSlash(String string) {
-  //Find to index of the first '/'
-  int index = string.indexOf('/');
-
-  //If '/' is found, return the substring after it
-  if (index != -1) {
-    return string.substring(index + 1);
-  }
-
-  // If '/' is not found, return the original string
-  return string;
 }

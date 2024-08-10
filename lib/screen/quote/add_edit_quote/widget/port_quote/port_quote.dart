@@ -57,7 +57,7 @@ class _PortQuoteState extends State<PortQuote> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  _buildPortDepSection(),
+                  // _buildPortDepSection(),
                   _buildQuoteNoSection(),
                   _buildCurrencySection(currencyEntries),
                   _buildExRateSection(),
@@ -147,48 +147,48 @@ class _PortQuoteState extends State<PortQuote> {
     );
   }
 
-  Widget _buildPortDepSection() {
-    return Container(
-      constraints: BoxConstraints(minWidth: 250),
-      // margin: EdgeInsets.only(right: 50),
-      child: Row(
-        children: [
-          Container(
-            margin: EdgeInsets.only(right: 10),
-            child: Text('Port/Dep'),
-          ),
-          // DropdownMenu<PortQuotes>(
-          //   width: 150,
-          //   menuHeight: 500,
-          //   // controller: quoteController.port_select.value,
-          //   enableFilter: true,
-          //   enableSearch: true,
-          //   // label: Text('Port/Dep'.tr),
-          //   dropdownMenuEntries: portEntries,
-          //   onSelected: (PortQuotes? port) {
-          //     // setState(() {
-          //     selectPort = port;
-          //     quoteController.portDepotId.value =
-          //         selectPort?.portDepotId ?? '';
-          //     // });
-          //   },
-          // ),
-          Container(
-              width: 150,
-              padding: EdgeInsets.symmetric(vertical: 13, horizontal: 13),
-              decoration: BoxDecoration(
-                  color: Colors.black12,
-                  // border: Border.all(
-                  //   width: 0.5,
-                  //   color: Colors.black87
-                  // ),
-                  borderRadius: BorderRadius.circular(5)),
-              child: Text(
-                'VNVIC',
-                style: TextStyle(color: Colors.black54),
-              ))
-        ],
-      ),
-    );
-  }
+  // Widget _buildPortDepSection() {
+  //   return Container(
+  //     constraints: BoxConstraints(minWidth: 250),
+  //     // margin: EdgeInsets.only(right: 50),
+  //     child: Row(
+  //       children: [
+  //         Container(
+  //           margin: EdgeInsets.only(right: 10),
+  //           child: Text('Port/Dep'),
+  //         ),
+  //         // DropdownMenu<PortQuotes>(
+  //         //   width: 150,
+  //         //   menuHeight: 500,
+  //         //   // controller: quoteController.port_select.value,
+  //         //   enableFilter: true,
+  //         //   enableSearch: true,
+  //         //   // label: Text('Port/Dep'.tr),
+  //         //   dropdownMenuEntries: portEntries,
+  //         //   onSelected: (PortQuotes? port) {
+  //         //     // setState(() {
+  //         //     selectPort = port;
+  //         //     quoteController.portDepotId.value =
+  //         //         selectPort?.portDepotId ?? '';
+  //         //     // });
+  //         //   },
+  //         // ),
+  //         Container(
+  //             width: 150,
+  //             padding: EdgeInsets.symmetric(vertical: 13, horizontal: 13),
+  //             decoration: BoxDecoration(
+  //                 color: Colors.black12,
+  //                 // border: Border.all(
+  //                 //   width: 0.5,
+  //                 //   color: Colors.black87
+  //                 // ),
+  //                 borderRadius: BorderRadius.circular(5)),
+  //             child: Text(
+  //               'VNVIC',
+  //               style: TextStyle(color: Colors.black54),
+  //             ))
+  //       ],
+  //     ),
+  //   );
+  // }
 }

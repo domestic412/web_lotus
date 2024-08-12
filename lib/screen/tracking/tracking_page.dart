@@ -176,10 +176,8 @@ class _TrackingPageState extends State<TrackingPage> {
 
   Future<ContainerTracking> fetchContainerTracking(String inputt) async {
     String str = inputt.trim().tr;
-    final url_bk_en =
-        'http://222.252.166.214:6505/api/Tracking?BookingNo=$str&CntrNo=';
-    final url_cntr_en =
-        'http://222.252.166.214:6505/api/Tracking?BookingNo=&CntrNo=$str';
+    final url_bk_en = '$SERVER/Tracking?BookingNo=$str&CntrNo=';
+    final url_cntr_en = '$SERVER/Tracking?BookingNo=&CntrNo=$str';
     String? url;
     if (selectedValue == 'bk') {
       setState(() {
@@ -193,6 +191,7 @@ class _TrackingPageState extends State<TrackingPage> {
     final response = await http.get(
       Uri.parse(url!),
       headers: {
+        // "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET", //use fot http, not use https
       },

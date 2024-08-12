@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 double deviceHeight(context) => MediaQuery.sizeOf(context).height;
 double deviceWidth(context) => MediaQuery.sizeOf(context).width;
 
-const SERVER = 'http://14.161.21.84:1214';
+const SERVER = 'http://14.161.21.84:9090';
 
 //format date
 changeDatetoShow({required DateTime date}) {

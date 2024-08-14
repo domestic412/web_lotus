@@ -77,7 +77,7 @@ class _AEQuotePageState extends State<AEQuotePage> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(10, 10, 10, 40),
+                  margin: EdgeInsets.fromLTRB(10, 10, 10, 20),
                   decoration: BoxDecoration(
                       color: MyColor.contentColor,
                       borderRadius: BorderRadius.circular(10)),
@@ -94,7 +94,7 @@ class _AEQuotePageState extends State<AEQuotePage> {
                           style: style20_blue,
                         ),
                         Container(
-                            margin: EdgeInsets.only(top: 30, bottom: 10),
+                            margin: EdgeInsets.only(top: 20, bottom: 10),
                             padding: EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 10),
                             decoration: BoxDecoration(
@@ -146,7 +146,6 @@ class _AEQuotePageState extends State<AEQuotePage> {
                               PostNewQuote(
                                 eqcQuoteId: quoteController.eqcQuoteId.value,
                                 portDepotId:
-                                    // '84B9B9A3-99CE-4865-81B7-74070F075EAB',
                                     inforUserController.shipperId.value,
                                 quoteNo: quoteController.quoteNo.value,
                                 quoteCcy: quoteController.currency.value,

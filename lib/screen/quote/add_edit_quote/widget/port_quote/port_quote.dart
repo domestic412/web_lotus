@@ -102,18 +102,21 @@ class _PortQuoteState extends State<PortQuote> {
             margin: EdgeInsets.only(right: 10),
             child: Text('Currency'),
           ),
-          DropdownMenu<CurrencyQuotes>(
-            width: 150,
-            menuHeight: 500,
-            // controller: quoteController.currency_select.value,
-            enableFilter: true,
-            enableSearch: true,
-            // label: Text('Currency'.tr),
-            dropdownMenuEntries: currencyEntries,
-            onSelected: (CurrencyQuotes? currency) {
-              selectCurrency = currency;
-              quoteController.currency.value = selectCurrency?.currency ?? '';
-            },
+          Container(
+            height: 30,
+            child: DropdownMenu<CurrencyQuotes>(
+              width: 150,
+              menuHeight: 500,
+              // controller: quoteController.currency_select.value,
+              enableFilter: true,
+              enableSearch: true,
+              // label: Text('Currency'.tr),
+              dropdownMenuEntries: currencyEntries,
+              onSelected: (CurrencyQuotes? currency) {
+                selectCurrency = currency;
+                quoteController.currency.value = selectCurrency?.currency ?? '';
+              },
+            ),
           )
         ],
       ),

@@ -16,32 +16,34 @@ class InputQuoteDetail {
   double? mrCost;
   double? totalCost;
   String? estimateDate;
+  bool? isImgUpload;
   String? edit;
   // String? approveCode;
   // int? payer;
 
-  InputQuoteDetail(
-      {this.eqcQuoteId,
-      this.chargeTypeId,
-      this.componentId,
-      this.categoryId,
-      this.errorId,
-      this.container,
-      this.inGateDate,
-      this.damageDetail,
-      this.quantity,
-      this.dimension,
-      this.length,
-      this.width,
-      this.location,
-      this.laborCost,
-      this.mrCost,
-      this.totalCost,
-      this.estimateDate,
-      this.edit,
-      // this.approveCode,
-      // this.payer,
-      });
+  InputQuoteDetail({
+    this.eqcQuoteId,
+    this.chargeTypeId,
+    this.componentId,
+    this.categoryId,
+    this.errorId,
+    this.container,
+    this.inGateDate,
+    this.damageDetail,
+    this.quantity,
+    this.dimension,
+    this.length,
+    this.width,
+    this.location,
+    this.laborCost,
+    this.mrCost,
+    this.totalCost,
+    this.estimateDate,
+    this.isImgUpload,
+    this.edit,
+    // this.approveCode,
+    // this.payer,
+  });
 
   InputQuoteDetail.fromJson(Map<String, dynamic> json) {
     eqcQuoteId = json['eqcQuoteId'];
@@ -61,6 +63,7 @@ class InputQuoteDetail {
     mrCost = json['mrCost'];
     totalCost = json['totalCost'];
     estimateDate = json['estimateDate'];
+    isImgUpload = json['isImgUpload'];
     edit = json['edit'];
     // approveCode = json['approveCode'];
     // payer = json['payer'];
@@ -85,11 +88,10 @@ class InputQuoteDetail {
     data['mrCost'] = this.mrCost;
     data['totalCost'] = this.totalCost;
     data['estimateDate'] = this.estimateDate;
+    data['isImgUpload'] = this.isImgUpload;
     data['edit'] = this.edit;
     // data['approveCode'] = this.approveCode;
     // data['payer'] = this.payer;
     return data;
   }
-
-
 }

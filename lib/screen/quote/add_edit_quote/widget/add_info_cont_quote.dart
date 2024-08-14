@@ -368,6 +368,7 @@ class _InfoContQuoteState extends State<InfoContQuote> {
                                     quoteController.totalCost.value.text),
                                 estimateDate:
                                     quoteController.currentDate_send.value,
+                                isImgUpload: false,
                                 edit: 'I');
                         quoteController.listInputQuoteDetail
                             .add(_listInputQuoteDetail);
@@ -396,6 +397,7 @@ class _InfoContQuoteState extends State<InfoContQuote> {
                               double.parse(quoteController.mrCost.value.text),
                           totalCost: double.parse(
                               quoteController.totalCost.value.text),
+                          isImgUpload: false,
                         );
                         quoteController.listInputQuoteDetail_show
                             .add(_listInputQuoteDetail_show);
@@ -409,6 +411,9 @@ class _InfoContQuoteState extends State<InfoContQuote> {
                       child: Text('ADD ROW'),
                     ),
                   ],
+                ),
+                Container(
+                  height: 10,
                 )
               ],
             );

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:html' as html;
 
@@ -26,7 +25,7 @@ Future<void> PostNewQuote(
       "edit": "I",
     };
     var body = json.encode(data);
-    print(body);
+    // print(body);
     final response = await http.post(Uri.parse('$SERVER/EQCQuote/InputQuote'),
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -50,7 +49,7 @@ Future<void> PostNewQuoteDetail(
     {required List<InputQuoteDetail> listQuoteDetail}) async {
   try {
     var body = json.encode(listQuoteDetail);
-    print(body);
+    // print(body);
     final response =
         await http.post(Uri.parse('$SERVER/EQCQuote/InputQuoteDetail'),
             headers: {

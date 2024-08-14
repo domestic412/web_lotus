@@ -51,10 +51,11 @@ class _TrackingPageState extends State<TrackingPage> {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TrackingPage()));
+                          Get.to(TrackingPage());
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => TrackingPage()));
                         },
                         child: Text('Tracking')),
                     SizedBox(width: 30),

@@ -207,22 +207,35 @@ class _TableInputQuoteState extends State<TableInputQuote> {
                     DataCell(Text(quoteController
                         .listInputQuoteDetail_show[i].totalCost!
                         .toString())),
-                    DataCell(InkWell(
-                      onTap: () {
-                        downloadAndExtractZip(
-                            cntr: quoteController
-                                .listInputQuoteDetail_show[i].container!,
-                            esdate: changeDatetoSend(date: DateTime.now()));
-                      },
-                      child: Text('Container', style: TextStyle(color: haian)),
-                    )),
+                    DataCell(
+                      quoteController
+                                  .listInputQuoteDetail_show[i].isImgUpload ==
+                              true
+                          ? InkWell(
+                              onTap: () {
+                                downloadAndExtractZip(
+                                    cntr: quoteController
+                                        .listInputQuoteDetail_show[i]
+                                        .container!,
+                                    esdate:
+                                        changeDatetoSend(date: DateTime.now()));
+                              },
+                              child: Text(
+                                  quoteController.listInputQuoteDetail_show[i]
+                                          .container ??
+                                      '',
+                                  style: TextStyle(color: haian)),
+                            )
+                          : const SizedBox.shrink(),
+                    ),
                     DataCell(Center(
                       child: InkWell(
                         onTap: () {
                           getImage(
                               ImageSource.gallery,
                               quoteController
-                                  .listInputQuoteDetail_show[i].container!);
+                                  .listInputQuoteDetail_show[i].container!,
+                              i);
                         },
                         child: Icon(
                           Icons.add_a_photo_outlined,
@@ -260,7 +273,7 @@ class _TableInputQuoteState extends State<TableInputQuote> {
   }
 
   List<XFile>? listImg;
-  Future getImage(ImageSource media, String cntr) async {
+  Future getImage(ImageSource media, String cntr, int i) async {
     // String? base64image;
     final ImagePicker _picker = ImagePicker();
     List<XFile> img = await _picker.pickMultiImage();
@@ -315,7 +328,9 @@ class _TableInputQuoteState extends State<TableInputQuote> {
             style: ElevatedButton.styleFrom(backgroundColor: haian),
             onPressed: () {
               PostImgQuote(
-                  cntr: cntr, date: changeDatetoSend(date: DateTime.now()));
+                  cntr: cntr,
+                  date: changeDatetoSend(date: DateTime.now()),
+                  i: i);
             },
             child: Text(
               'Send',
@@ -335,7 +350,7 @@ class _TableInputQuoteState extends State<TableInputQuote> {
   }
 
   Future<void> PostImgQuote(
-      {required String cntr, required String date}) async {
+      {required String cntr, required String date, required int i}) async {
     try {
       EasyLoading.show(
         status: 'Loading...',
@@ -367,6 +382,8 @@ class _TableInputQuoteState extends State<TableInputQuote> {
         switch (request.status) {
           case 200:
             EasyLoading.showSuccess('Upload Success');
+            quoteController.listInputQuoteDetail_show[i].isImgUpload = true;
+            setState(() {});
             print('Success send Image quote');
             if (Get.isDialogOpen == true) {
               Get.back();

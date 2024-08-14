@@ -52,6 +52,9 @@ class _ImportButtonState extends State<ImportButton> {
                 // print(i);
                 // var value = cell?.value ?? '0';
                 // cell ?? '0';
+                if (cell is double) {
+                  cell = double.parse(cell.toStringAsFixed(2));
+                }
                 switch (i) {
                   case 0:
                     chargeCode = cell ?? '';
@@ -128,27 +131,37 @@ class _ImportButtonState extends State<ImportButton> {
               if (findChargeId(chargeCode: chargeCode!) == null) {
                 Get.defaultDialog(
                   middleText: 'Not found $chargeCode in data Charge',
+                  titleStyle:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 );
                 break;
               } else if (findComponentId(componentCode: componentCode!) ==
                   null) {
                 Get.defaultDialog(
                   middleText: 'Not found $componentCode in data Component',
+                  titleStyle:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 );
                 break;
               } else if (findCategoryId(categoryCode: categoryCode!) == null) {
                 Get.defaultDialog(
                   middleText: 'Not found $categoryCode in data Repair Codes',
+                  titleStyle:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 );
                 break;
               } else if (findErrorId(errorCode: errorCode!) == null) {
                 Get.defaultDialog(
                   middleText: 'Not found $errorCode in data Damage Code',
+                  titleStyle:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 );
                 break;
               } else if (inGateDate == null) {
                 Get.defaultDialog(
                   middleText: 'Please input Ingate Date',
+                  titleStyle:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 );
                 break;
               } else {
@@ -171,6 +184,7 @@ class _ImportButtonState extends State<ImportButton> {
                     mrCost: mrCost,
                     totalCost: totalCost,
                     estimateDate: quoteController.currentDate_send.value,
+                    isImgUpload: false,
                     edit: 'I');
                 quoteController.listInputQuoteDetail.add(_listInputQuoteDetail);
 
@@ -194,6 +208,7 @@ class _ImportButtonState extends State<ImportButton> {
                   laborCost: laborCost,
                   mrCost: mrCost,
                   totalCost: totalCost,
+                  isImgUpload: false,
                 );
                 quoteController.listInputQuoteDetail_show
                     .add(_listInputQuoteDetail_show);

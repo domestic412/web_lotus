@@ -245,6 +245,7 @@ Widget _buildInputUser() {
                   // 'User Name',
                   hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
                   border: InputBorder.none),
+              onSubmitted: (value) {},
             ),
           ),
           Container(
@@ -260,6 +261,7 @@ Widget _buildInputUser() {
                   // 'Password',
                   hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
                   border: InputBorder.none),
+              onSubmitted: (value) {},
             ),
           )
         ],

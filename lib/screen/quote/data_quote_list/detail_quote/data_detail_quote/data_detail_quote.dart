@@ -160,7 +160,7 @@ class DataTableQuoteDetails extends DataTableSource {
               cntr: data![index].container!,
               esdate: data![index].estimateDate!);
         },
-        child: Text('Container', style: TextStyle(color: haian)),
+        child: Text(rowData.isImgUpload!, style: TextStyle(color: haian)),
       )),
       // DataCell(ElevatedButton(onPressed: (){}, child: Text('Edit'))),
     ]);
@@ -218,17 +218,26 @@ class DataTableQuoteDetails extends DataTableSource {
                         scrollDirection: Axis.vertical,
                         itemCount: files.length,
                         itemBuilder: (BuildContext context, index) {
-                          return Container(
-                              margin: EdgeInsets.all(15),
-                              child: InkWell(
-                                onTap: () {
-                                  quoteController.pathImg.value =
-                                      files[index]['path'];
-                                  print(quoteController.pathImg.value);
-                                },
-                                child: Text(
-                                    removeBeforeSlash(files[index]['name'])),
-                              ));
+                          return Row(
+                            children: [
+                              Container(
+                                width: 60,
+                                color: white,
+                                child: Center(child: Text('${index + 1}.')),
+                              ),
+                              Container(
+                                  margin: EdgeInsets.all(15),
+                                  child: InkWell(
+                                    onTap: () {
+                                      quoteController.pathImg.value =
+                                          files[index]['path'];
+                                      print(quoteController.pathImg.value);
+                                    },
+                                    child: Text(removeBeforeSlash(
+                                        files[index]['name'])),
+                                  )),
+                            ],
+                          );
                         }),
                   ),
                   Obx(() => Container(
@@ -249,7 +258,6 @@ class DataTableQuoteDetails extends DataTableSource {
             confirm: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: haian),
                 onPressed: () {
-                  // quoteController.pathImg.value = '';
                   Get.back();
                 },
                 child: Text(
@@ -259,30 +267,11 @@ class DataTableQuoteDetails extends DataTableSource {
           );
         case 404:
           return EasyLoading.showError('No Image');
-        // Get.defaultDialog(
-        //   title: 'ERROR',
-        //   middleText: 'No Image',
-        //   textConfirm: 'OK',
-        //   onConfirm: () {
-        //     Get.back();
-        //   },
-        // );
         default:
           return EasyLoading.showError('Error: ${response.reasonPhrase}');
-        // Get.defaultDialog(
-        //   title: 'ERROR',
-        //   middleText: 'Error ${response.reasonPhrase}',
-        //   textConfirm: 'OK',
-        //   onConfirm: () {
-        //     Get.back();
-        //   },
-        // );
-        // throw Exception(response.reasonPhrase);
       }
     } on Exception catch (e) {
       EasyLoading.showError('Error: $e');
-      // print(e);
-      // throw Exception('Error fetch Image - $e');
     }
   }
 

@@ -11,15 +11,16 @@ class EQCQuoteDetail {
   String? damageDetail;
   int? quantity;
   String? dimension;
-  int? length;
-  int? width;
+  double? length;
+  double? width;
   String? location;
-  int? laborCost;
-  int? mrCost;
-  int? totalCost;
+  double? laborCost;
+  double? mrCost;
+  double? totalCost;
   String? estimateDate;
   String? payer;
   String? approveCode;
+  String? isImgUpload;
 
   EQCQuoteDetail(
       {this.chargeType,
@@ -38,7 +39,8 @@ class EQCQuoteDetail {
       this.totalCost,
       this.estimateDate,
       this.payer,
-      this.approveCode});
+      this.approveCode,
+      this.isImgUpload});
 
   EQCQuoteDetail.fromJson(Map<String, dynamic> json) {
     chargeType = json['chargeType'];
@@ -58,6 +60,7 @@ class EQCQuoteDetail {
     estimateDate = json['estimateDate'];
     payer = json['payer'];
     approveCode = json['approveCode'];
+    isImgUpload = json['isImgUpload'];
   }
 
   Map<String, dynamic> toJson() {
@@ -79,6 +82,7 @@ class EQCQuoteDetail {
     data['estimateDate'] = this.estimateDate;
     data['payer'] = this.payer;
     data['approveCode'] = this.approveCode;
+    data['isImgUpload'] = this.isImgUpload;
     return data;
   }
 

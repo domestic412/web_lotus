@@ -143,17 +143,20 @@ class _AEQuotePageState extends State<AEQuotePage> {
                         Center(
                           child: ElevatedButton(
                             onPressed: () {
-                              PostNewQuote(
-                                eqcQuoteId: quoteController.eqcQuoteId.value,
-                                portDepotId:
-                                    inforUserController.shipperId.value,
-                                quoteNo: quoteController.quoteNo.value,
-                                quoteCcy: quoteController.currency.value,
-                                exRate: quoteController.exRate.value.text,
-                                quoteUser:
-                                    inforUserController.shipperName.value,
-                                edit: 'I',
-                              );
+                              if ((quoteController.currency.value != '') &&
+                                  (quoteController.exRate.value.text != '')) {
+                                PostNewQuote(
+                                  eqcQuoteId: quoteController.eqcQuoteId.value,
+                                  portDepotId:
+                                      inforUserController.shipperId.value,
+                                  quoteNo: quoteController.quoteNo.value,
+                                  quoteCcy: quoteController.currency.value,
+                                  exRate: quoteController.exRate.value.text,
+                                  quoteUser:
+                                      inforUserController.shipperName.value,
+                                  edit: 'I',
+                                );
+                              }
                             },
                             style: ButtonStyle(
                                 backgroundColor:

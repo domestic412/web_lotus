@@ -298,15 +298,24 @@ class _TableInputQuoteState extends State<TableInputQuote> {
                     scrollDirection: Axis.vertical,
                     itemCount: listImg!.length,
                     itemBuilder: (BuildContext context, index) {
-                      return Container(
-                          margin: EdgeInsets.all(15),
-                          child: InkWell(
-                              onTap: () {
-                                quoteController.pathImg.value =
-                                    listImg![index].path;
-                                // print(quoteController.pathImg.value);
-                              },
-                              child: Text(listImg![index].name)));
+                      return Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            color: white,
+                            child: Center(child: Text('${index + 1}.')),
+                          ),
+                          Container(
+                              margin: EdgeInsets.all(15),
+                              child: InkWell(
+                                  onTap: () {
+                                    quoteController.pathImg.value =
+                                        listImg![index].path;
+                                    // print(quoteController.pathImg.value);
+                                  },
+                                  child: Text(listImg![index].name))),
+                        ],
+                      );
                     }),
               ),
               Obx(() => Container(
@@ -383,7 +392,10 @@ class _TableInputQuoteState extends State<TableInputQuote> {
           case 200:
             EasyLoading.showSuccess('Upload Success');
             quoteController.listInputQuoteDetail_show[i].isImgUpload = true;
-            setState(() {});
+            quoteController.listInputQuoteDetail[i].isImgUpload = true;
+            setState(() {
+              // print(quoteController.listInputQuoteDetail);
+            });
             print('Success send Image quote');
             if (Get.isDialogOpen == true) {
               Get.back();
@@ -442,17 +454,26 @@ class _TableInputQuoteState extends State<TableInputQuote> {
                         scrollDirection: Axis.vertical,
                         itemCount: files.length,
                         itemBuilder: (BuildContext context, index) {
-                          return Container(
-                              margin: EdgeInsets.all(15),
-                              child: InkWell(
-                                onTap: () {
-                                  quoteController.pathImg.value =
-                                      files[index]['path'];
-                                  // print(quoteController.pathImg.value);
-                                },
-                                child: Text(
-                                    removeBeforeSlash(files[index]['name'])),
-                              ));
+                          return Row(
+                            children: [
+                              Container(
+                                width: 60,
+                                color: white,
+                                child: Center(child: Text('${index + 1}.')),
+                              ),
+                              Container(
+                                  margin: EdgeInsets.all(15),
+                                  child: InkWell(
+                                    onTap: () {
+                                      quoteController.pathImg.value =
+                                          files[index]['path'];
+                                      // print(quoteController.pathImg.value);
+                                    },
+                                    child: Text(removeBeforeSlash(
+                                        files[index]['name'])),
+                                  )),
+                            ],
+                          );
                         }),
                   ),
                   Obx(() => Container(
@@ -483,25 +504,8 @@ class _TableInputQuoteState extends State<TableInputQuote> {
           );
         case 404:
           return EasyLoading.showError('No Image');
-        // Get.defaultDialog(
-        //   title: 'ERROR',
-        //   middleText: 'No Image',
-        //   textConfirm: 'OK',
-        //   onConfirm: () {
-        //     Get.back();
-        //   },
-        // );
         default:
           return EasyLoading.showError('Error: ${response.reasonPhrase}');
-        // Get.defaultDialog(
-        //   title: 'ERROR',
-        //   middleText: 'Error ${response.reasonPhrase}',
-        //   textConfirm: 'OK',
-        //   onConfirm: () {
-        //     Get.back();
-        //   },
-        // );
-        // throw Exception(response.reasonPhrase);
       }
     } on Exception catch (e) {
       EasyLoading.showError('Error: $e');

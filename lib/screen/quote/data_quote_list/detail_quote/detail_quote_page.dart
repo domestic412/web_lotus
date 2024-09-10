@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/style.dart';
-import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_quote_detail.dart';
 import 'package:web_lotus/screen/quote/data_quote_list/detail_quote/data_detail_quote/data_detail_quote.dart';
@@ -51,9 +50,6 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    var FHeight = deviceHeight(context);
-    var FWidth = deviceWidth(context);
-
     return Scaffold(
       // appBar: WidgetAppBar(),
       backgroundColor: MyColor.backgroundColor,
@@ -109,16 +105,6 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                           'Quote Details',
                           style: style20_blue,
                         ),
-                        // const SizedBox(
-                        //   height: 10,
-                        // ),
-                        // const Divider(
-                        //   color: MyColor.haian,
-                        //   height: 1,
-                        // ),
-                        // const SizedBox(
-                        //   height: 10,
-                        // ),
                         Container(
                           decoration: BoxDecoration(
                             color: white,
@@ -314,6 +300,12 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                               DataColumn(
                                 label: Text(
                                   'Image File',
+                                  // style: style_text_Table_small_bold,
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Upload Image',
                                   // style: style_text_Table_small_bold,
                                 ),
                               ),

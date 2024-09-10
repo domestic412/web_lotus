@@ -26,9 +26,6 @@ double width_20 = 20;
 class _QuoteListPageState extends State<QuoteListPage> {
   @override
   Widget build(BuildContext context) {
-    var FHeight = deviceHeight(context);
-    var FWidth = deviceWidth(context);
-
     return Scaffold(
       // appBar: WidgetAppBar(),
       backgroundColor: MyColor.backgroundColor,

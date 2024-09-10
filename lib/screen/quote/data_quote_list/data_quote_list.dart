@@ -56,6 +56,12 @@ class DataTableQuote extends DataTableSource {
         onSelectChanged: (value) {
           quoteController.eqcQuoteId.value = data![index].eqcQuoteId!;
           // controller.selectWidget.value = quoteDetails;
+          switch (data![index].approveUser) {
+            case '':
+              quoteController.boolApprove.value = false;
+            default:
+              quoteController.boolApprove.value = true;
+          }
           Get.to(QuoteDetailsPage());
         },
         cells: [

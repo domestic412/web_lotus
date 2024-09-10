@@ -14,6 +14,8 @@ class QuoteController extends GetxController {
   RxList<ErrorQuotes> listError = <ErrorQuotes>[].obs;
   RxList<CategoryQuotes> listCategory = <CategoryQuotes>[].obs;
 
+  var boolApprove = false.obs;
+
   var currentDate_send = ''.obs;
   RxList<XFile>? listImg;
   var pathImg = ''.obs;

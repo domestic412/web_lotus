@@ -301,12 +301,12 @@ class _TableInputQuoteState extends State<TableInputQuote> {
                       return Row(
                         children: [
                           Container(
-                            width: 60,
+                            width: 50,
                             color: white,
                             child: Center(child: Text('${index + 1}.')),
                           ),
                           Container(
-                              margin: EdgeInsets.all(15),
+                              margin: EdgeInsets.symmetric(vertical: 10),
                               child: InkWell(
                                   onTap: () {
                                     quoteController.pathImg.value =
@@ -457,12 +457,12 @@ class _TableInputQuoteState extends State<TableInputQuote> {
                           return Row(
                             children: [
                               Container(
-                                width: 60,
+                                width: 50,
                                 color: white,
                                 child: Center(child: Text('${index + 1}.')),
                               ),
                               Container(
-                                  margin: EdgeInsets.all(15),
+                                  margin: EdgeInsets.symmetric(vertical: 10),
                                   child: InkWell(
                                     onTap: () {
                                       quoteController.pathImg.value =

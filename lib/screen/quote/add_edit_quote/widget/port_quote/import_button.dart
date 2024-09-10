@@ -95,38 +95,6 @@ class _ImportButtonState extends State<ImportButton> {
                 i = i + 1;
               } else {}
             }
-            // if ((chargeCode == null &&
-            //             container == null &&
-            //             inGateDate == null &&
-            //             componentCode == null &&
-            //             damageDetail == null &&
-            //             errorCode == null &&
-            //             quantity == null &&
-            //             dimension == null &&
-            //             length == null &&
-            //             width == null &&
-            //             location == null &&
-            //             categoryCode == null &&
-            //             laborCost == null &&
-            //             mrCost == null &&
-            //             totalCost == null) ||
-            //         (chargeCode == null &&
-            //             container == null &&
-            //             inGateDate == null &&
-            //             componentCode == null &&
-            //             damageDetail == null &&
-            //             errorCode == null &&
-            //             quantity == 0 &&
-            //             dimension == null &&
-            //             length == 0 &&
-            //             width == 0 &&
-            //             location == null &&
-            //             categoryCode == null &&
-            //             laborCost == 0 &&
-            //             mrCost == 0 &&
-            //             totalCost == 0)
-            // || (chargeCode == 'Dịch vụ')
-            // ) {} else {
             if (j > 0) {
               if (findChargeId(chargeCode: chargeCode!) == null) {
                 Get.defaultDialog(

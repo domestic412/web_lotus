@@ -62,7 +62,7 @@ class DataTableQuote extends DataTableSource {
             default:
               quoteController.boolApprove.value = true;
           }
-          Get.to(QuoteDetailsPage());
+          Get.to(() => QuoteDetailsPage());
         },
         cells: [
           DataCell(SizedBox(

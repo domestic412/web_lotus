@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/assets/variable.dart';
@@ -8,9 +9,9 @@ import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/model/model_quote_list.dart';
 import 'package:web_lotus/screen/quote/add_edit_quote/add_edit_quote.dart';
 import 'package:web_lotus/screen/quote/data_quote_list/data_quote_list.dart';
-import 'package:web_lotus/screen/tracking/tracking_page.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/footer.dart';
+import 'package:flutter_popup/flutter_popup.dart';
 
 class QuoteListPage extends StatefulWidget {
   const QuoteListPage({super.key});
@@ -24,6 +25,50 @@ final ScrollController horizontalScroll = ScrollController();
 double width_20 = 20;
 
 class _QuoteListPageState extends State<QuoteListPage> {
+  DataTableQuote _dataQuote = DataTableQuote(data: []);
+  DataTableQuote _list_filter = DataTableQuote(data: []);
+
+  TextEditingController _search_quote = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    quoteController.fromDate_send.value =
+        changeDatetoSend(date: DateTime.now().subtract(Duration(days: 30)));
+    quoteController.fromDate_text.value =
+        changeDatetoShow(date: DateTime.now().subtract(Duration(days: 30)));
+
+    quoteController.toDate_send.value =
+        changeDatetoSend(date: DateTime.now().add(Duration(days: 1)));
+    quoteController.toDate_text.value =
+        changeDatetoShow(date: DateTime.now().add(Duration(days: 1)));
+    EQCQuoteList()
+        .fetchQuoteList(quoteController.fromDate_send.value,
+            quoteController.toDate_send.value)
+        .then((data) {
+      setState(() {
+        _dataQuote = DataTableQuote(data: data);
+        _list_filter = _dataQuote;
+        // print('initial data history');
+      });
+    });
+  }
+
+  void refreshQuoteList() {
+    Get.back();
+    EQCQuoteList()
+        .fetchQuoteList(quoteController.fromDate_send.value,
+            quoteController.toDate_send.value)
+        .then((data) {
+      setState(() {
+        _dataQuote = DataTableQuote(data: data);
+        _list_filter = _dataQuote;
+        // print('initial data history');
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,31 +82,6 @@ class _QuoteListPageState extends State<QuoteListPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               AppbarWidget(),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TrackingPage()));
-                        },
-                        child: Text('Tracking')),
-                    SizedBox(width: 30),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => QuoteListPage()));
-                        },
-                        child: Text('Quote')),
-                  ],
-                ),
-              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(
@@ -80,16 +100,6 @@ class _QuoteListPageState extends State<QuoteListPage> {
                         'Quote List',
                         style: style20_blue,
                       ),
-                      // const SizedBox(
-                      //   height: 10,
-                      // ),
-                      // const Divider(
-                      //   color: MyColor.haian,
-                      //   height: 1,
-                      // ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
@@ -109,76 +119,108 @@ class _QuoteListPageState extends State<QuoteListPage> {
                               ),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 8),
-                              // margin: const EdgeInsets.symmetric(vertical: 16),
                               child: Row(
                                 children: [
                                   Text('From Date'),
-                                  Container(
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 10),
-                                    width: 150,
-                                    child: TextField(
-                                      controller:
-                                          quoteController.fromDate.value,
-                                      decoration: const InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        isDense: true,
-                                        fillColor: Colors.white,
-                                      ),
-                                      onTap: () async {
-                                        DateTime? pickeddate =
-                                            await showDatePicker(
-                                                context: context,
-                                                initialDate:
-                                                    DateFormat('MM/dd/yyyy')
-                                                        .parse(quoteController
-                                                            .fromDate_send
-                                                            .value),
-                                                firstDate: DateTime(2024),
-                                                lastDate: DateTime(2123));
-                                        if (pickeddate != null) {
-                                          quoteController.fromDate.value.text =
+                                  CustomPopup(
+                                    showArrow: false,
+                                    content: SizedBox(
+                                      width: 300,
+                                      child: CalendarDatePicker(
+                                        initialDate: dateFormat.parse(
+                                            quoteController
+                                                .fromDate_text.value),
+                                        firstDate: DateTime(2024),
+                                        lastDate: DateTime(2123),
+                                        onDateChanged: (value) {
+                                          quoteController.fromDate_text.value =
                                               DateFormat('dd/MM/yyyy')
-                                                  .format(pickeddate);
+                                                  .format(value);
                                           quoteController.fromDate_send.value =
                                               DateFormat('MM/dd/yyyy')
-                                                  .format(pickeddate);
+                                                  .format(value);
                                           refreshQuoteList();
-                                        }
-                                      },
+                                        },
+                                      ),
+                                    ),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: grey),
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      padding: const EdgeInsets.all(10),
+                                      child: Text(
+                                          quoteController.fromDate_text.value),
                                     ),
                                   ),
+                                  // Container(
+                                  //   margin:
+                                  //       EdgeInsets.symmetric(horizontal: 10),
+                                  //   width: 150,
+                                  //   child: TextField(
+                                  //     controller:
+                                  //         quoteController.fromDate.value,
+                                  //     decoration: const InputDecoration(
+                                  //       border: OutlineInputBorder(),
+                                  //       isDense: true,
+                                  //       fillColor: Colors.white,
+                                  //     ),
+                                  //     onTap: () async {
+                                  //       DateTime? pickeddate =
+                                  //           await showDatePicker(
+                                  //               context: context,
+                                  //               initialDate:
+                                  //                   DateFormat('MM/dd/yyyy')
+                                  //                       .parse(quoteController
+                                  //                           .fromDate_send
+                                  //                           .value),
+                                  //               firstDate: DateTime(2024),
+                                  //               lastDate: DateTime(2123));
+                                  //       if (pickeddate != null) {
+                                  //         quoteController.fromDate.value.text =
+                                  //             DateFormat('dd/MM/yyyy')
+                                  //                 .format(pickeddate);
+                                  //         quoteController.fromDate_send.value =
+                                  //             DateFormat('MM/dd/yyyy')
+                                  //                 .format(pickeddate);
+                                  //         refreshQuoteList();
+                                  //       }
+                                  //     },
+                                  //   ),
+                                  // ),
                                   Text('To Date'),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 10),
-                                    width: 150,
-                                    child: TextField(
-                                      controller: quoteController.toDate.value,
-                                      decoration: const InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        isDense: true,
-                                        fillColor: Colors.white,
-                                      ),
-                                      onTap: () async {
-                                        DateTime? pickeddate =
-                                            await showDatePicker(
-                                                context: context,
-                                                initialDate:
-                                                    DateFormat('MM/dd/yyyy')
-                                                        .parse(quoteController
-                                                            .toDate_send.value),
-                                                firstDate: DateTime(2024),
-                                                lastDate: DateTime(2123));
-                                        if (pickeddate != null) {
-                                          quoteController.toDate.value.text =
+                                  CustomPopup(
+                                    showArrow: false,
+                                    content: SizedBox(
+                                      width: 300,
+                                      child: CalendarDatePicker(
+                                        initialDate: dateFormat.parse(
+                                            quoteController.toDate_text.value),
+                                        firstDate: DateTime(2024),
+                                        lastDate: DateTime(2123),
+                                        onDateChanged: (value) {
+                                          quoteController.toDate_text.value =
                                               DateFormat('dd/MM/yyyy')
-                                                  .format(pickeddate);
+                                                  .format(value);
                                           quoteController.toDate_send.value =
                                               DateFormat('MM/dd/yyyy')
-                                                  .format(pickeddate);
+                                                  .format(value);
                                           refreshQuoteList();
-                                        }
-                                      },
+                                        },
+                                      ),
+                                    ),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: grey),
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      padding: const EdgeInsets.all(10),
+                                      child: Text(
+                                          quoteController.toDate_text.value),
                                     ),
                                   ),
                                 ],
@@ -239,10 +281,7 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                 quoteController.initEQC = InitEQCQuote()
                                     .fetchInitQuote(eqcQuoteId_new);
                                 // controller.selectWidget.value = quoteAE;
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AEQuotePage()));
+                                // Get.to(() => AEQuotePage());
                               },
                               style: ButtonStyle(
                                   backgroundColor:
@@ -277,7 +316,7 @@ class _QuoteListPageState extends State<QuoteListPage> {
                           sortColumnIndex: 0,
                           dataRowMaxHeight: 50,
                           columnSpacing: 16,
-                          columns: [
+                          columns: const [
                             DataColumn(
                               label: SizedBox(
                                 width: 40,
@@ -362,49 +401,6 @@ class _QuoteListPageState extends State<QuoteListPage> {
         ),
       ),
     );
-  }
-
-  DataTableQuote _dataQuote = DataTableQuote(data: []);
-  DataTableQuote _list_filter = DataTableQuote(data: []);
-
-  TextEditingController _search_quote = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-
-    quoteController.fromDate_send.value =
-        changeDatetoSend(date: DateTime.now().subtract(Duration(days: 30)));
-    quoteController.fromDate.value.text =
-        changeDatetoShow(date: DateTime.now().subtract(Duration(days: 30)));
-
-    quoteController.toDate_send.value =
-        changeDatetoSend(date: DateTime.now().add(Duration(days: 1)));
-    quoteController.toDate.value.text =
-        changeDatetoShow(date: DateTime.now().add(Duration(days: 1)));
-    EQCQuoteList()
-        .fetchQuoteList(quoteController.fromDate_send.value,
-            quoteController.toDate_send.value)
-        .then((data) {
-      setState(() {
-        _dataQuote = DataTableQuote(data: data);
-        _list_filter = _dataQuote;
-        // print('initial data history');
-      });
-    });
-  }
-
-  void refreshQuoteList() {
-    EQCQuoteList()
-        .fetchQuoteList(quoteController.fromDate_send.value,
-            quoteController.toDate_send.value)
-        .then((data) {
-      setState(() {
-        _dataQuote = DataTableQuote(data: data);
-        _list_filter = _dataQuote;
-        // print('initial data history');
-      });
-    });
   }
 
   void _filterQuote() {

@@ -5,8 +5,6 @@ import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/info_signin_controller.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_add_quote.dart';
-import 'package:web_lotus/screen/quote/quote_page.dart';
-import 'package:web_lotus/screen/tracking/tracking_page.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/footer.dart';
 
@@ -27,7 +25,7 @@ class _AEQuotePageState extends State<AEQuotePage> {
     super.initState();
     quoteController.currentDate_send.value =
         changeDatetoSend(date: DateTime.now());
-    quoteController.gateInDate.value.text =
+    quoteController.gateInDate_text.value =
         changeDatetoShow(date: DateTime.now());
     quoteController.gateInDate_send.value =
         changeDatetoSend(date: DateTime.now());
@@ -35,8 +33,8 @@ class _AEQuotePageState extends State<AEQuotePage> {
 
   @override
   Widget build(BuildContext context) {
-    var FHeight = deviceHeight(context);
-    var FWidth = deviceWidth(context);
+    // var FHeight = deviceHeight(context);
+    // var FWidth = deviceWidth(context);
 
     return Scaffold(
       // appBar: WidgetAppBar(),
@@ -49,31 +47,6 @@ class _AEQuotePageState extends State<AEQuotePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               AppbarWidget(),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TrackingPage()));
-                        },
-                        child: Text('Tracking')),
-                    SizedBox(width: 30),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => QuoteListPage()));
-                        },
-                        child: Text('Quote')),
-                  ],
-                ),
-              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(
@@ -111,7 +84,7 @@ class _AEQuotePageState extends State<AEQuotePage> {
                             ),
                             child: PortQuote()),
                         Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
+                            // margin: EdgeInsets.symmetric(vertical: 10),
                             decoration: BoxDecoration(
                               color: white,
                               border: Border.all(
@@ -150,6 +123,7 @@ class _AEQuotePageState extends State<AEQuotePage> {
                                   portDepotId:
                                       inforUserController.shipperId.value,
                                   quoteNo: quoteController.quoteNo.value,
+                                  quoteStatus: 'C',
                                   quoteCcy: quoteController.currency.value,
                                   exRate: quoteController.exRate.value.text,
                                   quoteUser:

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:web_lotus/assets/color.dart';
+import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/model/model_input_quote_detail.dart';
+import 'package:flutter_popup/flutter_popup.dart';
 
 class InfoContQuote extends StatefulWidget {
   const InfoContQuote({super.key});
@@ -99,12 +102,11 @@ class _InfoContQuoteState extends State<InfoContQuote> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.only(bottom: 20),
                   child: DataTable(
                       columnSpacing: 15,
                       horizontalMargin: 0,
                       dividerThickness: 0.0,
-                      columns: <DataColumn>[
+                      columns: const <DataColumn>[
                         DataColumn(label: Text('Charge')),
                         DataColumn(label: Text('Container')),
                         DataColumn(label: Text('Gate In Date')),
@@ -142,28 +144,55 @@ class _InfoContQuoteState extends State<InfoContQuote> {
                           )),
                           DataCell(Container(
                             width: 150,
-                            child: TextField(
-                              controller: quoteController.gateInDate.value,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
+                            child: CustomPopup(
+                              showArrow: false,
+                              content: SizedBox(
+                                width: 300,
+                                child: CalendarDatePicker(
+                                  initialDate: dateFormat.parse(
+                                      quoteController.gateInDate_text.value),
+                                  firstDate: DateTime(2024),
+                                  lastDate: DateTime(2123),
+                                  onDateChanged: (value) {
+                                    quoteController.gateInDate_text.value =
+                                        DateFormat('dd/MM/yyyy').format(value);
+                                    quoteController.gateInDate_send.value =
+                                        DateFormat('MM/dd/yyyy').format(value);
+                                  },
+                                ),
                               ),
-                              onTap: () async {
-                                DateTime? pickeddate = await showDatePicker(
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime(2024),
-                                    lastDate: DateTime(2123));
-                                if (pickeddate != null) {
-                                  quoteController.gateInDate.value.text =
-                                      DateFormat('dd/MM/yyyy')
-                                          .format(pickeddate);
-                                  quoteController.gateInDate_send.value =
-                                      DateFormat('MM/dd/yyyy')
-                                          .format(pickeddate);
-                                  print(pickeddate);
-                                }
-                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: grey),
+                                    borderRadius: BorderRadius.circular(5)),
+                                margin: EdgeInsets.symmetric(horizontal: 10),
+                                padding: const EdgeInsets.all(10),
+                                child:
+                                    Text(quoteController.gateInDate_text.value),
+                              ),
                             ),
+                            // TextField(
+                            //   controller: quoteController.gateInDate.value,
+                            //   decoration: const InputDecoration(
+                            //     border: OutlineInputBorder(),
+                            //   ),
+                            //   onTap: () async {
+                            //     DateTime? pickeddate = await showDatePicker(
+                            //         context: context,
+                            //         initialDate: DateTime.now(),
+                            //         firstDate: DateTime(2024),
+                            //         lastDate: DateTime(2123));
+                            //     if (pickeddate != null) {
+                            //       quoteController.gateInDate.value.text =
+                            //           DateFormat('dd/MM/yyyy')
+                            //               .format(pickeddate);
+                            //       quoteController.gateInDate_send.value =
+                            //           DateFormat('MM/dd/yyyy')
+                            //               .format(pickeddate);
+                            //       print(pickeddate);
+                            //     }
+                            //   },
+                            // ),
                           )),
                           DataCell(Container(
                             width: 200,
@@ -382,7 +411,7 @@ class _InfoContQuoteState extends State<InfoContQuote> {
                           categoryId: quoteController.categoryName.value,
                           errorId: quoteController.errorName.value,
                           container: quoteController.container.value.text,
-                          inGateDate: quoteController.gateInDate.value.text,
+                          inGateDate: quoteController.gateInDate_text.value,
                           damageDetail: quoteController.detailDamage.value.text,
                           quantity:
                               int.parse(quoteController.quantity.value.text),

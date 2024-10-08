@@ -16,6 +16,8 @@ changeDatetoSend({required DateTime date}) {
   return DateFormat('MM/dd/yyyy').format(date);
 }
 
+DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+
 String eqcQuoteId_new = '00000000-0000-0000-0000-000000000000';
 
 double? fullSizeHeight;
@@ -34,3 +36,5 @@ String consigneeList_signin = 'consigneeList';
 String refList_signin_json = 'refList';
 String termList_signin = 'termList';
 String commodityList_signin = 'commodityList';
+
+String dividerPage = 'Tracking';

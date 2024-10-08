@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/add_edit_quote.dart';
 
 class InitEQCQuote {
   List<ChargeTypeQuotes>? chargeTypeQuotes;
@@ -125,7 +127,19 @@ class InitEQCQuote {
               dataInitQuote['inputQuoteModels'][0]['eqcQuoteId'];
           quoteController.quoteNo.value =
               dataInitQuote['inputQuoteModels'][0]['quoteNo'];
-          print(quoteController.eqcQuoteId.value);
+          quoteController.listCurrency.value =
+              dataInitQuote['currencyQuotes'].cast<CurrencyQuotes>();
+          quoteController.listCharge.value =
+              dataInitQuote['chargeTypeQuotes'].cast<ChargeTypeQuotes>();
+          quoteController.listComponent.value =
+              dataInitQuote['componentQuotes'].cast<ComponentQuotes>();
+          quoteController.listError.value =
+              dataInitQuote['errorQuotes'].cast<ErrorQuotes>();
+          quoteController.listCategory.value =
+              dataInitQuote['categoryQuotes'].cast<CategoryQuotes>();
+          print(quoteController.listCurrency);
+          Get.to(() => AEQuotePage());
+          // print(quoteController.eqcQuoteId.value);
           return InitEQCQuote.fromJson(dataInitQuote);
         default:
           throw Exception('Error: Init EQC Quote ${response.reasonPhrase}');

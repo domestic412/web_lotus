@@ -12,6 +12,7 @@ Future<void> PostNewQuote(
     {required String eqcQuoteId,
     required String portDepotId,
     required String quoteNo,
+    required String quoteStatus,
     required String quoteCcy,
     required String exRate,
     required String quoteUser,
@@ -21,6 +22,7 @@ Future<void> PostNewQuote(
       "eqcQuoteId": eqcQuoteId,
       "portDepotId": portDepotId,
       "quoteNo": quoteNo,
+      "quoteStatus": quoteStatus,
       "quoteCcy": quoteCcy,
       "exRate": exRate,
       "quoteUser": quoteUser,
@@ -62,7 +64,7 @@ Future<void> PostNewQuoteDetail(
     switch (response.statusCode) {
       case 200:
         // controller.selectWidget.value = quoteList;
-        Get.to(QuoteListPage());
+        Get.to(() => QuoteListPage());
         print('Post quote detail success');
       default:
         print('Error post quote detail: ${response.statusCode}');

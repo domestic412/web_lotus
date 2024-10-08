@@ -9,6 +9,7 @@ final QuoteController quoteController = Get.put(QuoteController());
 class QuoteController extends GetxController {
   Future<InitEQCQuote>? initEQC;
 
+  RxList<CurrencyQuotes> listCurrency = <CurrencyQuotes>[].obs;
   RxList<ChargeTypeQuotes> listCharge = <ChargeTypeQuotes>[].obs;
   RxList<ComponentQuotes> listComponent = <ComponentQuotes>[].obs;
   RxList<ErrorQuotes> listError = <ErrorQuotes>[].obs;
@@ -20,8 +21,8 @@ class QuoteController extends GetxController {
   RxList<XFile>? listImg;
   var pathImg = ''.obs;
 
-  var fromDate = TextEditingController().obs;
-  var toDate = TextEditingController().obs;
+  var fromDate_text = ''.obs;
+  var toDate_text = ''.obs;
 
   var fromDate_send = ''.obs;
   var toDate_send = ''.obs;
@@ -29,10 +30,8 @@ class QuoteController extends GetxController {
   var eqcQuoteId = ''.obs;
   var quoteNo = ''.obs;
 
-// var port_select = TextEditingController().obs;
-  var portDepotId = '84B9B9A3-99CE-4865-81B7-74070F075EAB'.obs;
+  // var portDepotId = '84B9B9A3-99CE-4865-81B7-74070F075EAB'.obs;
 
-// var currency_select = TextEditingController().obs;
   var currency = ''.obs;
 
   var exRate = TextEditingController().obs;
@@ -42,8 +41,7 @@ class QuoteController extends GetxController {
 
   var container = TextEditingController().obs;
 
-  var gateInDate = TextEditingController().obs;
-
+  var gateInDate_text = ''.obs;
   var gateInDate_send = ''.obs;
 
   var componentName = ''.obs;

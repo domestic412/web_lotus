@@ -76,6 +76,64 @@ class _SignInPageState extends State<SignInPage> {
     ));
   }
 
+  _buildInputUser() {
+    // InformationNewSignInController infoSignInController =
+    //     Get.put(InformationNewSignInController());
+    return Column(children: <Widget>[
+      Container(
+        margin: const EdgeInsets.only(left: 30, right: 30),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: Colors.white54),
+        child: Column(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                  border: Border(bottom: BorderSide(color: Colors.grey))),
+              height: 50,
+              margin: const EdgeInsets.only(left: 10, right: 10),
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: inforUserController.username.value,
+                style: const TextStyle(fontSize: 18, color: Colors.black87),
+                autofocus: true,
+                decoration: InputDecoration(
+                    hintText: 'user name'.tr,
+                    // 'User Name',
+                    hintStyle:
+                        const TextStyle(fontSize: 16, color: Colors.grey),
+                    border: InputBorder.none),
+                onSubmitted: (value) {
+                  newSignIn(inforUserController.username.value.text.toString(),
+                      inforUserController.password.value.text.toString());
+                },
+              ),
+            ),
+            Container(
+              height: 50,
+              margin: const EdgeInsets.only(left: 10, right: 10),
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                obscureText: true,
+                controller: inforUserController.password.value,
+                style: const TextStyle(fontSize: 18, color: Colors.black87),
+                decoration: InputDecoration(
+                    hintText: 'password'.tr,
+                    // 'Password',
+                    hintStyle:
+                        const TextStyle(fontSize: 16, color: Colors.grey),
+                    border: InputBorder.none),
+                onSubmitted: (value) {
+                  newSignIn(inforUserController.username.value.text.toString(),
+                      inforUserController.password.value.text.toString());
+                },
+              ),
+            )
+          ],
+        ),
+      )
+    ]);
+  }
+
   Future<void> newSignIn(String username, String password) async {
     try {
       final url = '$SERVER/NewLoginUser/login';
@@ -178,7 +236,7 @@ class _SignInPageState extends State<SignInPage> {
                     //     Get.toNamed(GetRoutes.defaultRoute);
                     //     break;
                     // }
-                    Get.to(QuoteListPage());
+                    Get.to(() => QuoteListPage());
                   }
                 default:
                   LoginAlertDatabase(context);
@@ -208,66 +266,6 @@ Widget _buildAppbarImage() {
       width: 200,
     ),
   );
-}
-
-// Widget _buildAppbarName() {
-//   return Padding(
-//       padding: const EdgeInsets.only(top: 20),
-//       child: Text(
-//         'welcome to LOTUS'.tr,
-//         style: TextStyle(
-//             fontSize: 30, fontWeight: FontWeight.bold, color: Colors.blue[900]),
-//       ));
-// }
-
-Widget _buildInputUser() {
-  // InformationNewSignInController infoSignInController =
-  //     Get.put(InformationNewSignInController());
-  return Column(children: <Widget>[
-    Container(
-      margin: const EdgeInsets.only(left: 30, right: 30),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: Colors.white54),
-      child: Column(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-                border: Border(bottom: BorderSide(color: Colors.grey))),
-            height: 50,
-            margin: const EdgeInsets.only(left: 10, right: 10),
-            padding: const EdgeInsets.all(10),
-            child: TextField(
-              controller: inforUserController.username.value,
-              style: const TextStyle(fontSize: 18, color: Colors.black87),
-              autofocus: true,
-              decoration: InputDecoration(
-                  hintText: 'user name'.tr,
-                  // 'User Name',
-                  hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
-                  border: InputBorder.none),
-              onSubmitted: (value) {},
-            ),
-          ),
-          Container(
-            height: 50,
-            margin: const EdgeInsets.only(left: 10, right: 10),
-            padding: const EdgeInsets.all(10),
-            child: TextField(
-              obscureText: true,
-              controller: inforUserController.password.value,
-              style: const TextStyle(fontSize: 18, color: Colors.black87),
-              decoration: InputDecoration(
-                  hintText: 'password'.tr,
-                  // 'Password',
-                  hintStyle: const TextStyle(fontSize: 16, color: Colors.grey),
-                  border: InputBorder.none),
-              onSubmitted: (value) {},
-            ),
-          )
-        ],
-      ),
-    )
-  ]);
 }
 
 void checkDataLogin(dataLogin) {

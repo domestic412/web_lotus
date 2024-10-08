@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
@@ -61,31 +62,6 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               AppbarWidget(),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TrackingPage()));
-                        },
-                        child: Text('Tracking')),
-                    SizedBox(width: 30),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => QuoteListPage()));
-                        },
-                        child: Text('Quote')),
-                  ],
-                ),
-              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(

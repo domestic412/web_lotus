@@ -2,6 +2,7 @@ class InputQuote {
   String? eqcQuoteId;
   String? portDepotId;
   String? quoteNo;
+  String? quoteStatus;
   String? quoteCcy;
   String? exRate;
   String? quoteUser;
@@ -11,6 +12,7 @@ class InputQuote {
       {this.eqcQuoteId,
       this.portDepotId,
       this.quoteNo,
+      this.quoteStatus,
       this.quoteCcy,
       this.exRate,
       this.quoteUser,
@@ -20,6 +22,7 @@ class InputQuote {
     eqcQuoteId = json['eqcQuoteId'];
     portDepotId = json['portDepotId'];
     quoteNo = json['quoteNo'];
+    quoteStatus = json['quoteStatus'];
     quoteCcy = json['quoteCcy'];
     exRate = json['exRate'];
     quoteUser = json['quoteUser'];
@@ -31,6 +34,7 @@ class InputQuote {
     data['eqcQuoteId'] = this.eqcQuoteId;
     data['portDepotId'] = this.portDepotId;
     data['quoteNo'] = this.quoteNo;
+    data['quoteStatus'] = this.quoteStatus;
     data['quoteCcy'] = this.quoteCcy;
     data['exRate'] = this.exRate;
     data['quoteUser'] = this.quoteUser;

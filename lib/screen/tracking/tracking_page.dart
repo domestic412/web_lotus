@@ -40,42 +40,6 @@ class _TrackingPageState extends State<TrackingPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               AppbarWidget(),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Get.to(TrackingPage());
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => TrackingPage()));
-                        },
-                        child: Text('Tracking')),
-                    SizedBox(width: 30),
-                    ElevatedButton(
-                        onPressed: () {
-                          switch (inforUserController.shipperName.value) {
-                            case '':
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignInPage()));
-                              break;
-                            default:
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => QuoteListPage()));
-                              break;
-                          }
-                        },
-                        child: Text('Quote')),
-                  ],
-                ),
-              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(

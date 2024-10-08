@@ -329,7 +329,7 @@ class DataTableQuoteDetails extends DataTableSource {
               Get.back();
             }
             Get.to(SupportPage());
-            Get.to(QuoteDetailsPage());
+            Get.to(() => QuoteDetailsPage());
           default:
             EasyLoading.showError('Upload Fail');
             print('Error ${request.status} send Image quote ' + cntr);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/screen/quote/quote_page.dart';
 import 'package:web_lotus/screen/tracking/tracking_page.dart';
@@ -33,19 +34,13 @@ class _SupportPageState extends State<SupportPage> {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TrackingPage()));
+                          Get.to(() => TrackingPage());
                         },
                         child: Text('Tracking')),
                     SizedBox(width: 30),
                     ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => QuoteListPage()));
+                          Get.to(() => QuoteListPage());
                         },
                         child: Text('Quote')),
                   ],

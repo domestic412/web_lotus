@@ -9,7 +9,7 @@ class EQCQuoteDetail {
   String? damageCode;
   String? container;
   String? damageDetail;
-  int? quantity;
+  double? quantity;
   String? dimension;
   double? length;
   double? width;

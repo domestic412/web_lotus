@@ -7,7 +7,7 @@ class InputQuoteDetail {
   String? container;
   String? inGateDate;
   String? damageDetail;
-  int? quantity;
+  double? quantity;
   String? dimension;
   double? length;
   double? width;

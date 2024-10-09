@@ -155,41 +155,6 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                           quoteController.fromDate_text.value),
                                     ),
                                   ),
-                                  // Container(
-                                  //   margin:
-                                  //       EdgeInsets.symmetric(horizontal: 10),
-                                  //   width: 150,
-                                  //   child: TextField(
-                                  //     controller:
-                                  //         quoteController.fromDate.value,
-                                  //     decoration: const InputDecoration(
-                                  //       border: OutlineInputBorder(),
-                                  //       isDense: true,
-                                  //       fillColor: Colors.white,
-                                  //     ),
-                                  //     onTap: () async {
-                                  //       DateTime? pickeddate =
-                                  //           await showDatePicker(
-                                  //               context: context,
-                                  //               initialDate:
-                                  //                   DateFormat('MM/dd/yyyy')
-                                  //                       .parse(quoteController
-                                  //                           .fromDate_send
-                                  //                           .value),
-                                  //               firstDate: DateTime(2024),
-                                  //               lastDate: DateTime(2123));
-                                  //       if (pickeddate != null) {
-                                  //         quoteController.fromDate.value.text =
-                                  //             DateFormat('dd/MM/yyyy')
-                                  //                 .format(pickeddate);
-                                  //         quoteController.fromDate_send.value =
-                                  //             DateFormat('MM/dd/yyyy')
-                                  //                 .format(pickeddate);
-                                  //         refreshQuoteList();
-                                  //       }
-                                  //     },
-                                  //   ),
-                                  // ),
                                   Text('To Date'),
                                   CustomPopup(
                                     showArrow: false,
@@ -278,8 +243,9 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                 quoteController
                                     .listInputQuoteDetail_show.value = [];
                                 quoteController.countRow.value = 0;
-                                quoteController.initEQC = InitEQCQuote()
-                                    .fetchInitQuote(eqcQuoteId_new);
+                                // quoteController.initEQC = InitEQCQuote()
+                                //     .fetchInitQuote(eqcQuoteId_new);
+                                InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
                                 // controller.selectWidget.value = quoteAE;
                                 // Get.to(() => AEQuotePage());
                               },

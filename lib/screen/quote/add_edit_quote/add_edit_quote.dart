@@ -8,7 +8,7 @@ import 'package:web_lotus/model/model_add_quote.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/footer.dart';
 
-import 'widget/add_info_cont_quote.dart';
+import 'widget/info_cont_quote.dart/add_info_cont_quote.dart';
 import 'widget/port_quote/port_quote.dart';
 import 'widget/table_input_quote.dart';
 
@@ -24,10 +24,6 @@ class _AEQuotePageState extends State<AEQuotePage> {
   void initState() {
     super.initState();
     quoteController.currentDate_send.value =
-        changeDatetoSend(date: DateTime.now());
-    quoteController.gateInDate_text.value =
-        changeDatetoShow(date: DateTime.now());
-    quoteController.gateInDate_send.value =
         changeDatetoSend(date: DateTime.now());
   }
 

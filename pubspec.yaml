@@ -51,6 +51,7 @@ dependencies:
   universal_html: ^2.2.4
   spreadsheet_decoder: ^2.2.0
   flutter_popup: ^3.3.0
+  dropdown_textfield: ^1.0.8
   
 
 dev_dependencies:

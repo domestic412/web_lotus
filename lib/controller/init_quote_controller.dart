@@ -7,7 +7,7 @@ import 'package:web_lotus/model/model_input_quote_detail.dart';
 final QuoteController quoteController = Get.put(QuoteController());
 
 class QuoteController extends GetxController {
-  Future<InitEQCQuote>? initEQC;
+  // Future<InitEQCQuote>? initEQC;
 
   RxList<CurrencyQuotes> listCurrency = <CurrencyQuotes>[].obs;
   RxList<ChargeTypeQuotes> listCharge = <ChargeTypeQuotes>[].obs;
@@ -32,6 +32,7 @@ class QuoteController extends GetxController {
 
   // var portDepotId = '84B9B9A3-99CE-4865-81B7-74070F075EAB'.obs;
 
+  var currency_controller = TextEditingController().obs;
   var currency = ''.obs;
 
   var exRate = TextEditingController().obs;

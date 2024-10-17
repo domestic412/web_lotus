@@ -38,3 +38,4 @@ String termList_signin = 'termList';
 String commodityList_signin = 'commodityList';
 
 String dividerPage = 'Tracking';
+String dividerCompQuote = 'QuoteList';

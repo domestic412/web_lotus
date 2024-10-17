@@ -26,6 +26,5 @@ class WidgetQuoteNo extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

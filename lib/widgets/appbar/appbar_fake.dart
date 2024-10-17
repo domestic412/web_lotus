@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/variable.dart';
+import 'package:web_lotus/controller/divider_controller.dart';
 import 'package:web_lotus/controller/info_signin_controller.dart';
 import 'package:web_lotus/screen/quote/quote_page.dart';
 import 'package:web_lotus/screen/signin/signin_page.dart';
@@ -186,80 +187,250 @@ class _AppbarWidgetState extends State<AppbarWidget> {
   }
 }
 
-class MenuBar extends StatelessWidget {
-  Color? colorDividerTracking;
-  Color? colorDividerQuote;
-
+class MenuBar extends StatefulWidget {
   MenuBar({super.key});
 
   @override
+  State<MenuBar> createState() => _MenuBarState();
+}
+
+class _MenuBarState extends State<MenuBar> {
+  Color? colorDividerTracking;
+
+  Color? colorDividerQuote;
+
+  Color? colorDividerQuoteList;
+
+  Color? colorDividerDraft;
+
+  Color? colorDividerApproved;
+
+  Color? colorDividerComplete;
+
+  @override
   Widget build(BuildContext context) {
-    switch (dividerPage) {
+    switch (dividerController.dividerPage.value) {
       case 'Tracking':
         colorDividerTracking = white;
         colorDividerQuote = haian;
       case 'Quote':
-        colorDividerTracking = haian;
-        colorDividerQuote = white;
+        {
+          colorDividerTracking = haian;
+          colorDividerQuote = white;
+          switch (dividerController.dividerCompQuote.value) {
+            case 'QuoteList':
+              colorDividerQuoteList = white;
+              colorDividerDraft = haian;
+              colorDividerApproved = haian;
+              colorDividerComplete = haian;
+            case 'Draft':
+              colorDividerQuoteList = haian;
+              colorDividerDraft = white;
+              colorDividerApproved = haian;
+              colorDividerComplete = haian;
+            case 'Approved':
+              colorDividerQuoteList = haian;
+              colorDividerDraft = haian;
+              colorDividerApproved = white;
+              colorDividerComplete = haian;
+            case 'Complete':
+              colorDividerQuoteList = haian;
+              colorDividerDraft = haian;
+              colorDividerApproved = haian;
+              colorDividerComplete = white;
+          }
+        }
     }
     return Container(
       margin: EdgeInsets.all(5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
         children: [
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: haian,
-                elevation: 0.0,
-              ),
-              onPressed: () {
-                dividerPage = 'Tracking';
-                Get.to(() => TrackingPage());
-              },
-              child: Column(
-                children: [
-                  Container(
-                      padding: EdgeInsets.only(top: 10),
-                      child: Text('Tracking')),
-                  SizedBox(
-                    width: 90,
-                    child: Divider(
-                      thickness: 2,
-                      color: colorDividerTracking,
-                    ),
-                  )
-                ],
-              )),
-          // SizedBox(width: 10),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: haian,
-                elevation: 0.0,
-              ),
-              onPressed: () {
-                dividerPage = 'Quote';
-                switch (inforUserController.shipperName.value) {
-                  case '':
-                    Get.to(() => SignInPage());
-                    break;
-                  default:
-                    Get.to(() => QuoteListPage());
-                    break;
-                }
-              },
-              child: Column(
-                children: [
-                  Container(
-                      padding: EdgeInsets.only(top: 10), child: Text('Quote')),
-                  SizedBox(
-                    width: 90,
-                    child: Divider(
-                      thickness: 2,
-                      color: colorDividerQuote,
-                    ),
-                  )
-                ],
-              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: haian,
+                    elevation: 0.0,
+                  ),
+                  onPressed: () {
+                    dividerController.dividerPage.value = 'Tracking';
+                    Get.to(() => TrackingPage());
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Text('Tracking')),
+                      SizedBox(
+                        width: 90,
+                        child: Divider(
+                          thickness: 2,
+                          color: colorDividerTracking,
+                        ),
+                      )
+                    ],
+                  )),
+              // SizedBox(width: 10),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: haian,
+                    elevation: 0.0,
+                  ),
+                  onPressed: () {
+                    dividerController.dividerPage.value = 'Quote';
+                    switch (inforUserController.shipperName.value) {
+                      case '':
+                        Get.to(() => SignInPage());
+                        break;
+                      default:
+                        Get.to(() => QuoteListPage());
+                        break;
+                    }
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Text('Quote')),
+                      SizedBox(
+                        width: 90,
+                        child: Divider(
+                          thickness: 2,
+                          color: colorDividerQuote,
+                        ),
+                      ),
+                      dividerController.dividerPage.value == 'Quote'
+                          ? Container(
+                              padding: EdgeInsets.all(5),
+                              color: haian,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: haian,
+                                      elevation: 0.0,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        dividerController.dividerCompQuote
+                                            .value = 'QuoteList';
+                                      });
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Text('Quote List'),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        SizedBox(
+                                          width: 80,
+                                          child: Divider(
+                                            height: 0,
+                                            indent: 0,
+                                            thickness: 2,
+                                            color: colorDividerQuoteList,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: haian,
+                                      elevation: 0.0,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        dividerController
+                                            .dividerCompQuote.value = 'Draft';
+                                      });
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Text('Draft'),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        SizedBox(
+                                          width: 80,
+                                          child: Divider(
+                                            height: 0,
+                                            indent: 0,
+                                            thickness: 2,
+                                            color: colorDividerDraft,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: haian,
+                                      elevation: 0.0,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        dividerController.dividerCompQuote
+                                            .value = 'Approved';
+                                      });
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Text('Approved'),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        SizedBox(
+                                          width: 80,
+                                          child: Divider(
+                                            height: 0,
+                                            indent: 0,
+                                            thickness: 2,
+                                            color: colorDividerApproved,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: haian,
+                                      elevation: 0.0,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        dividerController.dividerCompQuote
+                                            .value = 'Complete';
+                                      });
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Text('Complete'),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        SizedBox(
+                                          width: 80,
+                                          child: Divider(
+                                            height: 0,
+                                            indent: 0,
+                                            thickness: 2,
+                                            color: colorDividerComplete,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : SizedBox()
+                    ],
+                  )),
+            ],
+          ),
         ],
       ),
     );

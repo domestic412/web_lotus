@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_init_quote.dart';
 
@@ -36,19 +37,25 @@ class _WidgetCurrencyState extends State<WidgetCurrency> {
       child: Row(
         children: [
           Container(
-            margin: EdgeInsets.only(right: 10),
-            child: Text('Currency'),
+            width: 100,
+            margin: EdgeInsets.only(right: 5),
+            padding: EdgeInsets.all(5),
+            color: Color.fromARGB(255, 92, 117, 160),
+            child: Text(
+              'Currency',
+              style: style12_white,
+            ),
           ),
           DropdownMenu<CurrencyQuotes>(
             menuHeight: 500,
             enableFilter: true,
             enableSearch: true,
+            trailingIcon: SizedBox.shrink(),
             inputDecorationTheme: InputDecorationTheme(
               isDense: true,
-              constraints: BoxConstraints(maxHeight: 40, maxWidth: 100),
+              constraints: BoxConstraints(maxHeight: 30, maxWidth: 100),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
+                  borderSide: BorderSide(color: Colors.black26)),
             ),
             dropdownMenuEntries: currencyEntries,
             onSelected: (CurrencyQuotes? currency) {

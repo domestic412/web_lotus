@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_quote_list.dart';
 
@@ -27,6 +28,10 @@ class DataTableQuote extends DataTableSource {
             (item.approveUser?.contains(query.toUpperCase()) ?? false) ||
             (item.approveDate?.contains(query.toUpperCase()) ?? false))
         .toList();
+  }
+
+  List<EQCQuoteList> filter_status(String query) {
+    return data!.where((item) => (item.quoteStatus == query)).toList();
   }
 
   @override
@@ -56,17 +61,25 @@ class DataTableQuote extends DataTableSource {
         onSelectChanged: (value) {
           quoteController.eqcQuoteId.value = data![index].eqcQuoteId!;
           // controller.selectWidget.value = quoteDetails;
+          switch (data![index].quoteStatus) {
+            case 'D':
+              isDraft = true;
+            default:
+              isDraft = false;
+          }
           switch (data![index].approveUser) {
             case '':
               quoteController.boolApprove.value = false;
             default:
               quoteController.boolApprove.value = true;
           }
-          Get.to(() => QuoteDetailsPage());
+          Get.to(() => const QuoteDetailsPage());
         },
         cells: [
-          DataCell(SizedBox(
-            width: 40,
+          DataCell(Container(
+            decoration: const BoxDecoration(
+              border: Border(right: BorderSide(color: Colors.grey, width: 0.5)),
+            ),
             child: Center(
               child: SelectableText(
                 (index + 1).toString(),
@@ -74,41 +87,99 @@ class DataTableQuote extends DataTableSource {
               ),
             ),
           )),
-          DataCell(SelectableText(
-            rowData.portDepot!,
-            // style: style_text_Table_small,
+          DataCell(Container(
+            decoration: const BoxDecoration(
+              border: Border(right: BorderSide(color: Colors.grey, width: 0.5)),
+            ),
+            child: Center(
+              child: SelectableText(
+                rowData.portDepot!,
+                // style: style_text_Table_small,
+              ),
+            ),
           )),
-          DataCell(SelectableText(
-            rowData.quoteNo!,
-            // style: style_text_Table_small,
+          DataCell(Container(
+            decoration: const BoxDecoration(
+              border: Border(right: BorderSide(color: Colors.grey, width: 0.5)),
+            ),
+            child: Center(
+              child: SelectableText(
+                rowData.quoteNo!,
+                // style: style_text_Table_small,
+              ),
+            ),
           )),
-          DataCell(SelectableText(
-            _dt1!,
-            // style: style_text_Table_small,
+          DataCell(Container(
+            decoration: const BoxDecoration(
+              border: Border(right: BorderSide(color: Colors.grey, width: 0.5)),
+            ),
+            child: Center(
+              child: SelectableText(
+                _dt1!,
+                // style: style_text_Table_small,
+              ),
+            ),
           )),
-          DataCell(SelectableText(
-            rowData.quoteCcy!,
-            // style: style_text_Table_small,
+          DataCell(Container(
+            decoration: const BoxDecoration(
+              border: Border(right: BorderSide(color: Colors.grey, width: 0.5)),
+            ),
+            child: Center(
+              child: SelectableText(
+                rowData.quoteCcy!,
+                // style: style_text_Table_small,
+              ),
+            ),
           )),
-          DataCell(SelectableText(
-            rowData.exRate!.toString(),
-            // style: style_text_Table_small,
+          DataCell(Container(
+            decoration: const BoxDecoration(
+              border: Border(right: BorderSide(color: Colors.grey, width: 0.5)),
+            ),
+            child: Center(
+              child: SelectableText(
+                rowData.exRate!.toString(),
+                // style: style_text_Table_small,
+              ),
+            ),
           )),
-          DataCell(SelectableText(
-            rowData.quoteStatus!,
-            // style: style_text_Table_small,
+          DataCell(Container(
+            decoration: const BoxDecoration(
+              border: Border(right: BorderSide(color: Colors.grey, width: 0.5)),
+            ),
+            child: Center(
+              child: SelectableText(
+                rowData.quoteStatus!,
+                // style: style_text_Table_small,
+              ),
+            ),
           )),
-          DataCell(SelectableText(
-            rowData.quoteUser!,
-            // style: style_text_Table_small,
+          DataCell(Container(
+            decoration: const BoxDecoration(
+              border: Border(right: BorderSide(color: Colors.grey, width: 0.5)),
+            ),
+            child: Center(
+              child: SelectableText(
+                rowData.quoteUser!,
+                // style: style_text_Table_small,
+              ),
+            ),
           )),
-          DataCell(SelectableText(
-            rowData.approveUser!,
-            // style: style_text_Table_small,
+          DataCell(Container(
+            decoration: const BoxDecoration(
+              border: Border(right: BorderSide(color: Colors.grey, width: 0.5)),
+            ),
+            child: Center(
+              child: SelectableText(
+                rowData.approveUser!,
+                // style: style_text_Table_small,
+              ),
+            ),
           )),
-          DataCell(SelectableText(
-            _dt2!,
-            // style: style_text_Table_small,
+          DataCell(Center(
+            child: SelectableText(
+              _dt2!,
+              // style: style_text_Table_small,
+            ),
           )),
           // DataCell(ElevatedButton(onPressed: (){
           //   controller.selectWidget.value = quoteDetails;

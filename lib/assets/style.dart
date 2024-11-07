@@ -8,6 +8,7 @@ TextStyle style15_black_bold =
     TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);
 TextStyle style18_black = TextStyle(fontSize: 18, color: Colors.black);
 TextStyle style32_black = TextStyle(fontSize: 32, color: Colors.black);
+TextStyle style12_white = TextStyle(fontSize: 12, color: Colors.white);
 TextStyle style15_white = TextStyle(fontSize: 15, color: Colors.white);
 TextStyle style18_white = TextStyle(fontSize: 18, color: Colors.white);
 TextStyle style13_blue =

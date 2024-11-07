@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:spreadsheet_decoder/spreadsheet_decoder.dart';
 import 'package:web_lotus/assets/color.dart';
+import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_input_quote_detail.dart';
+import 'package:web_lotus/widgets/check_digit/check_digit.dart';
 import 'package:web_lotus/widgets/import_excel.dart';
 
 class ImportButton extends StatefulWidget {
@@ -59,7 +61,8 @@ class _ImportButtonState extends State<ImportButton> {
                   case 0:
                     chargeCode = cell ?? '';
                   case 1:
-                    container = cell ?? '';
+                    container =
+                        checkDigit(cell) == true ? cell ?? '' : '#Error';
                   case 2:
                     inGateDate = cell ?? '';
                   case 3:
@@ -208,8 +211,11 @@ class _ImportButtonState extends State<ImportButton> {
       },
       style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll<Color>(haian),
-          minimumSize: MaterialStateProperty.all(Size(100, 50))),
-      child: Text('Import'),
+          minimumSize: MaterialStateProperty.all(Size(100, 30))),
+      child: Text(
+        'Import',
+        style: style12_white,
+      ),
     );
   }
 }

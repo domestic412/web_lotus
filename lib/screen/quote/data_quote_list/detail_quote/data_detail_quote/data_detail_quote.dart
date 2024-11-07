@@ -12,6 +12,21 @@ import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_quote_detail.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_category.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_charge.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_component.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_container.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_demension.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_detailDamage.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_error.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_gateInDate.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_laborCost.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_length.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_location.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_mrCost.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_quantity.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_totalCost.dart';
+import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_width.dart';
 import 'package:web_lotus/screen/quote/data_quote_list/detail_quote/data_detail_quote/page_support.dart';
 import 'package:web_lotus/screen/quote/data_quote_list/detail_quote/detail_quote_page.dart';
 import 'package:web_lotus/widgets/removeBeforeSlash.dart';
@@ -187,7 +202,6 @@ class DataTableQuoteDetails extends DataTableSource {
           ),
         ),
       )),
-      // DataCell(ElevatedButton(onPressed: (){}, child: Text('Edit'))),
     ]);
   }
 

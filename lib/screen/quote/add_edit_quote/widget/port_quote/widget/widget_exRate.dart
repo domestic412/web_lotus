@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 
 class WidgetExRate extends StatelessWidget {
@@ -11,13 +12,19 @@ class WidgetExRate extends StatelessWidget {
       constraints: BoxConstraints(minWidth: 150),
       child: Row(children: [
         Container(
-          margin: EdgeInsets.only(right: 10),
-          child: Text('Ex. Rate'),
+          width: 100,
+          margin: EdgeInsets.only(right: 5),
+          padding: EdgeInsets.all(5),
+          color: Color.fromARGB(255, 92, 117, 160),
+          child: Text(
+            'Ex. Rate',
+            style: style12_white,
+          ),
         ),
         Container(
           width: 100,
-          height: 40,
-          margin: EdgeInsets.only(right: 100),
+          height: 30,
+          margin: EdgeInsets.only(left: 5, right: 50),
           child: TextField(
             controller: quoteController.exRate.value,
             decoration:

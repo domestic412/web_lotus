@@ -6,7 +6,6 @@ double deviceHeight(context) => MediaQuery.sizeOf(context).height;
 double deviceWidth(context) => MediaQuery.sizeOf(context).width;
 
 const SERVER = 'http://222.252.166.214:6505';
-
 //format date
 changeDatetoShow({required DateTime date}) {
   return DateFormat('dd/MM/yyyy').format(date);
@@ -39,3 +38,5 @@ String commodityList_signin = 'commodityList';
 
 String dividerPage = 'Tracking';
 String dividerCompQuote = 'QuoteList';
+
+bool isDraft = false;

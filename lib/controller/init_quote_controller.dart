@@ -15,6 +15,8 @@ class QuoteController extends GetxController {
   RxList<ErrorQuotes> listError = <ErrorQuotes>[].obs;
   RxList<CategoryQuotes> listCategory = <CategoryQuotes>[].obs;
 
+  RxList listCont = [].obs;
+
   var boolApprove = false.obs;
 
   var currentDate_send = ''.obs;

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_quote_detail.dart';
 import 'package:web_lotus/screen/quote/data_quote_list/detail_quote/data_detail_quote/data_detail_quote.dart';
-import 'package:web_lotus/screen/quote/quote_page.dart';
-import 'package:web_lotus/screen/tracking/tracking_page.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/footer.dart';
 

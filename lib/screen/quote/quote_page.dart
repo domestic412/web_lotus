@@ -9,12 +9,13 @@ import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/model/model_quote_list.dart';
 import 'package:web_lotus/screen/quote/add_edit_quote/add_edit_quote.dart';
 import 'package:web_lotus/screen/quote/data_quote_list/data_quote_list.dart';
+import 'package:web_lotus/screen/quote/data_quote_list/detail_quote/data_detail_quote/data_detail_quote.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/footer.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 
 class QuoteListPage extends StatefulWidget {
-  const QuoteListPage({super.key});
+  QuoteListPage({super.key});
 
   @override
   State<QuoteListPage> createState() => _QuoteListPageState();
@@ -29,6 +30,9 @@ class _QuoteListPageState extends State<QuoteListPage> {
   DataTableQuote _list_filter = DataTableQuote(data: []);
 
   TextEditingController _search_quote = TextEditingController();
+
+  int number = 0;
+  String? statusQ;
 
   @override
   void initState() {
@@ -85,14 +89,14 @@ class _QuoteListPageState extends State<QuoteListPage> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Container(
-                  margin: EdgeInsets.fromLTRB(10, 10, 10, 40),
+                  margin: EdgeInsets.fromLTRB(10, 0, 10, 40),
                   decoration: BoxDecoration(
                       color: MyColor.contentColor,
                       borderRadius: BorderRadius.circular(10)),
                   // width: 1004,
                   constraints: BoxConstraints(minWidth: 1004, maxWidth: 1400),
                   // width: FWidth,
-                  padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
+                  padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -111,14 +115,14 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                     color: blue.withOpacity(.4), width: .5),
                                 boxShadow: [
                                   BoxShadow(
-                                      offset: const Offset(0, 6),
+                                      offset: Offset(0, 6),
                                       color: blue.withOpacity(.1),
                                       blurRadius: 12)
                                 ],
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 8),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 10),
                               child: Row(
                                 children: [
                                   Text('From Date'),
@@ -150,7 +154,7 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                               BorderRadius.circular(5)),
                                       margin:
                                           EdgeInsets.symmetric(horizontal: 10),
-                                      padding: const EdgeInsets.all(10),
+                                      padding: EdgeInsets.all(10),
                                       child: Text(
                                           quoteController.fromDate_text.value),
                                     ),
@@ -181,9 +185,9 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                           border: Border.all(color: grey),
                                           borderRadius:
                                               BorderRadius.circular(5)),
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      padding: const EdgeInsets.all(10),
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      padding: EdgeInsets.all(10),
                                       child: Text(
                                           quoteController.toDate_text.value),
                                     ),
@@ -198,14 +202,14 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                     color: blue.withOpacity(.4), width: .5),
                                 boxShadow: [
                                   BoxShadow(
-                                      offset: const Offset(0, 6),
+                                      offset: Offset(0, 6),
                                       color: blue.withOpacity(.1),
                                       blurRadius: 12)
                                 ],
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              padding: const EdgeInsets.all(8),
-                              margin: const EdgeInsets.symmetric(
+                              padding: EdgeInsets.all(8),
+                              margin: EdgeInsets.symmetric(
                                   vertical: 16, horizontal: 10),
                               child: Container(
                                 constraints: BoxConstraints(
@@ -215,10 +219,10 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                     border: Border.all(color: Colors.black45)),
                                 child: ListTile(
                                   dense: true,
-                                  // leading: const Icon(Icons.search),
+                                  // leading: Icon(Icons.search),
                                   title: TextField(
                                     controller: _search_quote,
-                                    decoration: const InputDecoration(
+                                    decoration: InputDecoration(
                                         hintText: 'Search',
                                         border: InputBorder.none,
                                         isDense: true,
@@ -228,7 +232,7 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                     },
                                   ),
                                   trailing: IconButton(
-                                    icon: const Icon(Icons.cancel),
+                                    icon: Icon(Icons.cancel),
                                     onPressed: () {
                                       _search_quote.clear();
                                       _filterQuote();
@@ -271,7 +275,7 @@ class _QuoteListPageState extends State<QuoteListPage> {
                               color: blue.withOpacity(.4), width: .5),
                           boxShadow: [
                             BoxShadow(
-                                offset: const Offset(0, 6),
+                                offset: Offset(0, 6),
                                 color: blue.withOpacity(.1),
                                 blurRadius: 12)
                           ],
@@ -281,71 +285,191 @@ class _QuoteListPageState extends State<QuoteListPage> {
                           showCheckboxColumn: false,
                           sortColumnIndex: 0,
                           dataRowMaxHeight: 50,
-                          columnSpacing: 16,
-                          columns: const [
+                          // columnSpacing: 16,
+                          columnSpacing: 0,
+                          columns: [
                             DataColumn(
-                              label: SizedBox(
-                                width: 40,
-                                child: Center(
-                                  child: Text(
-                                    'Seq',
-                                    // style: style_text_Table_small_bold,
+                              label: Expanded(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            color: Colors.grey, width: 0.5)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Seq',
+                                      // style: style_text_Table_small_bold,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                             DataColumn(
-                              label: Text(
-                                'Port/Depot',
-                                // style: style_text_Table_small_bold,
+                              label: Expanded(
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            color: Colors.grey, width: 0.5)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Port/Depot',
+                                      // style: style_text_Table_small_bold,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                             DataColumn(
-                              label: Text(
-                                'Quote No.',
-                                // style: style_text_Table_small_bold,
+                              label: Expanded(
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            color: Colors.grey, width: 0.5)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Quote No.',
+                                      // style: style_text_Table_small_bold,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                             DataColumn(
-                              label: Text(
-                                'Date',
-                                // style: style_text_Table_small_bold,
+                              label: Expanded(
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            color: Colors.grey, width: 0.5)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Date',
+                                      // style: style_text_Table_small_bold,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                             DataColumn(
-                              label: Text(
-                                'Ccy',
-                                // style: style_text_Table_small_bold,
+                              label: Expanded(
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            color: Colors.grey, width: 0.5)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Ccy',
+                                      // style: style_text_Table_small_bold,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                             DataColumn(
-                              label: Text(
-                                'ExRate',
-                                // style: style_text_Table_small_bold,
+                              label: Expanded(
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            color: Colors.grey, width: 0.5)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'ExRate',
+                                      // style: style_text_Table_small_bold,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                             DataColumn(
-                              label: Text(
-                                'Status',
-                                // style: style_text_Table_small_bold,
+                              label: Expanded(
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            color: Colors.grey, width: 0.5)),
+                                  ),
+                                  child: Center(
+                                    child: InkWell(
+                                      onTap: () {
+                                        if (number < 3) {
+                                          number = number + 1;
+                                        } else {
+                                          number = 0;
+                                        }
+                                        switch (number) {
+                                          case 0:
+                                            statusQ = '';
+                                          case 1:
+                                            statusQ = 'C';
+                                          case 2:
+                                            statusQ = 'A';
+                                        }
+                                        _list_filter = DataTableQuote(
+                                          data: _dataQuote
+                                              .filter_status(statusQ!),
+                                        );
+                                      },
+                                      child: Text(
+                                        'Status',
+                                        // style: style_text_Table_small_bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                             DataColumn(
-                              label: Text(
-                                'User',
-                                // style: style_text_Table_small_bold,
+                              label: Expanded(
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            color: Colors.grey, width: 0.5)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'User',
+                                      // style: style_text_Table_small_bold,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                             DataColumn(
-                              label: Text(
-                                'Approved By',
-                                // style: style_text_Table_small_bold,
+                              label: Expanded(
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                        right: BorderSide(
+                                            color: Colors.grey, width: 0.5)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Approved By',
+                                      // style: style_text_Table_small_bold,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                             DataColumn(
-                              label: Text(
-                                'Approved Date',
-                                // style: style_text_Table_small_bold,
+                              label: Expanded(
+                                child: Center(
+                                  child: Text(
+                                    'Approved Date',
+                                    // style: style_text_Table_small_bold,
+                                  ),
+                                ),
                               ),
                             ),
                             // DataColumn(

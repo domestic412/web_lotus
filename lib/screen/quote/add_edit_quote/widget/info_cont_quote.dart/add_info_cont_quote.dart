@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_input_quote_detail.dart';
 import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_category.dart';
 import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_component.dart';
+import 'package:web_lotus/widgets/check_digit/check_digit.dart';
 
 import 'widget/widget_gateInDate.dart';
 import 'widget/widget_charge.dart';
@@ -68,14 +70,43 @@ class _InfoContQuoteState extends State<InfoContQuote> {
           children: [
             ElevatedButton(
               onPressed: () {
-                InputQuoteDetail _listInputQuoteDetail = InputQuoteDetail(
-                    eqcQuoteId: quoteController.eqcQuoteId.value,
-                    chargeTypeId: quoteController.chargeTypeId.value,
-                    componentId: quoteController.componentId.value,
-                    categoryId: quoteController.categoryId.value,
-                    errorId: quoteController.errorId.value,
+                if (checkDigit(quoteController.container.value.text) == true) {
+                  InputQuoteDetail _listInputQuoteDetail = InputQuoteDetail(
+                      eqcQuoteId: quoteController.eqcQuoteId.value,
+                      chargeTypeId: quoteController.chargeTypeId.value,
+                      componentId: quoteController.componentId.value,
+                      categoryId: quoteController.categoryId.value,
+                      errorId: quoteController.errorId.value,
+                      container: quoteController.container.value.text,
+                      inGateDate: quoteController.gateInDate_send.value,
+                      damageDetail: quoteController.detailDamage.value.text,
+                      quantity:
+                          double.parse(quoteController.quantity.value.text),
+                      dimension: quoteController.dimension.value.text,
+                      length: double.parse(quoteController.length.value.text),
+                      width: double.parse(quoteController.width.value.text),
+                      location: quoteController.location.value.text,
+                      laborCost:
+                          double.parse(quoteController.laborCost.value.text),
+                      mrCost: double.parse(quoteController.mrCost.value.text),
+                      totalCost:
+                          double.parse(quoteController.totalCost.value.text),
+                      estimateDate: quoteController.currentDate_send.value,
+                      isImgUpload: false,
+                      edit: 'I');
+                  quoteController.listInputQuoteDetail
+                      .add(_listInputQuoteDetail);
+                  quoteController.countRow.value =
+                      quoteController.countRow.value + 1;
+
+                  InputQuoteDetail _listInputQuoteDetail_show =
+                      InputQuoteDetail(
+                    chargeTypeId: quoteController.chargeName.value,
+                    componentId: quoteController.componentName.value,
+                    categoryId: quoteController.categoryName.value,
+                    errorId: quoteController.errorName.value,
                     container: quoteController.container.value.text,
-                    inGateDate: quoteController.gateInDate_send.value,
+                    inGateDate: quoteController.gateInDate_text.value,
                     damageDetail: quoteController.detailDamage.value.text,
                     quantity: double.parse(quoteController.quantity.value.text),
                     dimension: quoteController.dimension.value.text,
@@ -87,34 +118,19 @@ class _InfoContQuoteState extends State<InfoContQuote> {
                     mrCost: double.parse(quoteController.mrCost.value.text),
                     totalCost:
                         double.parse(quoteController.totalCost.value.text),
-                    estimateDate: quoteController.currentDate_send.value,
                     isImgUpload: false,
-                    edit: 'I');
-                quoteController.listInputQuoteDetail.add(_listInputQuoteDetail);
-                quoteController.countRow.value =
-                    quoteController.countRow.value + 1;
-
-                InputQuoteDetail _listInputQuoteDetail_show = InputQuoteDetail(
-                  chargeTypeId: quoteController.chargeName.value,
-                  componentId: quoteController.componentName.value,
-                  categoryId: quoteController.categoryName.value,
-                  errorId: quoteController.errorName.value,
-                  container: quoteController.container.value.text,
-                  inGateDate: quoteController.gateInDate_text.value,
-                  damageDetail: quoteController.detailDamage.value.text,
-                  quantity: double.parse(quoteController.quantity.value.text),
-                  dimension: quoteController.dimension.value.text,
-                  length: double.parse(quoteController.length.value.text),
-                  width: double.parse(quoteController.width.value.text),
-                  location: quoteController.location.value.text,
-                  laborCost: double.parse(quoteController.laborCost.value.text),
-                  mrCost: double.parse(quoteController.mrCost.value.text),
-                  totalCost: double.parse(quoteController.totalCost.value.text),
-                  isImgUpload: false,
-                );
-                quoteController.listInputQuoteDetail_show
-                    .add(_listInputQuoteDetail_show);
-                // print(quoteController.listInputQuoteDetail);
+                  );
+                  quoteController.listInputQuoteDetail_show
+                      .add(_listInputQuoteDetail_show);
+                  // print(quoteController.listInputQuoteDetail);
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      content: Text('Error Container Number'),
+                    ),
+                  );
+                }
               },
               style: ButtonStyle(
                   backgroundColor:

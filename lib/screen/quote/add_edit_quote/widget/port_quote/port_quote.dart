@@ -1,10 +1,5 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:web_lotus/assets/color.dart';
-import 'package:web_lotus/controller/init_quote_controller.dart';
-import 'package:web_lotus/model/model_init_quote.dart';
 
 import 'widget/import_button.dart';
 import 'widget/widget_currency.dart';

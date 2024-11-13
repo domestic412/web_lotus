@@ -37,10 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   http: any
-  bottom_sheet: ^3.1.2
-  webdev: any
   dropdown_button2: ^2.3.8
-  adaptive_scrollbar: ^2.1.2
   easy_localization: ^3.0.2
   flutter_easyloading: ^3.0.5
   
@@ -51,7 +48,10 @@ dependencies:
   universal_html: ^2.2.4
   spreadsheet_decoder: ^2.2.0
   flutter_popup: ^3.3.0
-  dropdown_textfield: ^1.0.8
+
+  flutter_typeahead: ^5.2.0
+  syncfusion_flutter_datepicker: ^27.1.58
+  syncfusion_flutter_datagrid: ^27.1.58
   
 
 dev_dependencies:

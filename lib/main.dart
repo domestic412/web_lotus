@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Lotus Link',
       debugShowCheckedModeBanner: false,
-      scrollBehavior: CustomHorizontalScroll(),
       // localizationsDelegates: context.localizationDelegates,
       // supportedLocales: context.supportedLocales,
       // locale: context.locale,

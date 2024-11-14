@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:web_lotus/assets/variable.dart';
 
-class EQCQuoteDetail {
+class QuoteDetail {
   String? chargeType;
   String? component;
   String? category;
@@ -22,7 +23,7 @@ class EQCQuoteDetail {
   String? approveCode;
   String? isImgUpload;
 
-  EQCQuoteDetail(
+  QuoteDetail(
       {this.chargeType,
       this.component,
       this.category,
@@ -42,7 +43,29 @@ class EQCQuoteDetail {
       this.approveCode,
       this.isImgUpload});
 
-  EQCQuoteDetail.fromJson(Map<String, dynamic> json) {
+  DataGridRow getDataGridRow_QuoteDetail() {
+    return DataGridRow(cells: [
+      DataGridCell(columnName: 'Container', value: container),
+      DataGridCell(columnName: 'Charge Type', value: chargeType),
+      DataGridCell(columnName: 'Component', value: component),
+      DataGridCell(columnName: 'Category', value: category),
+      DataGridCell(columnName: 'Damage Code', value: damageCode),
+      DataGridCell(columnName: 'Damege Detail', value: damageDetail),
+      DataGridCell(columnName: 'Quantity', value: quantity),
+      DataGridCell(columnName: 'Dimension', value: dimension),
+      DataGridCell(columnName: 'Length', value: length),
+      DataGridCell(columnName: 'Width', value: width),
+      DataGridCell(columnName: 'Location', value: location),
+      DataGridCell(columnName: 'Labor Cost', value: laborCost),
+      DataGridCell(columnName: 'Mr Cost', value: mrCost),
+      DataGridCell(columnName: 'Total Cost', value: totalCost),
+      DataGridCell(columnName: 'Estimate Date', value: estimateDate),
+      DataGridCell(columnName: 'Payer', value: payer),
+      DataGridCell(columnName: 'Approve Code', value: approveCode),
+    ]);
+  }
+
+  QuoteDetail.fromJson(Map<String, dynamic> json) {
     chargeType = json['chargeType'];
     component = json['component'];
     category = json['category'];
@@ -86,7 +109,7 @@ class EQCQuoteDetail {
     return data;
   }
 
-  Future<List<EQCQuoteDetail>> fetchQuoteDetails(String quoteId) async {
+  Future<List<QuoteDetail>> fetchQuoteDetails(String quoteId) async {
     try {
       var url = '$SERVER/EQCQuote/LoadEQCQuoteDetail?EQCQuoteId=$quoteId';
       final response = await http.post(Uri.parse(url), headers: {
@@ -98,7 +121,7 @@ class EQCQuoteDetail {
           print('Data EQC Quote Detail');
           List dataQuoteList = json.decode(body);
           return dataQuoteList
-              .map((data) => EQCQuoteDetail.fromJson(data))
+              .map((data) => QuoteDetail.fromJson(data))
               .toList();
         default:
           throw Exception('Error: EQC_QuoteList ${response.reasonPhrase}');

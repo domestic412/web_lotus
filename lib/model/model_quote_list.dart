@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:web_lotus/assets/variable.dart';
 
-class EQCQuoteList {
+class QuoteList {
   String? eqcQuoteId;
   String? portDepot;
   String? quoteDate;
@@ -18,7 +19,7 @@ class EQCQuoteList {
   bool? quoteOnline;
   bool? sendAlert;
 
-  EQCQuoteList(
+  QuoteList(
       {this.eqcQuoteId,
       this.portDepot,
       this.quoteDate,
@@ -32,7 +33,22 @@ class EQCQuoteList {
       this.quoteOnline,
       this.sendAlert});
 
-  EQCQuoteList.fromJson(Map<String, dynamic> json) {
+  DataGridRow getDataGridRow_QuoteList() {
+    return DataGridRow(cells: [
+      DataGridCell(columnName: 'eqcQuoteId', value: eqcQuoteId),
+      DataGridCell(columnName: 'Quote No', value: quoteNo),
+      DataGridCell(columnName: 'Port/Depot', value: portDepot),
+      DataGridCell(columnName: 'Date', value: quoteDate),
+      DataGridCell(columnName: 'Ccy', value: quoteCcy),
+      DataGridCell(columnName: 'exRate', value: exRate),
+      DataGridCell(columnName: 'Status', value: quoteStatus),
+      DataGridCell(columnName: 'User', value: quoteUser),
+      DataGridCell(columnName: 'Approve by', value: approveUser),
+      DataGridCell(columnName: 'Approve Date', value: approveDate)
+    ]);
+  }
+
+  QuoteList.fromJson(Map<String, dynamic> json) {
     eqcQuoteId = json['eqcQuoteId'];
     portDepot = json['portDepot'];
     quoteDate = json['quoteDate'];
@@ -64,14 +80,13 @@ class EQCQuoteList {
     return data;
   }
 
-  Future<List<EQCQuoteList>> fetchQuoteList(
-      String fromDate, String toDate) async {
+  Future<List<QuoteList>> fetchQuoteList(String fromDate, String toDate) async {
     try {
-      EasyLoading.show(
-        status: 'Loading...',
-        maskType: EasyLoadingMaskType.black,
-        dismissOnTap: true,
-      );
+      // EasyLoading.show(
+      //   status: 'Loading...',
+      //   maskType: EasyLoadingMaskType.black,
+      //   dismissOnTap: true,
+      // );
       var url =
           '$SERVER/EQCQuote/LoadEQCQuote?fromDate=$fromDate&toDate=$toDate';
       final response = await http.post(Uri.parse(url), headers: {
@@ -79,20 +94,18 @@ class EQCQuoteList {
       });
       switch (response.statusCode) {
         case 200:
-          EasyLoading.dismiss();
+          // EasyLoading.dismiss();
           var body = response.body;
-          print('Data EQC Quote List');
+          print('Data Quote List');
           List dataQuoteList = json.decode(body);
-          return dataQuoteList
-              .map((data) => EQCQuoteList.fromJson(data))
-              .toList();
+          return dataQuoteList.map((data) => QuoteList.fromJson(data)).toList();
         default:
-          EasyLoading.dismiss();
-          throw Exception('Error: EQC_QuoteList ${response.reasonPhrase}');
+          // EasyLoading.dismiss();
+          throw Exception('Error: QuoteList ${response.reasonPhrase}');
       }
     } on Exception catch (e) {
-      EasyLoading.dismiss();
-      throw Exception('Error: $e EQC_QuoteList');
+      // EasyLoading.dismiss();
+      throw Exception('Error: $e QuoteList');
     }
   }
 }

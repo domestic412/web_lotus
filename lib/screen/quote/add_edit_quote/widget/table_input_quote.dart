@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+// import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -426,11 +426,11 @@ class _TableInputQuoteState extends State<TableInputQuote> {
       if (result != null && result.files.isNotEmpty) {
         final file = result.files.first;
         if (file.bytes != null) {
-          EasyLoading.show(
-            status: 'Loading...',
-            maskType: EasyLoadingMaskType.black,
-            dismissOnTap: true,
-          );
+          // EasyLoading.show(
+          //   status: 'Loading...',
+          //   maskType: EasyLoadingMaskType.black,
+          //   dismissOnTap: true,
+          // );
           // Create a Blob from file data
           final blob = html.Blob([file.bytes!]);
           // Create FormData and append the Blob as a file
@@ -456,7 +456,8 @@ class _TableInputQuoteState extends State<TableInputQuote> {
               case 200:
                 var response = request.responseText;
                 print(response);
-                EasyLoading.showSuccess('Upload Success');
+                // EasyLoading.showSuccess('Upload Success');
+
                 // quoteController.listInputQuoteDetail_show[i].isImgUpload = true;
                 // quoteController.listInputQuoteDetail[i].isImgUpload = true;
                 // setState(() {
@@ -467,18 +468,18 @@ class _TableInputQuoteState extends State<TableInputQuote> {
               //   Get.back();
               // }
               default:
-                EasyLoading.showError('Upload Image Fail');
+              // EasyLoading.showError('Upload Image Fail');
             }
           });
         } else {
-          EasyLoading.showError('Error File Zip');
+          // EasyLoading.showError('Error File Zip');
         }
       } else {
         // User canceled the picker
         // EasyLoading.showError('No file select');
       }
     } on Exception catch (e) {
-      EasyLoading.showError('Fail to select file zip');
+      // EasyLoading.showError('Fail to select file zip');
       print(e);
       throw Exception('Error select file zip - $e');
     }
@@ -627,11 +628,11 @@ class _TableInputQuoteState extends State<TableInputQuote> {
   Future<void> downloadAndExtractZip(
       {required String cntr, required String esdate}) async {
     try {
-      EasyLoading.show(
-        status: 'Loading...',
-        maskType: EasyLoadingMaskType.black,
-        dismissOnTap: true,
-      );
+      // EasyLoading.show(
+      //   status: 'Loading...',
+      //   maskType: EasyLoadingMaskType.black,
+      //   dismissOnTap: true,
+      // );
 
       var url =
           '$SERVER/EQCQuote/DownloadImage?Container=$cntr&EstimateDate=$esdate';
@@ -646,7 +647,7 @@ class _TableInputQuoteState extends State<TableInputQuote> {
           List<dynamic> files = await _extractZipFile(bytes);
           quoteController.pathImg.value = files[0]['path'];
 
-          EasyLoading.dismiss();
+          // EasyLoading.dismiss();
 
           return Get.defaultDialog(
             title: 'Preview Image',
@@ -714,13 +715,12 @@ class _TableInputQuoteState extends State<TableInputQuote> {
                 )),
           );
         case 404:
-          return EasyLoading.showError('No Image');
+        // return EasyLoading.showError('No Image');
         default:
-          return EasyLoading.showError('Error: ${response.reasonPhrase}');
+        // return EasyLoading.showError('Error: ${response.reasonPhrase}');
       }
     } on Exception catch (e) {
-      EasyLoading.showError('Error: $e');
-      // throw Exception('Error fetch Image - $e');
+      // EasyLoading.showError('Error: $e');
     }
   }
 

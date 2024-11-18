@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:web_lotus/assets/variable.dart';
@@ -33,8 +32,9 @@ class QuoteList {
       this.quoteOnline,
       this.sendAlert});
 
-  DataGridRow getDataGridRow_QuoteList() {
+  DataGridRow getDataGridRow_QuoteList(int seq) {
     return DataGridRow(cells: [
+      DataGridCell(columnName: 'Seq', value: seq),
       DataGridCell(columnName: 'eqcQuoteId', value: eqcQuoteId),
       DataGridCell(columnName: 'Quote No', value: quoteNo),
       DataGridCell(columnName: 'Port/Depot', value: portDepot),

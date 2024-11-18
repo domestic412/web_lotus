@@ -130,24 +130,4 @@ class QuoteDetail {
       throw Exception('Error: $e EQC_QuoteList');
     }
   }
-
-  // Future<void> downloadImageQuote() async {
-  //   String ftpAddress="ftpcms.haiants.vn";
-  //   String username="MLA";
-  //   String password="Haian@2024";
-  //   int port=2124;
-  //   String remotePathImage="/MLASHIPPING/HACT/2024/07/24/BEAU5406448/BEAU5406448_IMG_20231229_161315.jpg";
-  //   FTPConnect ftpConnect = FTPConnect(ftpAddress,
-  //   user: username,
-  //   pass: password,
-  //   port: port,
-  //   showLog: true);
-  //   try {
-  //     await ftpConnect.connect();
-  //     // await ftpConnect.downloadFile(remotePathImage, File('abc.jpg'));
-  //     // await ftpConnect.disconnect();
-  //   } catch (e) {
-  //     debugPrint('Error download Image Quote: ' + e.toString());
-  //   }
-  // }
 }

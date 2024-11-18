@@ -1,15 +1,13 @@
 import 'dart:io';
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+// import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/screen/tracking/tracking_page.dart';
 
+import 'model/model_init_quote.dart';
 import 'resources/localization_service.dart';
-import 'widgets/horizontal_scroll.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -37,6 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     fullSizeHeight = deviceHeight(context);
     fullSizeWidth = deviceWidth(context);
+    InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
     return GetMaterialApp(
       title: 'Lotus Link',
       debugShowCheckedModeBanner: false,
@@ -47,7 +46,7 @@ class MyApp extends StatelessWidget {
       locale: Locale('en', 'US'),
       fallbackLocale: Locale('en', 'US'),
       home: const TrackingPage(),
-      builder: EasyLoading.init(),
+      // builder: EasyLoading.init(),
     );
   }
 }

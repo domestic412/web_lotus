@@ -6,14 +6,19 @@ import 'package:web_lotus/model/model_quote_list.dart';
 
 class DataQuoteListSource extends DataGridSource {
   DataQuoteListSource(this._quoteList) {
-    dataGridRows = _quoteList
-        .map<DataGridRow>(
-            (dataGridRow) => dataGridRow.getDataGridRow_QuoteList())
-        .toList();
+    buildDataGridRows();
   }
 
   List<QuoteList> _quoteList = [];
   List<DataGridRow> dataGridRows = [];
+
+  buildDataGridRows() {
+    int index = 0;
+    return dataGridRows = _quoteList.map<DataGridRow>((dataGridRow) {
+      index = index + 1;
+      return dataGridRow.getDataGridRow_QuoteList(index);
+    }).toList();
+  }
 
   @override
   List<DataGridRow> get rows => dataGridRows;

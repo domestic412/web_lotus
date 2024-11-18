@@ -14,6 +14,7 @@ import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/footer.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 
+import 'add_edit_quote/add_edit_quote.dart';
 import 'data_quote_list/detail_quote/detail_quote_page.dart';
 
 class QuoteListPage extends StatefulWidget {
@@ -150,27 +151,27 @@ class _QuoteListPageState extends State<QuoteListPage> {
                             ],
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 10),
-                          child: Container(
-                            constraints:
-                                BoxConstraints(minWidth: 500, maxWidth: 750),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey)),
-                            child: TextField(
-                              controller: _search_quote,
-                              decoration: InputDecoration(
-                                  hintText: 'Search',
-                                  border: InputBorder.none,
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.all(7)),
-                              onChanged: (value) {
-                                // _filterQuote();
-                              },
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   margin: EdgeInsets.symmetric(
+                        //       vertical: 16, horizontal: 10),
+                        //   child: Container(
+                        //     constraints:
+                        //         BoxConstraints(minWidth: 500, maxWidth: 750),
+                        //     decoration: BoxDecoration(
+                        //         border: Border.all(color: Colors.grey)),
+                        //     child: TextField(
+                        //       controller: _search_quote,
+                        //       decoration: InputDecoration(
+                        //           hintText: 'Search',
+                        //           border: InputBorder.none,
+                        //           isDense: true,
+                        //           contentPadding: EdgeInsets.all(7)),
+                        //       onChanged: (value) {
+                        //         // _filterQuote();
+                        //       },
+                        //     ),
+                        //   ),
+                        // ),
                         ElevatedButton(
                           onPressed: () {
                             quoteController.listInputQuoteDetail.value = [];
@@ -178,6 +179,7 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                 [];
                             quoteController.countRow.value = 0;
                             InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
+                            Get.to(() => AEQuotePage());
                           },
                           style: ButtonStyle(
                               backgroundColor:
@@ -220,6 +222,17 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                       source:
                                           DataQuoteListSource(snapshot.data),
                                       columns: [
+                                        GridColumn(
+                                          // visible: false,
+                                          columnName: 'Seq',
+                                          label: Container(
+                                              padding:
+                                                  const EdgeInsets.all(5.0),
+                                              alignment: Alignment.centerLeft,
+                                              child: Text('Seq',
+                                                  overflow:
+                                                      TextOverflow.ellipsis)),
+                                        ),
                                         GridColumn(
                                           visible: false,
                                           columnName: 'eqcQuoteId',

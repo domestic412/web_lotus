@@ -20,15 +20,19 @@ class QuoteDetailsPage extends StatefulWidget {
 class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
   late DataQuoteDetailSource _dataQuoteDetailSource;
   List<QuoteDetail> _listQuoteDetail = <QuoteDetail>[];
+  TextEditingController _controller_cntr = TextEditingController();
+  TextEditingController _controller_charge = TextEditingController();
+  TextEditingController _controller_component = TextEditingController();
+  TextEditingController _controller_category = TextEditingController();
+  TextEditingController _controller_error = TextEditingController();
+  TextEditingController _controller_location = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: WidgetAppBar(),
       backgroundColor: MyColor.contentColor,
-      // bottomSheet: Footer(),
       body: Container(
         color: Colors.white,
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           AppbarWidget(),
           Text(
@@ -50,44 +54,47 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                   }
                   return snapshot.hasData
                       ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            TypeAheadField<ComponentQuotes>(
-              animationDuration: Duration(milliseconds: 0),
-              autoFlipDirection: true,
-              autoFlipMinHeight: 400,
-              suggestionsCallback: (search) => getSalaryData()
-                  .where((element) => element.name!
-                      .toLowerCase()
-                      .contains(search.toLowerCase()))
-                  .toList(),
-              builder: (context, controller, focusNode) {
-                _controller = controller;
-                _controller.clear();
-                return TextField(
-                  controller: _controller,
-                  focusNode: focusNode,
-                  autofocus: true,
-                );
-              },
-              itemBuilder: (context, value) => ListTile(
-                title: Text(value.name!),
-              ),
-              onSelected: (value) {
-                newCellValue = value.id;
-                _controller.text = value.name!;
-              },
-            )
-                            MaterialButton(
-                                child: Text('Add Filter'),
-                                onPressed: () {
-                                  _dataQuoteDetailSource.addFilter(
-                                      'Component',
-                                      const FilterCondition(
-                                          filterBehavior:
-                                              FilterBehavior.stringDataType,
-                                          type: FilterType.equals,
-                                          value: 'FPP'));
-                                }),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                WidgetCntr(),
+                                WidgetCharge(),
+                                WidgetComponent(),
+                                WidgetCategory(),
+                                WidgetDamage(),
+                                WidgetLocation(),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      _dataQuoteDetailSource.applyFilter(
+                                          cntr: _controller_cntr.text,
+                                          chargeTypeCode:
+                                              _controller_charge.text,
+                                          componentCode:
+                                              _controller_component.text,
+                                          categoryCode:
+                                              _controller_category.text,
+                                          damageCode: _controller_error.text,
+                                          location: _controller_location.text);
+                                    },
+                                    child: const Text('Filter')),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      _controller_cntr.clear();
+                                      _controller_charge.clear();
+                                      _controller_component.clear();
+                                      _controller_category.clear();
+                                      _controller_error.clear();
+                                      _controller_location.clear();
+                                      _dataQuoteDetailSource.clear();
+                                    },
+                                    child: const Text('Remove Filter'))
+                              ],
+                            ),
                             Expanded(
                               child: SfDataGridTheme(
                                   data: SfDataGridThemeData(
@@ -283,6 +290,300 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
           )
         ]),
       ),
+    );
+  }
+
+  Row WidgetCntr() {
+    return Row(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 92, 117, 160),
+          ),
+          child: Text(
+            'Container No.',
+            style: style12_white,
+          ),
+        ),
+        SizedBox(
+          width: 100,
+          child: TextField(
+            controller: _controller_cntr,
+            style: const TextStyle(fontSize: 12),
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.all(8),
+              isDense: true,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                Radius.circular(0.0),
+              )),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Row WidgetCharge() {
+    return Row(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 92, 117, 160),
+          ),
+          child: Text(
+            'Charge Type',
+            style: style12_white,
+          ),
+        ),
+        SizedBox(
+          width: 100,
+          child: TypeAheadField<ChargeTypeQuotes>(
+            animationDuration: const Duration(milliseconds: 0),
+            autoFlipDirection: true,
+            suggestionsCallback: (search) => quoteController.listCharge
+                .where((element) => element.chargeTypeCode!
+                    .toLowerCase()
+                    .contains(search.toLowerCase()))
+                .toList(),
+            builder: (context, controller, focusNode) {
+              _controller_charge = controller;
+              _controller_charge.clear();
+              return TextField(
+                controller: _controller_charge,
+                focusNode: focusNode,
+                style: const TextStyle(fontSize: 12),
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.all(8),
+                  isDense: true,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                    Radius.circular(0.0),
+                  )),
+                ),
+              );
+            },
+            itemBuilder: (context, value) => ListTile(
+              dense: true,
+              title: Text(
+                value.chargeTypeCode!,
+                style: style12_black,
+              ),
+            ),
+            onSelected: (value) {
+              _controller_charge.text = value.chargeTypeCode!;
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row WidgetComponent() {
+    return Row(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 92, 117, 160),
+          ),
+          child: Text(
+            'Component',
+            style: style12_white,
+          ),
+        ),
+        SizedBox(
+          width: 100,
+          child: TypeAheadField<ComponentQuotes>(
+            animationDuration: const Duration(milliseconds: 0),
+            autoFlipDirection: true,
+            suggestionsCallback: (search) => quoteController.listComponent
+                .where((element) => element.componentCode!
+                    .toLowerCase()
+                    .contains(search.toLowerCase()))
+                .toList(),
+            builder: (context, controller, focusNode) {
+              _controller_component = controller;
+              _controller_component.clear();
+              return TextField(
+                controller: _controller_component,
+                focusNode: focusNode,
+                style: const TextStyle(fontSize: 12),
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.all(8),
+                  isDense: true,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                    Radius.circular(0.0),
+                  )),
+                ),
+              );
+            },
+            itemBuilder: (context, value) => ListTile(
+              dense: true,
+              title: Text(
+                value.componentCode!,
+                style: style12_black,
+              ),
+            ),
+            onSelected: (value) {
+              _controller_component.text = value.componentCode!;
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row WidgetCategory() {
+    return Row(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 92, 117, 160),
+          ),
+          child: Text(
+            'Category',
+            style: style12_white,
+          ),
+        ),
+        SizedBox(
+          width: 100,
+          child: TypeAheadField<CategoryQuotes>(
+            animationDuration: const Duration(milliseconds: 0),
+            autoFlipDirection: true,
+            suggestionsCallback: (search) => quoteController.listCategory
+                .where((element) => element.categoryCode!
+                    .toUpperCase()
+                    .contains(search.toUpperCase()))
+                .toList(),
+            builder: (context, controller, focusNode) {
+              _controller_category = controller;
+              _controller_category.clear();
+              return TextField(
+                controller: _controller_category,
+                focusNode: focusNode,
+                style: const TextStyle(fontSize: 12),
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.all(8),
+                  isDense: true,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                    Radius.circular(0.0),
+                  )),
+                ),
+              );
+            },
+            itemBuilder: (context, value) => ListTile(
+              dense: true,
+              title: Text(
+                value.categoryCode!,
+                style: style12_black,
+              ),
+            ),
+            onSelected: (value) {
+              _controller_category.text = value.categoryCode!;
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row WidgetDamage() {
+    return Row(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 92, 117, 160),
+          ),
+          child: Text(
+            'Damage Code',
+            style: style12_white,
+          ),
+        ),
+        SizedBox(
+          width: 100,
+          child: TypeAheadField<ErrorQuotes>(
+            animationDuration: const Duration(milliseconds: 0),
+            autoFlipDirection: true,
+            suggestionsCallback: (search) => quoteController.listError
+                .where((element) => element.errorCode!
+                    .toLowerCase()
+                    .contains(search.toLowerCase()))
+                .toList(),
+            builder: (context, controller, focusNode) {
+              _controller_error = controller;
+              _controller_error.clear();
+              return TextField(
+                controller: _controller_error,
+                focusNode: focusNode,
+                style: const TextStyle(fontSize: 12),
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.all(8),
+                  isDense: true,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                    Radius.circular(0.0),
+                  )),
+                ),
+              );
+            },
+            itemBuilder: (context, value) => ListTile(
+              dense: true,
+              title: Text(
+                value.errorCode!,
+                style: style12_black,
+              ),
+            ),
+            onSelected: (value) {
+              _controller_error.text = value.errorCode!;
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row WidgetLocation() {
+    return Row(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 92, 117, 160),
+          ),
+          child: Text(
+            'Location',
+            style: style12_white,
+          ),
+        ),
+        SizedBox(
+          width: 100,
+          child: TextField(
+            controller: _controller_location,
+            style: const TextStyle(fontSize: 12),
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.all(8),
+              isDense: true,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                Radius.circular(0.0),
+              )),
+            ),
+          ),
+        )
+      ],
     );
   }
 }

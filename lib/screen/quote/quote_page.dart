@@ -214,7 +214,7 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                           (addedRows, removedRows) {
                                         quoteController.eqcQuoteId.value =
                                             _dataGridController.selectedRow!
-                                                .getCells()[0]
+                                                .getCells()[1]
                                                 .value
                                                 .toString();
                                         Get.to(() => const QuoteDetailsPage());

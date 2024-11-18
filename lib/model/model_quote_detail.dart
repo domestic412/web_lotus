@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/variable.dart';
 
 class QuoteDetail {
@@ -43,8 +45,9 @@ class QuoteDetail {
       this.approveCode,
       this.isImgUpload});
 
-  DataGridRow getDataGridRow_QuoteDetail() {
+  DataGridRow getDataGridRow_QuoteDetail(int seq) {
     return DataGridRow(cells: [
+      DataGridCell(columnName: 'Seq', value: seq),
       DataGridCell(columnName: 'Container', value: container),
       DataGridCell(columnName: 'Charge Type', value: chargeType),
       DataGridCell(columnName: 'Component', value: component),
@@ -62,6 +65,7 @@ class QuoteDetail {
       DataGridCell(columnName: 'Estimate Date', value: estimateDate),
       DataGridCell(columnName: 'Payer', value: payer),
       DataGridCell(columnName: 'Approve Code', value: approveCode),
+      DataGridCell(columnName: 'Image', value: isImgUpload),
     ]);
   }
 

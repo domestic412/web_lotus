@@ -11,8 +11,8 @@ TextStyle style32_black = TextStyle(fontSize: 32, color: Colors.black);
 TextStyle style12_white = TextStyle(fontSize: 12, color: Colors.white);
 TextStyle style15_white = TextStyle(fontSize: 15, color: Colors.white);
 TextStyle style18_white = TextStyle(fontSize: 18, color: Colors.white);
-TextStyle style13_blue =
-    TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: MyColor.haian);
+TextStyle style12_blue =
+    TextStyle(fontSize: 13, color: MyColor.haian);
 TextStyle style20_red = TextStyle(fontSize: 16, color: Colors.red);
 TextStyle appbar_style20_blue = TextStyle(
     fontSize: 20, color: Color(0xff033572), fontWeight: FontWeight.bold);

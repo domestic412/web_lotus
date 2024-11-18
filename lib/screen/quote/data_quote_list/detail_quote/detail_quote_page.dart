@@ -10,6 +10,8 @@ import 'package:web_lotus/screen/quote/data_quote_list/detail_quote/data_detail_
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
+import 'data_detail_quote/widget/upload_image.dart';
+
 class QuoteDetailsPage extends StatefulWidget {
   const QuoteDetailsPage({super.key});
 
@@ -51,6 +53,7 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                     _listQuoteDetail = snapshot.data;
                     _dataQuoteDetailSource =
                         DataQuoteDetailSource(_listQuoteDetail);
+                    _dataQuoteDetailSource.addColumnGroup(ColumnGroup(name: 'Container', sortGroupRows: true));
                   }
                   return snapshot.hasData
                       ? Column(
@@ -92,7 +95,13 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                                       _controller_location.clear();
                                       _dataQuoteDetailSource.clear();
                                     },
-                                    child: const Text('Remove Filter'))
+                                    child: const Text('Remove Filter')),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                ElevatedButton(onPressed: (){
+                                  SelectFileZip();
+                                }, child: Text('Upload Image (.zip)'))
                               ],
                             ),
                             Expanded(
@@ -103,6 +112,8 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                                   child: SfDataGrid(
                                       rowHeight: 30,
                                       headerRowHeight: 40,
+                                      allowExpandCollapseGroup: true,
+                                      groupCaptionTitleFormat: '{ColumnName} : {Key} - {ItemsCount}',
                                       columnWidthMode: ColumnWidthMode.fill,
                                       selectionMode: SelectionMode.single,
                                       gridLinesVisibility:
@@ -111,6 +122,16 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                                           GridLinesVisibility.both,
                                       source: _dataQuoteDetailSource,
                                       columns: [
+                                        GridColumn(
+                                            columnName: 'Seq',
+                                            label: Container(
+                                              padding: const EdgeInsets.all(5),
+                                              alignment: Alignment.centerLeft,
+                                              child: const Text(
+                                                'Seq',
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            )),
                                         GridColumn(
                                             columnName: 'Container',
                                             label: Container(
@@ -278,6 +299,16 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                                               alignment: Alignment.centerLeft,
                                               child: const Text(
                                                 'Approve Code',
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            )),
+                                        GridColumn(
+                                            columnName: 'Image',
+                                            label: Container(
+                                              padding: const EdgeInsets.all(5),
+                                              alignment: Alignment.centerLeft,
+                                              child: const Text(
+                                                'Image',
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                             )),

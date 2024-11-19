@@ -30,35 +30,55 @@ class InfoContQuote extends StatefulWidget {
 class _InfoContQuoteState extends State<InfoContQuote> {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10, bottom: 5),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          margin: EdgeInsets.all(5),
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              WidgetCharge(),
               WidgetContainer(),
               WidgetGetInDate(),
+            ],
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.all(5),
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              WidgetCharge(),
               WidgetComponent(),
-              WidgetDetailDamage(),
               WidgetError(),
+              WidgetDetailDamage(),
               WidgetQuantity(),
             ],
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 5, bottom: 10),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          margin: EdgeInsets.all(5),
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              WidgetCategory(),
+              WidgetLocation(),
               WidgetDemension(),
               WidgetLength(),
               WidgetWidth(),
-              WidgetLocation(),
-              WidgetCategory(),
+            ],
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.all(5),
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               WidgetLaborCost(),
               WidgetMrCost(),
               WidgetTotalCost(),

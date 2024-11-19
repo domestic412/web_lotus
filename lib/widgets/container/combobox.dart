@@ -14,12 +14,14 @@ Combobox(
     child: TypeAheadField<dynamic>(
       animationDuration: const Duration(milliseconds: 0),
       autoFlipDirection: true,
-      suggestionsCallback: (search) => list
-          .where((element) => element[valueName]
-              .toString()
-              .toLowerCase()
-              .contains(search.toLowerCase()))
-          .toList(),
+      suggestionsCallback: (search) => list.where((element) {
+        print(list[0]['chargeTypeCode'].toString());
+        print(element.toString());
+        return element[valueName]
+            .toString()
+            .toLowerCase()
+            .contains(search.toLowerCase());
+      }).toList(),
       builder: (context, controller, focusNode) {
         controllerCombobox = controller;
         controllerCombobox.clear();

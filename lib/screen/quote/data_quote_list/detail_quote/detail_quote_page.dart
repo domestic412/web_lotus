@@ -9,6 +9,7 @@ import 'package:web_lotus/model/model_quote_detail.dart';
 import 'package:web_lotus/screen/quote/data_quote_list/detail_quote/data_detail_quote/data_detail_quote_gridview.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:web_lotus/widgets/container/WidgetGridColumn.dart';
 
 import 'data_detail_quote/widget/upload_image.dart';
 
@@ -123,196 +124,49 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                                           GridLinesVisibility.both,
                                       source: _dataQuoteDetailSource,
                                       columns: [
-                                        GridColumn(
-                                            columnName: 'Seq',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Seq',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Container',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Container',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Charge Type',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Charge Type',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Component',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Component',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Category',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Category',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Damage Code',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Damage Code',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Damage Detail',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Damage Detail',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Quantity',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Quantity',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Demension',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Demension',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Length',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Length',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Width',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Width',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Location',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Location',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Labor Cost',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Labor Cost',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Mr Cost',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Mr Cost',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Total Cost',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Total Cost',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Estimate Date',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Estimate Date',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Payer',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Payer',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Approve Code',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Approve Code',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
-                                        GridColumn(
-                                            columnName: 'Image',
-                                            label: Container(
-                                              padding: const EdgeInsets.all(5),
-                                              alignment: Alignment.centerLeft,
-                                              child: const Text(
-                                                'Image',
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            )),
+                                        WidgetGridColumn(
+                                            label: 'Seq', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Container', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Charge Type',
+                                            visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Component', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Category', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Damage Code',
+                                            visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Damage Detail',
+                                            visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Quantity', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Demension', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Length', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Width', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Location', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Labor Cost', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Mr Cost', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Total Cost', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Estimate Date',
+                                            visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Payer', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Approve Code',
+                                            visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Image', visible: true),
                                       ])),
                             ),
                           ],

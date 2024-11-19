@@ -11,6 +11,7 @@ import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/model/model_quote_list.dart';
 import 'package:web_lotus/screen/quote/data_quote_list/data_quote_list_gridview.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
+import 'package:web_lotus/widgets/container/WidgetGridColumn.dart';
 import 'package:web_lotus/widgets/footer.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 import 'add_quote_new/add_edit_quote.dart';
@@ -81,7 +82,8 @@ class _QuoteListPageState extends State<QuoteListPage> {
                               CustomPopup(
                                 showArrow: false,
                                 content: SizedBox(
-                                  width: 300,
+                                  height: 270,
+                                  width: 270,
                                   child: CalendarDatePicker(
                                     initialDate: dateFormat.parse(
                                         quoteController.fromDate_text.value),
@@ -106,16 +108,20 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                   margin: EdgeInsets.symmetric(horizontal: 10),
                                   padding: EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 10),
-                                  child:
-                                      Text(quoteController.fromDate_text.value),
+                                  child: Text(
+                                    quoteController.fromDate_text.value,
+                                    style: style12_black,
+                                  ),
                                 ),
                               ),
                               Text('To Date'),
                               SizedBox(
                                 child: CustomPopup(
                                   showArrow: false,
+                                  contentPadding: EdgeInsets.all(0),
                                   content: SizedBox(
-                                    width: 300,
+                                    height: 270,
+                                    width: 270,
                                     child: CalendarDatePicker(
                                       initialDate: dateFormat.parse(
                                           quoteController.toDate_text.value),
@@ -142,8 +148,10 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                         EdgeInsets.symmetric(horizontal: 10),
                                     padding: EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 10),
-                                    child:
-                                        Text(quoteController.toDate_text.value),
+                                    child: Text(
+                                      quoteController.toDate_text.value,
+                                      style: style12_black,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -221,110 +229,30 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                       source:
                                           DataQuoteListSource(snapshot.data),
                                       columns: [
-                                        GridColumn(
-                                          // visible: false,
-                                          columnName: 'Seq',
-                                          label: Container(
-                                              padding:
-                                                  const EdgeInsets.all(5.0),
-                                              alignment: Alignment.centerLeft,
-                                              child: Text('Seq',
-                                                  overflow:
-                                                      TextOverflow.ellipsis)),
-                                        ),
-                                        GridColumn(
-                                          visible: false,
-                                          columnName: 'eqcQuoteId',
-                                          label: Container(
-                                              padding:
-                                                  const EdgeInsets.all(5.0),
-                                              alignment: Alignment.centerLeft,
-                                              child: Text('eqcQuoteId',
-                                                  overflow:
-                                                      TextOverflow.ellipsis)),
-                                        ),
-                                        GridColumn(
-                                          columnName: 'Quote No',
-                                          label: Container(
-                                              padding:
-                                                  const EdgeInsets.all(5.0),
-                                              alignment: Alignment.centerLeft,
-                                              child: Text('Quote No',
-                                                  overflow:
-                                                      TextOverflow.ellipsis)),
-                                        ),
-                                        GridColumn(
-                                            columnName: 'Port/Depot',
-                                            label: Container(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                alignment: Alignment.centerLeft,
-                                                child: Text('Port/Depot',
-                                                    overflow: TextOverflow
-                                                        .ellipsis))),
-                                        GridColumn(
-                                            columnName: 'Date',
-                                            label: Container(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                alignment: Alignment.centerLeft,
-                                                child: Text('Date',
-                                                    overflow: TextOverflow
-                                                        .ellipsis))),
-                                        GridColumn(
-                                            columnName: 'Ccy',
-                                            label: Container(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                alignment: Alignment.centerLeft,
-                                                child: Text('Ccy',
-                                                    overflow: TextOverflow
-                                                        .ellipsis))),
-                                        GridColumn(
-                                            columnName: 'exRate',
-                                            label: Container(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                alignment: Alignment.centerLeft,
-                                                child: Text('exRate',
-                                                    overflow: TextOverflow
-                                                        .ellipsis))),
-                                        GridColumn(
-                                            columnName: 'Status',
-                                            label: Container(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                alignment: Alignment.centerLeft,
-                                                child: Text('Status',
-                                                    overflow: TextOverflow
-                                                        .ellipsis))),
-                                        GridColumn(
-                                            columnName: 'User',
-                                            label: Container(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                alignment: Alignment.centerLeft,
-                                                child: Text('User',
-                                                    overflow: TextOverflow
-                                                        .ellipsis))),
-                                        GridColumn(
-                                            columnName: 'Approve by',
-                                            label: Container(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                alignment: Alignment.centerLeft,
-                                                child: Text('Approve by',
-                                                    overflow: TextOverflow
-                                                        .ellipsis))),
-                                        GridColumn(
-                                            columnName: 'Approve Date',
-                                            label: Container(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                alignment: Alignment.centerLeft,
-                                                child: Text('Approve Date',
-                                                    overflow: TextOverflow
-                                                        .ellipsis))),
+                                        WidgetGridColumn(
+                                            label: 'Seq', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'eqcQuoteId',
+                                            visible: false),
+                                        WidgetGridColumn(
+                                            label: 'Quote No', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Port/Depot', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Date', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Ccy', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'exRate', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Status', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'User', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Approve by', visible: true),
+                                        WidgetGridColumn(
+                                            label: 'Approve Date',
+                                            visible: true),
                                       ]),
                                 )
                               : Center(child: CircularProgressIndicator());

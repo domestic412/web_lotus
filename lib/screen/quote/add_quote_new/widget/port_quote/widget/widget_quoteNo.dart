@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
-import 'package:web_lotus/widgets/container/container_label.dart';
+import 'package:web_lotus/widgets/container/ContainerLabel.dart';
 
 class WidgetQuoteNo extends StatelessWidget {
   @override
@@ -8,7 +8,7 @@ class WidgetQuoteNo extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        ContainerLabel(label: 'Quote No.'),
+        WidgetContainerLabel(label: 'Quote No.'),
         Container(
             width: 100,
             margin: EdgeInsets.all(5),

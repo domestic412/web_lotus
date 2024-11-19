@@ -4,7 +4,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_init_quote.dart';
-import 'package:web_lotus/widgets/container/container_label.dart';
+import 'package:web_lotus/widgets/container/ContainerLabel.dart';
 
 class WidgetCurrency extends StatefulWidget {
   const WidgetCurrency({super.key});
@@ -75,7 +75,7 @@ class _WidgetCurrencyState extends State<WidgetCurrency> {
   WidgetCurrency() {
     return Row(
       children: [
-        ContainerLabel(label: 'Currency'),
+        WidgetContainerLabel(label: 'Currency'),
         Container(
           width: 100,
           margin: const EdgeInsets.all(5),

@@ -24,7 +24,6 @@ class DataQuoteListSource extends DataGridSource {
   List<DataGridRow> get rows => dataGridRows;
 
   @override
-
   /// This method is called when the data grid needs to create a new row. If the row has no cells, it is assumed to be a header row and a single blank cell is returned. Otherwise, the cells of the row are mapped to widgets and returned as a DataGridRowAdapter.
   DataGridRowAdapter buildRow(DataGridRow row) {
     return DataGridRowAdapter(
@@ -46,5 +45,14 @@ class DataQuoteListSource extends DataGridSource {
               ))
           .toList(),
     );
+  }
+
+  @override
+  Widget? buildGroupCaptionCellWidget(
+      RowColumnIndex rowColumnIndex, String summaryValue) {
+    print(summaryValue);
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+        child: Text(summaryValue));
   }
 }

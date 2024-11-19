@@ -13,8 +13,7 @@ import 'package:web_lotus/screen/quote/data_quote_list/data_quote_list_gridview.
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/footer.dart';
 import 'package:flutter_popup/flutter_popup.dart';
-
-import 'add_edit_quote/add_edit_quote.dart';
+import 'add_quote_new/add_edit_quote.dart';
 import 'data_quote_list/detail_quote/detail_quote_page.dart';
 
 class QuoteListPage extends StatefulWidget {
@@ -179,7 +178,7 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                 [];
                             quoteController.countRow.value = 0;
                             InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
-                            Get.to(() => AEQuotePage());
+                            Get.to(() => AEQuotePage1());
                           },
                           style: ButtonStyle(
                               backgroundColor:

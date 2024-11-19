@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_input_quote_detail.dart';
-import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_category.dart';
-import 'package:web_lotus/screen/quote/add_edit_quote/widget/info_cont_quote.dart/widget/widget_component.dart';
 import 'package:web_lotus/widgets/check_digit/check_digit.dart';
 
+import 'widget/widget_category.dart';
+import 'widget/widget_component.dart';
 import 'widget/widget_gateInDate.dart';
 import 'widget/widget_charge.dart';
 import 'widget/widget_container.dart';

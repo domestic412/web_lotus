@@ -1,10 +1,8 @@
 import 'dart:convert';
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
-import 'package:web_lotus/screen/quote/add_edit_quote/add_edit_quote.dart';
 
 class InitEQCQuote {
   List<ChargeTypeQuotes>? chargeTypeQuotes;

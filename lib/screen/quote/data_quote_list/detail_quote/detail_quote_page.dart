@@ -22,6 +22,7 @@ class QuoteDetailsPage extends StatefulWidget {
 class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
   late DataQuoteDetailSource _dataQuoteDetailSource;
   List<QuoteDetail> _listQuoteDetail = <QuoteDetail>[];
+
   TextEditingController _controller_cntr = TextEditingController();
   TextEditingController _controller_charge = TextEditingController();
   TextEditingController _controller_component = TextEditingController();
@@ -53,7 +54,6 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                     _listQuoteDetail = snapshot.data;
                     _dataQuoteDetailSource =
                         DataQuoteDetailSource(_listQuoteDetail);
-                    _dataQuoteDetailSource.addColumnGroup(ColumnGroup(name: 'Container', sortGroupRows: true));
                   }
                   return snapshot.hasData
                       ? Column(
@@ -99,9 +99,11 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                ElevatedButton(onPressed: (){
-                                  SelectFileZip();
-                                }, child: Text('Upload Image (.zip)'))
+                                ElevatedButton(
+                                    onPressed: () {
+                                      SelectFileZip();
+                                    },
+                                    child: Text('Upload Image (.zip)'))
                               ],
                             ),
                             Expanded(
@@ -112,8 +114,7 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                                   child: SfDataGrid(
                                       rowHeight: 30,
                                       headerRowHeight: 40,
-                                      allowExpandCollapseGroup: true,
-                                      groupCaptionTitleFormat: '{ColumnName} : {Key} - {ItemsCount}',
+                                      isScrollbarAlwaysShown: true,
                                       columnWidthMode: ColumnWidthMode.fill,
                                       selectionMode: SelectionMode.single,
                                       gridLinesVisibility:

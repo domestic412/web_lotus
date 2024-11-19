@@ -29,13 +29,10 @@ class DataQuoteDetailSource extends DataGridSource {
 
   void buildDataGridRows() {
     int index = 0;
-    _dataGridRows = _quoteDetail
-        .map<DataGridRow>(
-            (DataGridRow) {
-              index = index + 1;
-              return DataGridRow.getDataGridRow_QuoteDetail(index);
-            } )
-        .toList();
+    _dataGridRows = _quoteDetail.map<DataGridRow>((DataGridRow) {
+      index = index + 1;
+      return DataGridRow.getDataGridRow_QuoteDetail(index);
+    }).toList();
   }
 
   @override
@@ -51,24 +48,24 @@ class DataQuoteDetailSource extends DataGridSource {
                   padding: EdgeInsets.all(5.0),
                   child: dataGridCell.value == null
                       ? SizedBox()
-                      : dataGridCell.columnName == 'Image'? InkWell(
-                        onTap: (){
-                          downloadAndExtractZip(cntr: row.getCells()[1].value, esdate: row.getCells()[15].value);
-                        },
-                        child: Text(dataGridCell.value.toString(), style: style12_blue, overflow: TextOverflow.ellipsis,),
-                      ) : Text(dataGridCell.value.toString(),
-                          style: style12_black,
-                          overflow: TextOverflow.ellipsis),
+                      : dataGridCell.columnName == 'Image'
+                          ? InkWell(
+                              onTap: () {
+                                downloadAndExtractZip(
+                                    cntr: row.getCells()[1].value,
+                                    esdate: row.getCells()[15].value);
+                              },
+                              child: Text(
+                                dataGridCell.value.toString(),
+                                style: style12_blue,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                          : Text(dataGridCell.value.toString(),
+                              style: style12_black,
+                              overflow: TextOverflow.ellipsis),
                 ))
             .toList());
-  }
-
-   @override
-  Widget? buildGroupCaptionCellWidget(
-      RowColumnIndex rowColumnIndex, String summaryValue) {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-        child: Text(summaryValue));
   }
 
   void applyFilter({

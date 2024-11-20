@@ -9,23 +9,9 @@ class WidgetWidth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         WidgetContainerLabel(label: 'Width'),
         WidgetTextField(controller: quoteController.width.value),
-        // Text('Width'),
-        // SizedBox(
-        //   height: 5,
-        // ),
-        // Container(
-        //   width: 140,
-        //   height: 40,
-        //   child: TextField(
-        //     controller: quoteController.width.value,
-        //     decoration: InputDecoration(
-        //         isDense: true, border: OutlineInputBorder()),
-        //   ),
-        // )
       ],
     );
   }

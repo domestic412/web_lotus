@@ -41,284 +41,287 @@ class _TableInputQuoteState extends State<TableInputQuote> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Container(
-        // width: 1004,
-        // alignment: Alignment.topCenter,
-        decoration: BoxDecoration(
-          color: white,
-          border: Border.all(color: blue.withOpacity(.4), width: .5),
-          boxShadow: [
-            BoxShadow(
-                offset: const Offset(0, 6),
-                color: blue.withOpacity(.1),
-                blurRadius: 12)
-          ],
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: DataTable(
-            columnSpacing: 15,
-            columns: <DataColumn>[
-              const DataColumn(
-                label: Text(
-                  'Seq.',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Charge',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Container',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Gate In Date',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Component',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Detail of Damage',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Damage Code',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Quantity',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Dimension',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Length',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Width',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Location',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Repair Codes',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Labor Code',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Mr. Cost',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Total Cost',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
-              DataColumn(
-                label: InkWell(
-                  onTap: () {
-                    SelectFileZip();
-                  },
-                  child: const Text(
-                    // 'Image File',
-                    'Upload Image',
+      () => Expanded(
+        child: Container(
+          // width: 1004,
+          // alignment: Alignment.topCenter,
+          decoration: BoxDecoration(
+            color: white,
+            border: Border.all(color: blue.withOpacity(.4), width: .5),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 6),
+                  color: blue.withOpacity(.1),
+                  blurRadius: 12)
+            ],
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: DataTable(
+              columnSpacing: 15,
+              columns: <DataColumn>[
+                const DataColumn(
+                  label: Text(
+                    'Seq.',
                     style: TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ),
-              ),
-              // DataColumn(
-              //   label: Text(
-              //     'Update Image',
-              //     style: TextStyle(fontStyle: FontStyle.italic),
-              //   ),
-              // ),
-              const DataColumn(
-                label: Text(
-                  '',
+                const DataColumn(
+                  label: Text(
+                    'Charge',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
                 ),
-              ),
-              const DataColumn(
-                label: Text(
-                  'Remove',
-                  style: TextStyle(fontStyle: FontStyle.italic),
+                const DataColumn(
+                  label: Text(
+                    'Container',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
                 ),
-              ),
-            ],
-            rows: <DataRow>[
-              for (int i = 0; i < quoteController.countRow.value; i++)
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text((i + 1).toString())),
-                    DataCell(Text(quoteController
-                            .listInputQuoteDetail_show[i].chargeTypeId ??
-                        '')),
-                    DataCell(Text(quoteController
-                            .listInputQuoteDetail_show[i].container ??
-                        '')),
-                    DataCell(Text(quoteController
-                            .listInputQuoteDetail_show[i].inGateDate ??
-                        '')),
-                    DataCell(Text(quoteController
-                            .listInputQuoteDetail_show[i].componentId ??
-                        '')),
-                    DataCell(Text(quoteController
-                            .listInputQuoteDetail_show[i].damageDetail ??
-                        '')),
-                    DataCell(Text(
-                        quoteController.listInputQuoteDetail_show[i].errorId ??
-                            '')),
-                    DataCell(Text(quoteController
-                        .listInputQuoteDetail_show[i].quantity!
-                        .toString())),
-                    DataCell(Text(quoteController
-                            .listInputQuoteDetail_show[i].dimension ??
-                        '')),
-                    DataCell(Text(quoteController
-                        .listInputQuoteDetail_show[i].length!
-                        .toString())),
-                    DataCell(Text(quoteController
-                        .listInputQuoteDetail_show[i].width!
-                        .toString())),
-                    DataCell(Text(
-                        quoteController.listInputQuoteDetail_show[i].location ??
-                            '')),
-                    DataCell(Text(quoteController
-                            .listInputQuoteDetail_show[i].categoryId ??
-                        '')),
-                    DataCell(Text(quoteController
-                        .listInputQuoteDetail_show[i].laborCost!
-                        .toString())),
-                    DataCell(Text(quoteController
-                        .listInputQuoteDetail_show[i].mrCost!
-                        .toString())),
-                    DataCell(Text(quoteController
-                        .listInputQuoteDetail_show[i].totalCost!
-                        .toString())),
-                    DataCell(
-                      quoteController
-                                  .listInputQuoteDetail_show[i].isImgUpload ==
-                              true
+                const DataColumn(
+                  label: Text(
+                    'Gate In Date',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                const DataColumn(
+                  label: Text(
+                    'Component',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                const DataColumn(
+                  label: Text(
+                    'Detail of Damage',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                const DataColumn(
+                  label: Text(
+                    'Damage Code',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                const DataColumn(
+                  label: Text(
+                    'Quantity',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                const DataColumn(
+                  label: Text(
+                    'Dimension',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                const DataColumn(
+                  label: Text(
+                    'Length',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                const DataColumn(
+                  label: Text(
+                    'Width',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                const DataColumn(
+                  label: Text(
+                    'Location',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                const DataColumn(
+                  label: Text(
+                    'Repair Codes',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                const DataColumn(
+                  label: Text(
+                    'Labor Code',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                const DataColumn(
+                  label: Text(
+                    'Mr. Cost',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                const DataColumn(
+                  label: Text(
+                    'Total Cost',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: InkWell(
+                    onTap: () {
+                      SelectFileZip();
+                    },
+                    child: const Text(
+                      // 'Image File',
+                      'Upload Image',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  ),
+                ),
+                // DataColumn(
+                //   label: Text(
+                //     'Update Image',
+                //     style: TextStyle(fontStyle: FontStyle.italic),
+                //   ),
+                // ),
+                const DataColumn(
+                  label: Text(
+                    '',
+                  ),
+                ),
+                const DataColumn(
+                  label: Text(
+                    'Remove',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+              ],
+              rows: <DataRow>[
+                for (int i = 0; i < quoteController.countRow.value; i++)
+                  DataRow(
+                    cells: <DataCell>[
+                      DataCell(Text((i + 1).toString())),
+                      DataCell(Text(quoteController
+                              .listInputQuoteDetail_show[i].chargeTypeId ??
+                          '')),
+                      DataCell(Text(quoteController
+                              .listInputQuoteDetail_show[i].container ??
+                          '')),
+                      DataCell(Text(quoteController
+                              .listInputQuoteDetail_show[i].inGateDate ??
+                          '')),
+                      DataCell(Text(quoteController
+                              .listInputQuoteDetail_show[i].componentId ??
+                          '')),
+                      DataCell(Text(quoteController
+                              .listInputQuoteDetail_show[i].damageDetail ??
+                          '')),
+                      DataCell(Text(quoteController
+                              .listInputQuoteDetail_show[i].errorId ??
+                          '')),
+                      DataCell(Text(quoteController
+                          .listInputQuoteDetail_show[i].quantity!
+                          .toString())),
+                      DataCell(Text(quoteController
+                              .listInputQuoteDetail_show[i].dimension ??
+                          '')),
+                      DataCell(Text(quoteController
+                          .listInputQuoteDetail_show[i].length!
+                          .toString())),
+                      DataCell(Text(quoteController
+                          .listInputQuoteDetail_show[i].width!
+                          .toString())),
+                      DataCell(Text(quoteController
+                              .listInputQuoteDetail_show[i].location ??
+                          '')),
+                      DataCell(Text(quoteController
+                              .listInputQuoteDetail_show[i].categoryId ??
+                          '')),
+                      DataCell(Text(quoteController
+                          .listInputQuoteDetail_show[i].laborCost!
+                          .toString())),
+                      DataCell(Text(quoteController
+                          .listInputQuoteDetail_show[i].mrCost!
+                          .toString())),
+                      DataCell(Text(quoteController
+                          .listInputQuoteDetail_show[i].totalCost!
+                          .toString())),
+                      DataCell(
+                        quoteController
+                                    .listInputQuoteDetail_show[i].isImgUpload ==
+                                true
+                            ? InkWell(
+                                onTap: () {
+                                  downloadAndExtractZip(
+                                      cntr: quoteController
+                                          .listInputQuoteDetail_show[i]
+                                          .container!,
+                                      esdate: changeDatetoSend(
+                                          date: DateTime.now()));
+                                },
+                                child: Text(
+                                    quoteController.listInputQuoteDetail_show[i]
+                                            .container ??
+                                        '',
+                                    style: TextStyle(color: haian)),
+                              )
+                            : const SizedBox.shrink(),
+                      ),
+                      // DataCell(Center(
+                      //   child: InkWell(
+                      //     onTap: () {
+                      //       getImage(
+                      //           quoteController
+                      //               .listInputQuoteDetail_show[i].container!,
+                      //           i);
+                      //     },
+                      //     child: Icon(
+                      //       Icons.add_a_photo_outlined,
+                      //       color: haian,
+                      //     ),
+                      //   ),
+                      // )),
+                      DataCell(quoteController.countRow.value != 0
                           ? InkWell(
                               onTap: () {
-                                downloadAndExtractZip(
-                                    cntr: quoteController
-                                        .listInputQuoteDetail_show[i]
-                                        .container!,
-                                    esdate:
-                                        changeDatetoSend(date: DateTime.now()));
+                                // quoteController.chargeName.value = quoteController.listInputQuoteDetail_show[i].chargeTypeId!;
+                                // quoteController.container.value.text = quoteController.listInputQuoteDetail_show[i].container!;
+                                // // quoteController.gateInDate_text.value = quoteController.listInputQuoteDetail_show[i].inGateDate!;
+                                // quoteController.componentName.value = quoteController.listInputQuoteDetail_show[i].componentId!;
+                                // quoteController.detailDamage.value.text = quoteController.listInputQuoteDetail_show[i].damageDetail!;
+                                // quoteController.errorName.value = quoteController.listInputQuoteDetail_show[i].errorId!;
+                                // quoteController.quantity.value.text = quoteController.listInputQuoteDetail_show[i].quantity!.toString();
+                                // quoteController.dimension.value.text = quoteController.listInputQuoteDetail_show[i].dimension!;
+                                // quoteController.length.value.text = quoteController.listInputQuoteDetail_show[i].length!.toString();
+                                // quoteController.width.value.text = quoteController.listInputQuoteDetail_show[i].width!.toString();
+                                // quoteController.location.value.text = quoteController.listInputQuoteDetail_show[i].location!;
+                                // quoteController.categoryName.value = quoteController.listInputQuoteDetail_show[i].categoryId!;
+                                // quoteController.laborCost.value.text = quoteController.listInputQuoteDetail_show[i].laborCost!.toString();
+                                // quoteController.mrCost.value.text = quoteController.listInputQuoteDetail_show[i].mrCost!.toString();
+                                // quoteController.totalCost.value.text = quoteController.listInputQuoteDetail_show[i].totalCost!.toString();
+                                _dialogChangeQuote(context, i);
                               },
-                              child: Text(
-                                  quoteController.listInputQuoteDetail_show[i]
-                                          .container ??
-                                      '',
-                                  style: TextStyle(color: haian)),
+                              child: const Icon(
+                                Icons.settings,
+                              ),
                             )
-                          : const SizedBox.shrink(),
-                    ),
-                    // DataCell(Center(
-                    //   child: InkWell(
-                    //     onTap: () {
-                    //       getImage(
-                    //           quoteController
-                    //               .listInputQuoteDetail_show[i].container!,
-                    //           i);
-                    //     },
-                    //     child: Icon(
-                    //       Icons.add_a_photo_outlined,
-                    //       color: haian,
-                    //     ),
-                    //   ),
-                    // )),
-                    DataCell(quoteController.countRow.value != 0
-                        ? InkWell(
-                            onTap: () {
-                              // quoteController.chargeName.value = quoteController.listInputQuoteDetail_show[i].chargeTypeId!;
-                              // quoteController.container.value.text = quoteController.listInputQuoteDetail_show[i].container!;
-                              // // quoteController.gateInDate_text.value = quoteController.listInputQuoteDetail_show[i].inGateDate!;
-                              // quoteController.componentName.value = quoteController.listInputQuoteDetail_show[i].componentId!;
-                              // quoteController.detailDamage.value.text = quoteController.listInputQuoteDetail_show[i].damageDetail!;
-                              // quoteController.errorName.value = quoteController.listInputQuoteDetail_show[i].errorId!;
-                              // quoteController.quantity.value.text = quoteController.listInputQuoteDetail_show[i].quantity!.toString();
-                              // quoteController.dimension.value.text = quoteController.listInputQuoteDetail_show[i].dimension!;
-                              // quoteController.length.value.text = quoteController.listInputQuoteDetail_show[i].length!.toString();
-                              // quoteController.width.value.text = quoteController.listInputQuoteDetail_show[i].width!.toString();
-                              // quoteController.location.value.text = quoteController.listInputQuoteDetail_show[i].location!;
-                              // quoteController.categoryName.value = quoteController.listInputQuoteDetail_show[i].categoryId!;
-                              // quoteController.laborCost.value.text = quoteController.listInputQuoteDetail_show[i].laborCost!.toString();
-                              // quoteController.mrCost.value.text = quoteController.listInputQuoteDetail_show[i].mrCost!.toString();
-                              // quoteController.totalCost.value.text = quoteController.listInputQuoteDetail_show[i].totalCost!.toString();
-                              _dialogChangeQuote(context, i);
-                            },
-                            child: const Icon(
-                              Icons.settings,
-                            ),
-                          )
-                        : const Text('')),
-                    DataCell(quoteController.countRow.value != 0
-                        ? InkWell(
-                            onTap: () {
-                              //remove infoContainer in listInfoContainer
-                              quoteController.listInputQuoteDetail_show
-                                  .removeAt(i);
-                              quoteController.listInputQuoteDetail.removeAt(i);
-                              // subtract countRowContianer
-                              quoteController.countRow.value =
-                                  quoteController.countRow.value - 1;
-                              // if countRowContianer = 0 then Error Send Eequest
-                              // quoteController.countRow.value ==
-                              //         0
-                              //     ? createBookingController
-                              //         .boolErrorBookingRequest.value = true
-                              //     : null;
-                            },
-                            child: const Icon(Icons.delete),
-                          )
-                        : const Text('')),
-                  ],
-                ),
-            ],
+                          : const Text('')),
+                      DataCell(quoteController.countRow.value != 0
+                          ? InkWell(
+                              onTap: () {
+                                //remove infoContainer in listInfoContainer
+                                quoteController.listInputQuoteDetail_show
+                                    .removeAt(i);
+                                quoteController.listInputQuoteDetail
+                                    .removeAt(i);
+                                // subtract countRowContianer
+                                quoteController.countRow.value =
+                                    quoteController.countRow.value - 1;
+                                // if countRowContianer = 0 then Error Send Eequest
+                                // quoteController.countRow.value ==
+                                //         0
+                                //     ? createBookingController
+                                //         .boolErrorBookingRequest.value = true
+                                //     : null;
+                              },
+                              child: const Icon(Icons.delete),
+                            )
+                          : const Text('')),
+                    ],
+                  ),
+              ],
+            ),
           ),
         ),
       ),

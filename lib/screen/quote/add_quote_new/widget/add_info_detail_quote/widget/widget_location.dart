@@ -10,23 +10,9 @@ class WidgetLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         WidgetContainerLabel(label: 'Location'),
         WidgetTextField(controller: quoteController.location.value),
-        // Text('Location'),
-        // SizedBox(
-        //   height: 5,
-        // ),
-        // Container(
-        //   width: 140,
-        //   height: 40,
-        //   child: TextField(
-        //     controller: quoteController.location.value,
-        //     decoration: InputDecoration(
-        //         isDense: true, border: OutlineInputBorder()),
-        //   ),
-        // )
       ],
     );
   }

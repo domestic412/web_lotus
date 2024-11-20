@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
-import 'package:web_lotus/assets/color.dart';
+
 import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';

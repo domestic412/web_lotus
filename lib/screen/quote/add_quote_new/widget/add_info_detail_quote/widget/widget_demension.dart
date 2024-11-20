@@ -13,19 +13,6 @@ class WidgetDemension extends StatelessWidget {
       children: [
         WidgetContainerLabel(label: 'Demension'),
         WidgetTextField(controller: quoteController.dimension.value),
-        // Text('Demension'),
-        // SizedBox(
-        //   height: 5,
-        // ),
-        // Container(
-        //   width: 140,
-        //   height: 40,
-        //   child: TextField(
-        //     controller: quoteController.dimension.value,
-        //     decoration: InputDecoration(
-        //         isDense: true, border: OutlineInputBorder()),
-        //   ),
-        // )
       ],
     );
   }

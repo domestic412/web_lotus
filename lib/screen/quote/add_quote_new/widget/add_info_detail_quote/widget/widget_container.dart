@@ -9,22 +9,9 @@ class WidgetContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         WidgetContainerLabel(label: 'Container'),
         WidgetTextField(controller: quoteController.container.value),
-        // Text('Container'),
-        // SizedBox(
-        //   height: 5,
-        // ),
-        // Container(
-        //   width: 200,
-        //   height: 40,
-        //   child: TextField(
-        //       controller: quoteController.container.value,
-        //       decoration: const InputDecoration(
-        //           isDense: true, border: OutlineInputBorder())),
-        // )
       ],
     );
   }

@@ -1,3 +1,5 @@
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+
 class InputQuoteDetail {
   String? eqcQuoteId;
   String? chargeTypeId;
@@ -44,6 +46,29 @@ class InputQuoteDetail {
     // this.approveCode,
     // this.payer,
   });
+
+  DataGridRow getDataGridRow_InputQuoteDetail(int seq) {
+    return DataGridRow(cells: [
+      DataGridCell(columnName: 'Seq', value: seq),
+      DataGridCell(columnName: 'eqcQuoteId', value: eqcQuoteId),
+      DataGridCell(columnName: 'Container', value: container),
+      DataGridCell(columnName: 'Charge Type', value: chargeTypeId),
+      DataGridCell(columnName: 'Component', value: componentId),
+      DataGridCell(columnName: 'Category', value: categoryId),
+      DataGridCell(columnName: 'Damage Code', value: errorId),
+      DataGridCell(columnName: 'Damege Detail', value: damageDetail),
+      DataGridCell(columnName: 'Quantity', value: quantity),
+      DataGridCell(columnName: 'Dimension', value: dimension),
+      DataGridCell(columnName: 'Length', value: length),
+      DataGridCell(columnName: 'Width', value: width),
+      DataGridCell(columnName: 'Location', value: location),
+      DataGridCell(columnName: 'Labor Cost', value: laborCost),
+      DataGridCell(columnName: 'Mr Cost', value: mrCost),
+      DataGridCell(columnName: 'Total Cost', value: totalCost),
+      DataGridCell(columnName: 'Estimate Date', value: estimateDate),
+      DataGridCell(columnName: 'Image', value: isImgUpload),
+    ]);
+  }
 
   InputQuoteDetail.fromJson(Map<String, dynamic> json) {
     eqcQuoteId = json['eqcQuoteId'];

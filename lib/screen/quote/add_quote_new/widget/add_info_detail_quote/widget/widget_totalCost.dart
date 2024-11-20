@@ -10,23 +10,9 @@ class WidgetTotalCost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         WidgetContainerLabel(label: 'Total Cost'),
         WidgetTextField(controller: quoteController.totalCost.value),
-        // Text('Total Cost'),
-        // SizedBox(
-        //   height: 5,
-        // ),
-        // Container(
-        //   width: 140,
-        //   height: 40,
-        //   child: TextField(
-        //     controller: quoteController.totalCost.value,
-        //     decoration: InputDecoration(
-        //         isDense: true, border: OutlineInputBorder()),
-        //   ),
-        // )
       ],
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -5,6 +7,7 @@ import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/widgets/container/ContainerLabel.dart';
+import 'package:web_lotus/widgets/container/combobox.dart';
 
 class WidgetCurrency extends StatefulWidget {
   const WidgetCurrency({super.key});
@@ -14,7 +17,7 @@ class WidgetCurrency extends StatefulWidget {
 }
 
 class _WidgetCurrencyState extends State<WidgetCurrency> {
-  TextEditingController _controller_currency = TextEditingController();
+  TextEditingController _controller = TextEditingController();
   // CurrencyQuotes? selectCurrency;
   @override
   Widget build(BuildContext context) {
@@ -76,47 +79,53 @@ class _WidgetCurrencyState extends State<WidgetCurrency> {
     return Row(
       children: [
         WidgetContainerLabel(label: 'Currency'),
-        Container(
-          width: 100,
-          margin: const EdgeInsets.all(5),
-          child: TypeAheadField<CurrencyQuotes>(
-            animationDuration: const Duration(milliseconds: 0),
-            autoFlipDirection: true,
-            suggestionsCallback: (search) => quoteController.listCurrency
-                .where((element) => element.currency!
-                    .toUpperCase()
-                    .contains(search.toUpperCase()))
-                .toList(),
-            builder: (context, controller, focusNode) {
-              _controller_currency = controller;
-              _controller_currency.clear();
-              return TextField(
-                controller: _controller_currency,
-                focusNode: focusNode,
-                style: const TextStyle(fontSize: 12),
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.all(8),
-                  isDense: true,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                    Radius.circular(0.0),
-                  )),
-                ),
-              );
-            },
-            itemBuilder: (context, value) => ListTile(
-              dense: true,
-              title: Text(
-                value.currency!,
-                style: style12_black,
-              ),
-            ),
-            onSelected: (value) {
-              _controller_currency.text = value.currency!;
-              quoteController.currency.value = value.currency ?? '';
-            },
-          ),
-        ),
+        Combobox<CurrencyQuotes>(
+            controllerCombobox: _controller,
+            list: quoteController.listCurrency,
+            valueName: (element) => element.currency!,
+            valueId: (element) => element.currency!,
+            valueSend: quoteController.currency.value),
+        // Container(
+        //   width: 100,
+        //   margin: const EdgeInsets.all(5),
+        //   child: TypeAheadField<CurrencyQuotes>(
+        //     animationDuration: const Duration(milliseconds: 0),
+        //     autoFlipDirection: true,
+        //     suggestionsCallback: (search) => quoteController.listCurrency
+        //         .where((element) => element.currency!
+        //             .toUpperCase()
+        //             .contains(search.toUpperCase()))
+        //         .toList(),
+        //     builder: (context, controller, focusNode) {
+        //       _controller = controller;
+        //       _controller.clear();
+        //       return TextField(
+        //         controller: _controller,
+        //         focusNode: focusNode,
+        //         style: const TextStyle(fontSize: 12),
+        //         decoration: const InputDecoration(
+        //           contentPadding: EdgeInsets.all(8),
+        //           isDense: true,
+        //           border: OutlineInputBorder(
+        //               borderRadius: BorderRadius.all(
+        //             Radius.circular(0.0),
+        //           )),
+        //         ),
+        //       );
+        //     },
+        //     itemBuilder: (context, value) => ListTile(
+        //       dense: true,
+        //       title: Text(
+        //         value.currency!,
+        //         style: style12_black,
+        //       ),
+        //     ),
+        //     onSelected: (value) {
+        //       _controller.text = value.currency!;
+        //       quoteController.currency.value = value.currency ?? '';
+        //     },
+        //   ),
+        // ),
       ],
     );
   }

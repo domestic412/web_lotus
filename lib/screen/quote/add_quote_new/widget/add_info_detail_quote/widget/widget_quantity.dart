@@ -9,23 +9,9 @@ class WidgetQuantity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         WidgetContainerLabel(label: 'Quantity'),
         WidgetTextField(controller: quoteController.quantity.value),
-        // Text('Quantity'),
-        // SizedBox(
-        //   height: 5,
-        // ),
-        // Container(
-        //   width: 60,
-        //   height: 40,
-        //   child: TextField(
-        //     controller: quoteController.quantity.value,
-        //     decoration: InputDecoration(
-        //         isDense: true, border: OutlineInputBorder()),
-        //   ),
-        // )
       ],
     );
   }

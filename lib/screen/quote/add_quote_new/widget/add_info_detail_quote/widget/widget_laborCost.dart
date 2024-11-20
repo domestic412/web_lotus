@@ -9,23 +9,9 @@ class WidgetLaborCost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         WidgetContainerLabel(label: 'Labor Cost'),
         WidgetTextField(controller: quoteController.laborCost.value),
-        // Text('Labor Cost'),
-        // SizedBox(
-        //   height: 5,
-        // ),
-        // Container(
-        //   width: 140,
-        //   height: 40,
-        //   child: TextField(
-        //     controller: quoteController.laborCost.value,
-        //     decoration: InputDecoration(
-        //         isDense: true, border: OutlineInputBorder()),
-        //   ),
-        // )
       ],
     );
   }

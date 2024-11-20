@@ -8,8 +8,10 @@ import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/model/model_quote_detail.dart';
 import 'package:web_lotus/screen/quote/data_quote_list/detail_quote/data_detail_quote/data_detail_quote_gridview.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:web_lotus/widgets/container/ContainerLabel.dart';
 import 'package:web_lotus/widgets/container/WidgetGridColumn.dart';
+import 'package:web_lotus/widgets/container/WidgetTextField.dart';
+import 'package:web_lotus/widgets/container/combobox.dart';
 
 import 'data_detail_quote/widget/upload_image.dart';
 
@@ -125,48 +127,81 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                                       source: _dataQuoteDetailSource,
                                       columns: [
                                         WidgetGridColumn(
-                                            label: 'Seq', visible: true),
+                                          label: 'Seq',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Container', visible: true),
+                                          label: 'Container',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Charge Type',
-                                            visible: true),
+                                          label: 'Charge Type',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Component', visible: true),
+                                          label: 'Component',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Category', visible: true),
+                                          label: 'Category',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Damage Code',
-                                            visible: true),
+                                          label: 'Damage Code',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Damage Detail',
-                                            visible: true),
+                                          label: 'Damage Detail',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Quantity', visible: true),
+                                          label: 'Quantity',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Demension', visible: true),
+                                          label: 'Demension',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Length', visible: true),
+                                          label: 'Length',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Width', visible: true),
+                                          label: 'Width',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Location', visible: true),
+                                          label: 'Location',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Labor Cost', visible: true),
+                                          label: 'Labor Cost',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Mr Cost', visible: true),
+                                          label: 'Mr Cost',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Total Cost', visible: true),
+                                          label: 'Total Cost',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Estimate Date',
-                                            visible: true),
+                                          label: 'Estimate Date',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Payer', visible: true),
+                                          label: 'Payer',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Approve Code',
-                                            visible: true),
+                                          label: 'Approve Code',
+                                          visible: true,
+                                        ),
                                         WidgetGridColumn(
-                                            label: 'Image', visible: true),
+                                          label: 'Image',
+                                          visible: true,
+                                        ),
                                       ])),
                             ),
                           ],
@@ -182,32 +217,8 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
   Row WidgetCntr() {
     return Row(
       children: [
-        Container(
-          margin: const EdgeInsets.all(5),
-          padding: const EdgeInsets.all(5),
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 92, 117, 160),
-          ),
-          child: Text(
-            'Container No.',
-            style: style12_white,
-          ),
-        ),
-        SizedBox(
-          width: 100,
-          child: TextField(
-            controller: _controller_cntr,
-            style: const TextStyle(fontSize: 12),
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.all(8),
-              isDense: true,
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                Radius.circular(0.0),
-              )),
-            ),
-          ),
-        )
+        WidgetContainerLabel(label: 'Container No.'),
+        WidgetTextField(controller: _controller_cntr),
       ],
     );
   }
@@ -215,56 +226,13 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
   Row WidgetCharge() {
     return Row(
       children: [
-        Container(
-          margin: const EdgeInsets.all(5),
-          padding: const EdgeInsets.all(5),
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 92, 117, 160),
-          ),
-          child: Text(
-            'Charge Type',
-            style: style12_white,
-          ),
-        ),
-        SizedBox(
-          width: 100,
-          child: TypeAheadField<ChargeTypeQuotes>(
-            animationDuration: const Duration(milliseconds: 0),
-            autoFlipDirection: true,
-            suggestionsCallback: (search) => quoteController.listCharge
-                .where((element) => element.chargeTypeCode!
-                    .toLowerCase()
-                    .contains(search.toLowerCase()))
-                .toList(),
-            builder: (context, controller, focusNode) {
-              _controller_charge = controller;
-              _controller_charge.clear();
-              return TextField(
-                controller: _controller_charge,
-                focusNode: focusNode,
-                style: const TextStyle(fontSize: 12),
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.all(8),
-                  isDense: true,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                    Radius.circular(0.0),
-                  )),
-                ),
-              );
-            },
-            itemBuilder: (context, value) => ListTile(
-              dense: true,
-              title: Text(
-                value.chargeTypeCode!,
-                style: style12_black,
-              ),
-            ),
-            onSelected: (value) {
-              _controller_charge.text = value.chargeTypeCode!;
-            },
-          ),
-        ),
+        WidgetContainerLabel(label: 'Charge Type'),
+        Combobox<ChargeTypeQuotes>(
+            controllerCombobox: _controller_charge,
+            list: quoteController.listCharge,
+            valueName: (element) => element.chargeTypeCode!,
+            valueId: (element) => element.chargeTypeCode!,
+            valueSend: _controller_charge.text),
       ],
     );
   }
@@ -272,56 +240,13 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
   Row WidgetComponent() {
     return Row(
       children: [
-        Container(
-          margin: const EdgeInsets.all(5),
-          padding: const EdgeInsets.all(5),
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 92, 117, 160),
-          ),
-          child: Text(
-            'Component',
-            style: style12_white,
-          ),
-        ),
-        SizedBox(
-          width: 100,
-          child: TypeAheadField<ComponentQuotes>(
-            animationDuration: const Duration(milliseconds: 0),
-            autoFlipDirection: true,
-            suggestionsCallback: (search) => quoteController.listComponent
-                .where((element) => element.componentCode!
-                    .toLowerCase()
-                    .contains(search.toLowerCase()))
-                .toList(),
-            builder: (context, controller, focusNode) {
-              _controller_component = controller;
-              _controller_component.clear();
-              return TextField(
-                controller: _controller_component,
-                focusNode: focusNode,
-                style: const TextStyle(fontSize: 12),
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.all(8),
-                  isDense: true,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                    Radius.circular(0.0),
-                  )),
-                ),
-              );
-            },
-            itemBuilder: (context, value) => ListTile(
-              dense: true,
-              title: Text(
-                value.componentCode!,
-                style: style12_black,
-              ),
-            ),
-            onSelected: (value) {
-              _controller_component.text = value.componentCode!;
-            },
-          ),
-        ),
+        WidgetContainerLabel(label: 'Component'),
+        Combobox<ComponentQuotes>(
+            controllerCombobox: _controller_component,
+            list: quoteController.listComponent,
+            valueName: (element) => element.componentCode!,
+            valueId: (element) => element.componentCode!,
+            valueSend: _controller_component.text),
       ],
     );
   }
@@ -329,56 +254,13 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
   Row WidgetCategory() {
     return Row(
       children: [
-        Container(
-          margin: const EdgeInsets.all(5),
-          padding: const EdgeInsets.all(5),
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 92, 117, 160),
-          ),
-          child: Text(
-            'Category',
-            style: style12_white,
-          ),
-        ),
-        SizedBox(
-          width: 100,
-          child: TypeAheadField<CategoryQuotes>(
-            animationDuration: const Duration(milliseconds: 0),
-            autoFlipDirection: true,
-            suggestionsCallback: (search) => quoteController.listCategory
-                .where((element) => element.categoryCode!
-                    .toUpperCase()
-                    .contains(search.toUpperCase()))
-                .toList(),
-            builder: (context, controller, focusNode) {
-              _controller_category = controller;
-              _controller_category.clear();
-              return TextField(
-                controller: _controller_category,
-                focusNode: focusNode,
-                style: const TextStyle(fontSize: 12),
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.all(8),
-                  isDense: true,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                    Radius.circular(0.0),
-                  )),
-                ),
-              );
-            },
-            itemBuilder: (context, value) => ListTile(
-              dense: true,
-              title: Text(
-                value.categoryCode!,
-                style: style12_black,
-              ),
-            ),
-            onSelected: (value) {
-              _controller_category.text = value.categoryCode!;
-            },
-          ),
-        ),
+        WidgetContainerLabel(label: 'Category'),
+        Combobox<CategoryQuotes>(
+            controllerCombobox: _controller_category,
+            list: quoteController.listCategory,
+            valueName: (element) => element.categoryCode!,
+            valueId: (element) => element.categoryCode!,
+            valueSend: _controller_category.text),
       ],
     );
   }
@@ -386,56 +268,13 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
   Row WidgetDamage() {
     return Row(
       children: [
-        Container(
-          margin: const EdgeInsets.all(5),
-          padding: const EdgeInsets.all(5),
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 92, 117, 160),
-          ),
-          child: Text(
-            'Damage Code',
-            style: style12_white,
-          ),
-        ),
-        SizedBox(
-          width: 100,
-          child: TypeAheadField<ErrorQuotes>(
-            animationDuration: const Duration(milliseconds: 0),
-            autoFlipDirection: true,
-            suggestionsCallback: (search) => quoteController.listError
-                .where((element) => element.errorCode!
-                    .toLowerCase()
-                    .contains(search.toLowerCase()))
-                .toList(),
-            builder: (context, controller, focusNode) {
-              _controller_error = controller;
-              _controller_error.clear();
-              return TextField(
-                controller: _controller_error,
-                focusNode: focusNode,
-                style: const TextStyle(fontSize: 12),
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.all(8),
-                  isDense: true,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                    Radius.circular(0.0),
-                  )),
-                ),
-              );
-            },
-            itemBuilder: (context, value) => ListTile(
-              dense: true,
-              title: Text(
-                value.errorCode!,
-                style: style12_black,
-              ),
-            ),
-            onSelected: (value) {
-              _controller_error.text = value.errorCode!;
-            },
-          ),
-        ),
+        WidgetContainerLabel(label: 'Damage Code'),
+        Combobox<ErrorQuotes>(
+            controllerCombobox: _controller_error,
+            list: quoteController.listError,
+            valueName: (element) => element.errorCode!,
+            valueId: (element) => element.errorCode!,
+            valueSend: _controller_error.text),
       ],
     );
   }
@@ -443,37 +282,9 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
   Row WidgetLocation() {
     return Row(
       children: [
-        Container(
-          margin: const EdgeInsets.all(5),
-          padding: const EdgeInsets.all(5),
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 92, 117, 160),
-          ),
-          child: Text(
-            'Location',
-            style: style12_white,
-          ),
-        ),
-        SizedBox(
-          width: 100,
-          child: TextField(
-            controller: _controller_location,
-            style: const TextStyle(fontSize: 12),
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.all(8),
-              isDense: true,
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                Radius.circular(0.0),
-              )),
-            ),
-          ),
-        )
+        WidgetContainerLabel(label: 'Location'),
+        WidgetTextField(controller: _controller_location),
       ],
     );
   }
-}
-
-extension on List<FilterCondition> {
-  FilterCondition? firstWhereOrNull(bool Function(dynamic item) param0) {}
 }

@@ -50,50 +50,84 @@ class _QuoteListPageState extends State<QuoteListPage> {
     return Scaffold(
       backgroundColor: MyColor.backgroundColor,
       bottomSheet: Footer(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              AppbarWidget(),
-              Container(
-                margin: EdgeInsets.fromLTRB(10, 0, 10, 40),
-                width: fullSizeWidth,
-                decoration: BoxDecoration(
-                    color: MyColor.contentColor,
-                    borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Quote List',
-                      style: style20_blue,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(5.0),
-                          child: Row(
-                            children: [
-                              Text('From Date'),
-                              CustomPopup(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          AppbarWidget(),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.fromLTRB(10, 0, 10, 40),
+              // width: fullSizeWidth,
+              decoration: BoxDecoration(
+                  color: MyColor.contentColor,
+                  borderRadius: BorderRadius.circular(10)),
+              padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Quote List',
+                    style: style20_blue,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(5.0),
+                        child: Row(
+                          children: [
+                            Text('From Date'),
+                            CustomPopup(
+                              showArrow: false,
+                              content: SizedBox(
+                                height: 270,
+                                width: 270,
+                                child: CalendarDatePicker(
+                                  initialDate: dateFormat.parse(
+                                      quoteController.fromDate_text.value),
+                                  firstDate: DateTime(2024),
+                                  lastDate: DateTime(2123),
+                                  onDateChanged: (value) {
+                                    quoteController.fromDate_text.value =
+                                        DateFormat('dd/MM/yyyy').format(value);
+                                    quoteController.fromDate_send.value =
+                                        DateFormat('MM/dd/yyyy').format(value);
+                                    setState(() {
+                                      Navigator.pop(context);
+                                    });
+                                  },
+                                ),
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: grey)),
+                                margin: EdgeInsets.symmetric(horizontal: 10),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 10),
+                                child: Text(
+                                  quoteController.fromDate_text.value,
+                                  style: style12_black,
+                                ),
+                              ),
+                            ),
+                            Text('To Date'),
+                            SizedBox(
+                              child: CustomPopup(
                                 showArrow: false,
+                                contentPadding: EdgeInsets.all(0),
                                 content: SizedBox(
                                   height: 270,
                                   width: 270,
                                   child: CalendarDatePicker(
                                     initialDate: dateFormat.parse(
-                                        quoteController.fromDate_text.value),
+                                        quoteController.toDate_text.value),
                                     firstDate: DateTime(2024),
                                     lastDate: DateTime(2123),
                                     onDateChanged: (value) {
-                                      quoteController.fromDate_text.value =
+                                      quoteController.toDate_text.value =
                                           DateFormat('dd/MM/yyyy')
                                               .format(value);
-                                      quoteController.fromDate_send.value =
+                                      quoteController.toDate_send.value =
                                           DateFormat('MM/dd/yyyy')
                                               .format(value);
                                       setState(() {
@@ -104,100 +138,61 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                 ),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: grey)),
+                                    border: Border.all(color: grey),
+                                  ),
                                   margin: EdgeInsets.symmetric(horizontal: 10),
                                   padding: EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 10),
                                   child: Text(
-                                    quoteController.fromDate_text.value,
+                                    quoteController.toDate_text.value,
                                     style: style12_black,
                                   ),
                                 ),
                               ),
-                              Text('To Date'),
-                              SizedBox(
-                                child: CustomPopup(
-                                  showArrow: false,
-                                  contentPadding: EdgeInsets.all(0),
-                                  content: SizedBox(
-                                    height: 270,
-                                    width: 270,
-                                    child: CalendarDatePicker(
-                                      initialDate: dateFormat.parse(
-                                          quoteController.toDate_text.value),
-                                      firstDate: DateTime(2024),
-                                      lastDate: DateTime(2123),
-                                      onDateChanged: (value) {
-                                        quoteController.toDate_text.value =
-                                            DateFormat('dd/MM/yyyy')
-                                                .format(value);
-                                        quoteController.toDate_send.value =
-                                            DateFormat('MM/dd/yyyy')
-                                                .format(value);
-                                        setState(() {
-                                          Navigator.pop(context);
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: grey),
-                                    ),
-                                    margin:
-                                        EdgeInsets.symmetric(horizontal: 10),
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 5, horizontal: 10),
-                                    child: Text(
-                                      quoteController.toDate_text.value,
-                                      style: style12_black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        // Container(
-                        //   margin: EdgeInsets.symmetric(
-                        //       vertical: 16, horizontal: 10),
-                        //   child: Container(
-                        //     constraints:
-                        //         BoxConstraints(minWidth: 500, maxWidth: 750),
-                        //     decoration: BoxDecoration(
-                        //         border: Border.all(color: Colors.grey)),
-                        //     child: TextField(
-                        //       controller: _search_quote,
-                        //       decoration: InputDecoration(
-                        //           hintText: 'Search',
-                        //           border: InputBorder.none,
-                        //           isDense: true,
-                        //           contentPadding: EdgeInsets.all(7)),
-                        //       onChanged: (value) {
-                        //         // _filterQuote();
-                        //       },
-                        //     ),
-                        //   ),
-                        // ),
-                        ElevatedButton(
-                          onPressed: () {
-                            quoteController.listInputQuoteDetail.value = [];
-                            quoteController.listInputQuoteDetail_show.value =
-                                [];
-                            quoteController.countRow.value = 0;
-                            InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
-                            Get.to(() => AEQuotePage1());
-                          },
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  WidgetStatePropertyAll<Color>(Colors.orange),
-                              minimumSize:
-                                  WidgetStateProperty.all(Size(100, 40))),
-                          child: Text('Add Quote'),
-                        ),
-                      ],
-                    ),
-                    FutureBuilder(
+                      ),
+                      // Container(
+                      //   margin: EdgeInsets.symmetric(
+                      //       vertical: 16, horizontal: 10),
+                      //   child: Container(
+                      //     constraints:
+                      //         BoxConstraints(minWidth: 500, maxWidth: 750),
+                      //     decoration: BoxDecoration(
+                      //         border: Border.all(color: Colors.grey)),
+                      //     child: TextField(
+                      //       controller: _search_quote,
+                      //       decoration: InputDecoration(
+                      //           hintText: 'Search',
+                      //           border: InputBorder.none,
+                      //           isDense: true,
+                      //           contentPadding: EdgeInsets.all(7)),
+                      //       onChanged: (value) {
+                      //         // _filterQuote();
+                      //       },
+                      //     ),
+                      //   ),
+                      // ),
+                      ElevatedButton(
+                        onPressed: () {
+                          quoteController.listInputQuoteDetail.value = [];
+                          quoteController.listInputQuoteDetail_show.value = [];
+                          quoteController.countRow.value = 0;
+                          InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
+                          Get.to(() => AEQuotePage1());
+                        },
+                        style: ButtonStyle(
+                            backgroundColor:
+                                WidgetStatePropertyAll<Color>(Colors.orange),
+                            minimumSize:
+                                WidgetStateProperty.all(Size(100, 40))),
+                        child: Text('Add Quote'),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: FutureBuilder(
                         future: QuoteList().fetchQuoteList(
                             quoteController.fromDate_send.value,
                             quoteController.toDate_send.value),
@@ -257,12 +252,12 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                 )
                               : Center(child: CircularProgressIndicator());
                         }),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

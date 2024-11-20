@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:web_lotus/assets/style.dart';
 
 WidgetGridColumn({required String label, required bool visible}) {
-  if (visible == null || visible == true) {
+  if (visible == true) {
     visible = true;
   } else {
     visible = false;
@@ -13,5 +14,6 @@ WidgetGridColumn({required String label, required bool visible}) {
       label: Container(
           padding: const EdgeInsets.all(5.0),
           alignment: Alignment.centerLeft,
-          child: Text(label, overflow: TextOverflow.ellipsis)));
+          child: Text(label,
+              style: style12_black, overflow: TextOverflow.ellipsis)));
 }

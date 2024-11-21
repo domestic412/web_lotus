@@ -9,6 +9,8 @@ import 'package:web_lotus/model/model_input_quote_detail.dart';
 import 'package:web_lotus/widgets/check_digit/check_digit.dart';
 import 'package:web_lotus/widgets/import_excel.dart';
 
+import 'search_id.dart';
+
 class ImportButton extends StatefulWidget {
   const ImportButton({super.key});
 
@@ -49,11 +51,8 @@ class _ImportButtonState extends State<ImportButton> {
           for (var row in decoder.tables[table]!.rows) {
             int i = 0;
             for (var cell in row) {
-              // print(row);
-              if ((j > 0)) {
-                // print(i);
-                // var value = cell?.value ?? '0';
-                // cell ?? '0';
+              if (j > 0) {
+                //bỏ qua dòng đầu tiền
                 if (cell is double) {
                   cell = double.parse(cell.toStringAsFixed(2));
                 }
@@ -210,44 +209,12 @@ class _ImportButtonState extends State<ImportButton> {
         }
       },
       style: ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll<Color>(haian),
-          minimumSize: MaterialStateProperty.all(Size(100, 30))),
+          backgroundColor: WidgetStatePropertyAll<Color>(haian),
+          minimumSize: WidgetStateProperty.all(Size(100, 30))),
       child: Text(
         'Import',
         style: style12_white,
       ),
     );
-  }
-}
-
-findChargeId({required String chargeCode}) {
-  for (var charge in quoteController.listCharge) {
-    if (charge.chargeTypeCode!.trim() == chargeCode.trim()) {
-      return charge.chargeTypeId;
-    }
-  }
-}
-
-findComponentId({required String componentCode}) {
-  for (var component in quoteController.listComponent) {
-    if (component.componentCode!.trim() == componentCode.trim()) {
-      return component.componentId;
-    }
-  }
-}
-
-findErrorId({required String errorCode}) {
-  for (var error in quoteController.listError) {
-    if (error.errorCode!.trim() == errorCode.trim()) {
-      return error.errorId;
-    }
-  }
-}
-
-findCategoryId({required String categoryCode}) {
-  for (var category in quoteController.listCategory) {
-    if (category.categoryCode!.trim() == categoryCode.trim()) {
-      return category.categoryId;
-    }
   }
 }

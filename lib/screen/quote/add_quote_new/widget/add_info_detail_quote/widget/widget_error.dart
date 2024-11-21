@@ -23,8 +23,11 @@ class _WidgetErrorState extends State<WidgetError> {
             controllerCombobox: _controller,
             list: quoteController.listError,
             valueName: (element) => element.errorCode!,
-            valueId: (element) => element.errorId!,
-            valueSend: quoteController.errorId.value),
+            // valueId: (element) => element.errorId!,
+            // valueSend: quoteController.errorId.value
+            onChanged: (value) {
+              quoteController.errorId.value = value!.errorId!;
+            }),
         const Icon(
           Icons.search,
           size: 12,

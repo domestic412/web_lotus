@@ -48,21 +48,23 @@ class QuoteDetail {
   DataGridRow getDataGridRow_QuoteDetail(int seq) {
     return DataGridRow(cells: [
       DataGridCell(columnName: 'Seq', value: seq),
-      DataGridCell(columnName: 'Container', value: container),
       DataGridCell(columnName: 'Charge Type', value: chargeType),
+      // [2] container for image
+      DataGridCell(columnName: 'Container', value: container),
+      // [3]estimateDate for image
+      DataGridCell(columnName: 'Estimate Date', value: estimateDate),
       DataGridCell(columnName: 'Component', value: component),
-      DataGridCell(columnName: 'Category', value: category),
-      DataGridCell(columnName: 'Damage Code', value: damageCode),
       DataGridCell(columnName: 'Damege Detail', value: damageDetail),
+      DataGridCell(columnName: 'Damage Code', value: damageCode),
       DataGridCell(columnName: 'Quantity', value: quantity),
       DataGridCell(columnName: 'Dimension', value: dimension),
       DataGridCell(columnName: 'Length', value: length),
       DataGridCell(columnName: 'Width', value: width),
       DataGridCell(columnName: 'Location', value: location),
+      DataGridCell(columnName: 'Category', value: category),
       DataGridCell(columnName: 'Labor Cost', value: laborCost),
       DataGridCell(columnName: 'Mr Cost', value: mrCost),
       DataGridCell(columnName: 'Total Cost', value: totalCost),
-      DataGridCell(columnName: 'Estimate Date', value: estimateDate),
       DataGridCell(columnName: 'Payer', value: payer),
       DataGridCell(columnName: 'Approve Code', value: approveCode),
       DataGridCell(columnName: 'Image', value: isImgUpload),

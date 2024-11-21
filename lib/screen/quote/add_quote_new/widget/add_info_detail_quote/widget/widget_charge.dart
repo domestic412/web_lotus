@@ -22,8 +22,9 @@ class _WidgetChargeState extends State<WidgetCharge> {
             controllerCombobox: _controller,
             list: quoteController.listCharge,
             valueName: (element) => element.chargeTypeCode!,
-            valueId: (element) => element.chargeTypeId!,
-            valueSend: quoteController.chargeTypeId.value),
+            onChanged: (value) {
+              quoteController.chargeTypeId.value = value!.chargeTypeId!;
+            }),
         const Icon(
           Icons.search,
           size: 12,

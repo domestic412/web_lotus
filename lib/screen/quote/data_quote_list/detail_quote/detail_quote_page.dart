@@ -13,7 +13,7 @@ import 'package:web_lotus/widgets/container/WidgetGridColumn.dart';
 import 'package:web_lotus/widgets/container/WidgetTextField.dart';
 import 'package:web_lotus/widgets/container/combobox.dart';
 
-import 'data_detail_quote/widget/upload_image.dart';
+import '../../widget/upload_image.dart';
 
 class QuoteDetailsPage extends StatefulWidget {
   const QuoteDetailsPage({super.key});
@@ -65,12 +65,15 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                WidgetCntr(),
-                                WidgetCharge(),
-                                WidgetComponent(),
-                                WidgetCategory(),
-                                WidgetDamage(),
-                                WidgetLocation(),
+                                WidgetCntr(controller: _controller_cntr),
+                                WidgetCharge(controller: _controller_charge),
+                                WidgetComponent(
+                                    controller: _controller_component),
+                                WidgetCategory(
+                                    controller: _controller_category),
+                                WidgetDamage(controller: _controller_error),
+                                WidgetLocation(
+                                    controller: _controller_location),
                                 ElevatedButton(
                                     onPressed: () {
                                       _dataQuoteDetailSource.applyFilter(
@@ -131,27 +134,27 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
+                                          label: 'Charge Type',
+                                          visible: true,
+                                        ),
+                                        WidgetGridColumn(
                                           label: 'Container',
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
-                                          label: 'Charge Type',
-                                          visible: true,
+                                          label: 'Estimate Date',
+                                          visible: false,
                                         ),
                                         WidgetGridColumn(
                                           label: 'Component',
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
-                                          label: 'Category',
+                                          label: 'Damage Detail',
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
                                           label: 'Damage Code',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Damage Detail',
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
@@ -175,6 +178,10 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
+                                          label: 'Category',
+                                          visible: true,
+                                        ),
+                                        WidgetGridColumn(
                                           label: 'Labor Cost',
                                           visible: true,
                                         ),
@@ -184,10 +191,6 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                                         ),
                                         WidgetGridColumn(
                                           label: 'Total Cost',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Estimate Date',
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
@@ -214,76 +217,76 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
     );
   }
 
-  Row WidgetCntr() {
+  Row WidgetCntr({required TextEditingController controller}) {
     return Row(
       children: [
         WidgetContainerLabel(label: 'Container No.'),
-        WidgetTextField(controller: _controller_cntr),
+        WidgetTextField(controller: controller),
       ],
     );
   }
 
-  Row WidgetCharge() {
+  Row WidgetCharge({required TextEditingController controller}) {
     return Row(
       children: [
         WidgetContainerLabel(label: 'Charge Type'),
         Combobox<ChargeTypeQuotes>(
-            controllerCombobox: _controller_charge,
-            list: quoteController.listCharge,
-            valueName: (element) => element.chargeTypeCode!,
-            valueId: (element) => element.chargeTypeCode!,
-            valueSend: _controller_charge.text),
+          controllerCombobox: controller,
+          list: quoteController.listCharge,
+          valueName: (element) => element.chargeTypeCode!,
+          onChanged: (p0) {},
+        ),
       ],
     );
   }
 
-  Row WidgetComponent() {
+  Row WidgetComponent({required TextEditingController controller}) {
     return Row(
       children: [
         WidgetContainerLabel(label: 'Component'),
         Combobox<ComponentQuotes>(
-            controllerCombobox: _controller_component,
-            list: quoteController.listComponent,
-            valueName: (element) => element.componentCode!,
-            valueId: (element) => element.componentCode!,
-            valueSend: _controller_component.text),
+          controllerCombobox: controller,
+          list: quoteController.listComponent,
+          valueName: (element) => element.componentCode!,
+          onChanged: (p0) {},
+        ),
       ],
     );
   }
 
-  Row WidgetCategory() {
+  Row WidgetCategory({required TextEditingController controller}) {
     return Row(
       children: [
         WidgetContainerLabel(label: 'Category'),
         Combobox<CategoryQuotes>(
-            controllerCombobox: _controller_category,
-            list: quoteController.listCategory,
-            valueName: (element) => element.categoryCode!,
-            valueId: (element) => element.categoryCode!,
-            valueSend: _controller_category.text),
+          controllerCombobox: controller,
+          list: quoteController.listCategory,
+          valueName: (element) => element.categoryCode!,
+          onChanged: (p0) {},
+        ),
       ],
     );
   }
 
-  Row WidgetDamage() {
+  Row WidgetDamage({required TextEditingController controller}) {
     return Row(
       children: [
         WidgetContainerLabel(label: 'Damage Code'),
         Combobox<ErrorQuotes>(
-            controllerCombobox: _controller_error,
-            list: quoteController.listError,
-            valueName: (element) => element.errorCode!,
-            valueId: (element) => element.errorCode!,
-            valueSend: _controller_error.text),
+          controllerCombobox: controller,
+          list: quoteController.listError,
+          valueName: (element) => element.errorCode!,
+          onChanged: (p0) {},
+        ),
       ],
     );
   }
 
-  Row WidgetLocation() {
+  Row WidgetLocation({required TextEditingController controller}) {
     return Row(
       children: [
         WidgetContainerLabel(label: 'Location'),
-        WidgetTextField(controller: _controller_location),
+        WidgetTextField(controller: controller),
       ],
     );
   }

@@ -35,14 +35,8 @@ class DataInputQuoteGridview extends DataGridSource {
                 padding: EdgeInsets.all(5.0),
                 child: dataGridCell.value == null
                     ? SizedBox()
-                    : Text(
-                        dataGridCell.columnName == 'Date'
-                            ? changeDatetoShow(
-                                date: DateTime.parse(
-                                    dataGridCell.value.toString()))
-                            : dataGridCell.value.toString(),
-                        style: style12_black,
-                        overflow: TextOverflow.ellipsis),
+                    : Text(dataGridCell.value.toString(),
+                        style: style12_black, overflow: TextOverflow.ellipsis),
               ))
           .toList(),
     );

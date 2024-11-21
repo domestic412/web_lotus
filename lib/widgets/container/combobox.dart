@@ -9,8 +9,9 @@ Combobox<T>({
   // required String valueId,
   // required String valueSend,
   required String Function(T) valueName,
-  required String Function(T) valueId,
-  required String valueSend,
+  // required String Function(T) valueId,
+  // required String valueSend,
+  Function(T?)? onChanged,
 }) {
   return Container(
     width: 100,
@@ -18,15 +19,14 @@ Combobox<T>({
     child: TypeAheadField<T>(
       animationDuration: const Duration(milliseconds: 0),
       autoFlipDirection: true,
+      controller: controllerCombobox,
       suggestionsCallback: (search) => list
           .where((element) =>
               valueName(element).toLowerCase().contains(search.toLowerCase()))
           .toList(),
       builder: (context, controller, focusNode) {
-        controllerCombobox = controller;
-        controllerCombobox.clear();
         return TextField(
-          controller: controllerCombobox,
+          controller: controller,
           focusNode: focusNode,
           style: const TextStyle(fontSize: 12),
           decoration: const InputDecoration(
@@ -49,7 +49,8 @@ Combobox<T>({
       ),
       onSelected: (value) {
         controllerCombobox.text = valueName(value); //  value.valueName!;
-        valueSend = valueId(value); // value.valueId!;
+        // valueSend = valueId(value); // value.valueId!;
+        onChanged!(value);
       },
     ),
   );

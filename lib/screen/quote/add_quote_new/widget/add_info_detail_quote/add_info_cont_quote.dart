@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_input_quote_detail.dart';
+import 'package:web_lotus/screen/quote/add_quote_new/widget/add_info_quote/widget/search_id.dart';
+import 'package:web_lotus/screen/quote/add_quote_new/widget/add_info_quote/widget/search_name.dart';
+import 'package:web_lotus/screen/quote/widget/upload_image.dart';
 import 'package:web_lotus/widgets/check_digit/check_digit.dart';
 
 import 'widget/widget_category.dart';
@@ -85,20 +88,57 @@ class _InfoContQuoteState extends State<InfoContQuote> {
             ],
           ),
         ),
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                if (checkDigit(quoteController.container.value.text) == true) {
-                  InputQuoteDetail _listInputQuoteDetail = InputQuoteDetail(
-                      eqcQuoteId: quoteController.eqcQuoteId.value,
-                      chargeTypeId: quoteController.chargeTypeId.value,
-                      componentId: quoteController.componentId.value,
-                      categoryId: quoteController.categoryId.value,
-                      errorId: quoteController.errorId.value,
+            Container(
+              margin: EdgeInsets.all(5),
+              child: ElevatedButton(
+                onPressed: () {
+                  print(quoteController.chargeTypeId.value);
+                  if (checkDigit(quoteController.container.value.text) ==
+                      true) {
+                    InputQuoteDetail _listInputQuoteDetail = InputQuoteDetail(
+                        eqcQuoteId: quoteController.eqcQuoteId.value,
+                        chargeTypeId: quoteController.chargeTypeId.value,
+                        componentId: quoteController.componentId.value,
+                        categoryId: quoteController.categoryId.value,
+                        errorId: quoteController.errorId.value,
+                        container: quoteController.container.value.text,
+                        inGateDate: quoteController.gateInDate_send.value,
+                        damageDetail: quoteController.detailDamage.value.text,
+                        quantity:
+                            double.parse(quoteController.quantity.value.text),
+                        dimension: quoteController.dimension.value.text,
+                        length: double.parse(quoteController.length.value.text),
+                        width: double.parse(quoteController.width.value.text),
+                        location: quoteController.location.value.text,
+                        laborCost:
+                            double.parse(quoteController.laborCost.value.text),
+                        mrCost: double.parse(quoteController.mrCost.value.text),
+                        totalCost:
+                            double.parse(quoteController.totalCost.value.text),
+                        estimateDate: quoteController.currentDate_send.value,
+                        isImgUpload: false,
+                        edit: 'I');
+                    quoteController.listInputQuoteDetail
+                        .add(_listInputQuoteDetail);
+
+                    // quoteController.countRow.value =
+                    //     quoteController.countRow.value + 1;
+
+                    InputQuoteDetail _listInputQuoteDetail_show =
+                        InputQuoteDetail(
+                      chargeTypeId: findChargeName(
+                          chargeId: quoteController.chargeTypeId.value),
+                      componentId: findComponentName(
+                          componentId: quoteController.componentId.value),
+                      categoryId: findCategoryName(
+                          categoryId: quoteController.categoryId.value),
+                      errorId:
+                          findErrorName(errorId: quoteController.errorId.value),
                       container: quoteController.container.value.text,
-                      inGateDate: quoteController.gateInDate_send.value,
+                      inGateDate: quoteController.gateInDate_text.value,
                       damageDetail: quoteController.detailDamage.value.text,
                       quantity:
                           double.parse(quoteController.quantity.value.text),
@@ -111,53 +151,34 @@ class _InfoContQuoteState extends State<InfoContQuote> {
                       mrCost: double.parse(quoteController.mrCost.value.text),
                       totalCost:
                           double.parse(quoteController.totalCost.value.text),
-                      estimateDate: quoteController.currentDate_send.value,
                       isImgUpload: false,
-                      edit: 'I');
-                  quoteController.listInputQuoteDetail
-                      .add(_listInputQuoteDetail);
-                  quoteController.countRow.value =
-                      quoteController.countRow.value + 1;
-
-                  InputQuoteDetail _listInputQuoteDetail_show =
-                      InputQuoteDetail(
-                    chargeTypeId: quoteController.chargeName.value,
-                    componentId: quoteController.componentName.value,
-                    categoryId: quoteController.categoryName.value,
-                    errorId: quoteController.errorName.value,
-                    container: quoteController.container.value.text,
-                    inGateDate: quoteController.gateInDate_text.value,
-                    damageDetail: quoteController.detailDamage.value.text,
-                    quantity: double.parse(quoteController.quantity.value.text),
-                    dimension: quoteController.dimension.value.text,
-                    length: double.parse(quoteController.length.value.text),
-                    width: double.parse(quoteController.width.value.text),
-                    location: quoteController.location.value.text,
-                    laborCost:
-                        double.parse(quoteController.laborCost.value.text),
-                    mrCost: double.parse(quoteController.mrCost.value.text),
-                    totalCost:
-                        double.parse(quoteController.totalCost.value.text),
-                    isImgUpload: false,
-                  );
-                  quoteController.listInputQuoteDetail_show
-                      .add(_listInputQuoteDetail_show);
-                  // print(quoteController.listInputQuoteDetail);
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      content: Text('Error Container Number'),
-                    ),
-                  );
-                }
-              },
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStatePropertyAll<Color>(Colors.orange),
-                  minimumSize: MaterialStateProperty.all(Size(100, 40))),
-              child: Text('ADD ROW'),
+                    );
+                    quoteController.listInputQuoteDetail_show
+                        .add(_listInputQuoteDetail_show);
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        content: Text('Error Container Number'),
+                      ),
+                    );
+                  }
+                },
+                style: ButtonStyle(
+                    backgroundColor:
+                        WidgetStatePropertyAll<Color>(Colors.orange),
+                    minimumSize: WidgetStateProperty.all(Size(100, 40))),
+                child: Text('ADD ROW'),
+              ),
             ),
+            Container(
+              margin: EdgeInsets.all(5),
+              child: ElevatedButton(
+                  onPressed: () {
+                    SelectFileZip();
+                  },
+                  child: Text('Upload Image (.zip)')),
+            )
           ],
         ),
         Container(

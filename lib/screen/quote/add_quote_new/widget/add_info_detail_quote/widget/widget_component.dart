@@ -24,8 +24,11 @@ class _WidgetComponentState extends State<WidgetComponent> {
             controllerCombobox: _controller,
             list: quoteController.listComponent,
             valueName: (element) => element.componentCode!,
-            valueId: (element) => element.componentId!,
-            valueSend: quoteController.componentId.value),
+            // valueId: (element) => element.componentId!,
+            // valueSend: quoteController.componentId.value
+            onChanged: (value) {
+              quoteController.componentId.value = value!.componentId!;
+            }),
         const Icon(
           Icons.search,
           size: 12,

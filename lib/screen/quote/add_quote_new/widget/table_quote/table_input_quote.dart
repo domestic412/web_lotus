@@ -26,110 +26,112 @@ class TableInputQuote1 extends StatefulWidget {
 class _TableInputQuote1State extends State<TableInputQuote1> {
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Expanded(
-          child: SfDataGridTheme(
-            data: SfDataGridThemeData(headerColor: Colors.grey[200]),
-            child: SfDataGrid(
-                rowHeight: 30,
-                headerRowHeight: 40,
-                columnWidthMode: ColumnWidthMode.fill,
-                selectionMode: SelectionMode.single,
-                gridLinesVisibility: GridLinesVisibility.both,
-                headerGridLinesVisibility: GridLinesVisibility.both,
-                source: DataInputQuoteGridview(
-                    quoteController.listInputQuoteDetail_show),
-                columns: [
-                  WidgetGridColumn(label: 'Seq', visible: true),
-                  WidgetGridColumn(label: 'eqcQuoteId', visible: false),
-                  WidgetGridColumn(label: 'Container', visible: true),
-                  WidgetGridColumn(label: 'Charge Type', visible: true),
-                  WidgetGridColumn(label: 'Component', visible: true),
-                  WidgetGridColumn(label: 'Category', visible: true),
-                  WidgetGridColumn(label: 'Damage Code', visible: true),
-                  WidgetGridColumn(label: 'Damege Detail', visible: true),
-                  WidgetGridColumn(label: 'Quantity', visible: true),
-                  WidgetGridColumn(label: 'Dimension', visible: true),
-                  WidgetGridColumn(label: 'Length', visible: true),
-                  WidgetGridColumn(label: 'Width', visible: true),
-                  WidgetGridColumn(label: 'Location', visible: true),
-                  WidgetGridColumn(label: 'Labor Cost', visible: true),
-                  WidgetGridColumn(label: 'Mr Cost', visible: true),
-                  WidgetGridColumn(label: 'Total Cost', visible: true),
-                  WidgetGridColumn(label: 'Estimate Date', visible: true),
-                  WidgetGridColumn(label: 'Image', visible: true),
-                ]),
-          ),
-        ));
+    return Expanded(
+      child: Obx(() => Expanded(
+            child: SfDataGridTheme(
+              data: SfDataGridThemeData(headerColor: Colors.grey[200]),
+              child: SfDataGrid(
+                  rowHeight: 30,
+                  headerRowHeight: 40,
+                  columnWidthMode: ColumnWidthMode.fill,
+                  selectionMode: SelectionMode.single,
+                  gridLinesVisibility: GridLinesVisibility.both,
+                  headerGridLinesVisibility: GridLinesVisibility.both,
+                  source: DataInputQuoteGridview(
+                      quoteController.listInputQuoteDetail_show),
+                  columns: [
+                    WidgetGridColumn(label: 'Seq', visible: true),
+                    WidgetGridColumn(label: 'eqcQuoteId', visible: false),
+                    WidgetGridColumn(label: 'Charge Type', visible: true),
+                    WidgetGridColumn(label: 'Container', visible: true),
+                    WidgetGridColumn(label: 'Gate In Date', visible: true),
+                    WidgetGridColumn(label: 'Component', visible: true),
+                    WidgetGridColumn(label: 'Damege Detail', visible: true),
+                    WidgetGridColumn(label: 'Damage Code', visible: true),
+                    WidgetGridColumn(label: 'Quantity', visible: true),
+                    WidgetGridColumn(label: 'Dimension', visible: true),
+                    WidgetGridColumn(label: 'Length', visible: true),
+                    WidgetGridColumn(label: 'Width', visible: true),
+                    WidgetGridColumn(label: 'Location', visible: true),
+                    WidgetGridColumn(label: 'Category', visible: true),
+                    WidgetGridColumn(label: 'Labor Cost', visible: true),
+                    WidgetGridColumn(label: 'Mr Cost', visible: true),
+                    WidgetGridColumn(label: 'Total Cost', visible: true),
+                    WidgetGridColumn(label: 'Image', visible: true),
+                  ]),
+            ),
+          )),
+    );
   }
 
-  Future<void> SelectFileZip() async {
-    try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['zip'],
-      );
-      final url = '$SERVER/EQCQuote/UploadFileZip';
-      if (result != null && result.files.isNotEmpty) {
-        final file = result.files.first;
-        if (file.bytes != null) {
-          // EasyLoading.show(
-          //   status: 'Loading...',
-          //   maskType: EasyLoadingMaskType.black,
-          //   dismissOnTap: true,
-          // );
-          // Create a Blob from file data
-          final blob = html.Blob([file.bytes!]);
-          // Create FormData and append the Blob as a file
-          final formData = html.FormData();
-          formData.appendBlob('uploadfile', blob, file.name);
+  // Future<void> SelectFileZip() async {
+  //   try {
+  //     FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //       type: FileType.custom,
+  //       allowedExtensions: ['zip'],
+  //     );
+  //     final url = '$SERVER/EQCQuote/UploadFileZip';
+  //     if (result != null && result.files.isNotEmpty) {
+  //       final file = result.files.first;
+  //       if (file.bytes != null) {
+  //         // EasyLoading.show(
+  //         //   status: 'Loading...',
+  //         //   maskType: EasyLoadingMaskType.black,
+  //         //   dismissOnTap: true,
+  //         // );
+  //         // Create a Blob from file data
+  //         final blob = html.Blob([file.bytes!]);
+  //         // Create FormData and append the Blob as a file
+  //         final formData = html.FormData();
+  //         formData.appendBlob('uploadfile', blob, file.name);
 
-          // Send the FormData using XMLHttpRequest
-          final request = html.HttpRequest();
-          request.open('POST', url, async: true);
+  //         // Send the FormData using XMLHttpRequest
+  //         final request = html.HttpRequest();
+  //         request.open('POST', url, async: true);
 
-          // Set up event listeners
-          request.onLoadEnd.listen((event) {
-            if (request.status == 200) {
-              print("File uploaded successfully");
-            } else {
-              print("Failed to upload file: ${request.status}");
-            }
-          });
+  //         // Set up event listeners
+  //         request.onLoadEnd.listen((event) {
+  //           if (request.status == 200) {
+  //             print("File uploaded successfully");
+  //           } else {
+  //             print("Failed to upload file: ${request.status}");
+  //           }
+  //         });
 
-          request.send(formData);
-          request.onLoad.listen((html.ProgressEvent event) {
-            switch (request.status) {
-              case 200:
-                var response = request.responseText;
-                print(response);
-                // EasyLoading.showSuccess('Upload Success');
+  //         request.send(formData);
+  //         request.onLoad.listen((html.ProgressEvent event) {
+  //           switch (request.status) {
+  //             case 200:
+  //               var response = request.responseText;
+  //               print(response);
+  //               // EasyLoading.showSuccess('Upload Success');
 
-                // quoteController.listInputQuoteDetail_show[i].isImgUpload = true;
-                // quoteController.listInputQuoteDetail[i].isImgUpload = true;
-                // setState(() {
-                //   // print(quoteController.listInputQuoteDetail);
-                // });
-                print('Success send Image quote');
-              // if (Get.isDialogOpen == true) {
-              //   Get.back();
-              // }
-              default:
-              // EasyLoading.showError('Upload Image Fail');
-            }
-          });
-        } else {
-          // EasyLoading.showError('Error File Zip');
-        }
-      } else {
-        // User canceled the picker
-        // EasyLoading.showError('No file select');
-      }
-    } on Exception catch (e) {
-      // EasyLoading.showError('Fail to select file zip');
-      print(e);
-      throw Exception('Error select file zip - $e');
-    }
-  }
+  //               // quoteController.listInputQuoteDetail_show[i].isImgUpload = true;
+  //               // quoteController.listInputQuoteDetail[i].isImgUpload = true;
+  //               // setState(() {
+  //               //   // print(quoteController.listInputQuoteDetail);
+  //               // });
+  //               print('Success send Image quote');
+  //             // if (Get.isDialogOpen == true) {
+  //             //   Get.back();
+  //             // }
+  //             default:
+  //             // EasyLoading.showError('Upload Image Fail');
+  //           }
+  //         });
+  //       } else {
+  //         // EasyLoading.showError('Error File Zip');
+  //       }
+  //     } else {
+  //       // User canceled the picker
+  //       // EasyLoading.showError('No file select');
+  //     }
+  //   } on Exception catch (e) {
+  //     // EasyLoading.showError('Fail to select file zip');
+  //     print(e);
+  //     throw Exception('Error select file zip - $e');
+  //   }
+  // }
 
   // List<XFile>? listImg;
   // Future getImage(String cntr, int i) async {

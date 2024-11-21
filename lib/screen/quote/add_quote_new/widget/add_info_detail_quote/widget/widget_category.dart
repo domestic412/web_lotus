@@ -22,8 +22,9 @@ class _WidgetCategoryState extends State<WidgetCategory> {
             controllerCombobox: _controller,
             list: quoteController.listCategory,
             valueName: (element) => element.categoryCode!,
-            valueId: (element) => element.categoryId!,
-            valueSend: quoteController.categoryId.value),
+            onChanged: (value) {
+              quoteController.categoryId.value = value!.categoryId!;
+            }),
         const Icon(
           Icons.search,
           size: 12,

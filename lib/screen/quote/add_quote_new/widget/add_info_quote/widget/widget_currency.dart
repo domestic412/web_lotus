@@ -22,11 +22,11 @@ class _WidgetCurrencyState extends State<WidgetCurrency> {
       children: [
         WidgetContainerLabel(label: 'Currency'),
         Combobox<CurrencyQuotes>(
-            controllerCombobox: _controller,
-            list: quoteController.listCurrency,
-            valueName: (element) => element.currency!,
-            valueId: (element) => element.currency!,
-            valueSend: quoteController.currency.value),
+          controllerCombobox: _controller,
+          list: quoteController.listCurrency,
+          valueName: (element) => element.currency!,
+          onChanged: (p0) {},
+        ),
       ],
     );
   }

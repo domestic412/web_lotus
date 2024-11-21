@@ -43,8 +43,6 @@ class _AEQuotePage1State extends State<AEQuotePage1> {
               decoration: BoxDecoration(
                   color: MyColor.contentColor,
                   borderRadius: BorderRadius.circular(10)),
-              // constraints:
-              //     const BoxConstraints(minWidth: 1004, maxWidth: 1400),
               padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -55,20 +53,6 @@ class _AEQuotePage1State extends State<AEQuotePage1> {
                       style: style20_blue,
                     ),
                     InfoQuote(),
-                    // Container(
-                    //     decoration: BoxDecoration(
-                    //       color: white,
-                    //       border: Border.all(
-                    //           color: blue.withOpacity(.4), width: .5),
-                    //       boxShadow: [
-                    //         BoxShadow(
-                    //             offset: const Offset(0, 6),
-                    //             color: blue.withOpacity(.1),
-                    //             blurRadius: 12)
-                    //       ],
-                    //       borderRadius: BorderRadius.circular(8),
-                    //     ),
-                    //     child: InfoContQuote()),
                     InfoContQuote(),
                     Expanded(child: TableInputQuote1()),
                     Row(

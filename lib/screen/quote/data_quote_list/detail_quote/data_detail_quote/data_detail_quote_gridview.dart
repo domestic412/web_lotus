@@ -22,47 +22,51 @@ class DataQuoteDetailSource extends DataGridSource {
 
   List<QuoteDetail> _quoteDetail = [];
   List<QuoteDetail> _quoteDetail_original = [];
-  List<DataGridRow> _dataGridRows = [];
+  List<DataGridRow> dataGridRows = [];
 
   void buildDataGridRows() {
-    int index = 0;
-    _dataGridRows = _quoteDetail.map<DataGridRow>((DataGridRow) {
-      index = index + 1;
-      return DataGridRow.getDataGridRow_QuoteDetail(index);
+    dataGridRows = _quoteDetail.map<DataGridRow>((DataGridRow) {
+      return DataGridRow.getDataGridRow_QuoteDetail();
     }).toList();
   }
 
   @override
-  List<DataGridRow> get rows => _dataGridRows;
+  List<DataGridRow> get rows => dataGridRows;
 
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
-        cells: row
-            .getCells()
-            .map<Widget>((dataGridCell) => Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.all(5.0),
-                  child: dataGridCell.value == null
-                      ? SizedBox()
-                      : dataGridCell.columnName == 'Image'
-                          ? InkWell(
-                              onTap: () {
-                                downloadAndExtractZip(
-                                    cntr: row.getCells()[2].value,
-                                    esdate: row.getCells()[3].value);
-                              },
-                              child: Text(
-                                dataGridCell.value.toString(),
-                                style: style12_blue,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            )
-                          : Text(dataGridCell.value.toString(),
-                              style: style12_black,
-                              overflow: TextOverflow.ellipsis),
-                ))
-            .toList());
+        cells: [
+      Container(
+        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.all(5.0),
+        child: Text(
+          (dataGridRows.indexOf(row) + 1).toString(),
+          style: style12_black,
+        ),
+      ),
+      ...row.getCells().map<Widget>((dataGridCell) => Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.all(5.0),
+            child: dataGridCell.value == null
+                ? SizedBox()
+                : dataGridCell.columnName == 'Image'
+                    ? InkWell(
+                        onTap: () {
+                          downloadAndExtractZip(
+                              cntr: row.getCells()[1].value,
+                              esdate: row.getCells()[2].value);
+                        },
+                        child: Text(
+                          dataGridCell.value.toString(),
+                          style: style12_blue,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )
+                    : Text(dataGridCell.value.toString(),
+                        style: style12_black, overflow: TextOverflow.ellipsis),
+          ))
+    ].toList());
   }
 
   void applyFilter({
@@ -100,6 +104,14 @@ class DataQuoteDetailSource extends DataGridSource {
     notifyListeners();
   }
 
+  @override
+  Widget? buildGroupCaptionCellWidget(
+      RowColumnIndex rowColumnIndex, String summaryValue) {
+    return Container(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+        child: Text(summaryValue));
+  }
+
   Future<void> downloadAndExtractZip(
       {required String cntr, required String esdate}) async {
     try {
@@ -120,21 +132,21 @@ class DataQuoteDetailSource extends DataGridSource {
           Uint8List bytes = response.bodyBytes;
           List<dynamic> files = await _extractZipFile(bytes);
           quoteController.pathImg.value = files[0]['path'];
-
+          quoteController.nameImg.value = removeBeforeSlash(files[0]['name']);
           EasyLoading.dismiss();
 
           return Get.defaultDialog(
             title: 'Preview Image',
             content: Container(
-              height: (fullSizeHeight ?? 500) * 0.8,
-              width: (fullSizeWidth ?? 900) * 0.8,
+              height: fullSizeHeight! * 0.8,
+              width: fullSizeWidth! * 0.8,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
                     margin: EdgeInsets.only(right: 5),
-                    height: (fullSizeHeight ?? 500) * 0.8,
-                    width: (fullSizeWidth ?? 900) * 0.25,
+                    height: fullSizeHeight! * 0.8,
+                    width: fullSizeWidth! * 0.25,
                     decoration: BoxDecoration(border: Border.all()),
                     child: ListView.builder(
                         scrollDirection: Axis.vertical,
@@ -153,7 +165,10 @@ class DataQuoteDetailSource extends DataGridSource {
                                     onTap: () {
                                       quoteController.pathImg.value =
                                           files[index]['path'];
-                                      print(quoteController.pathImg.value);
+                                      quoteController.nameImg.value =
+                                          removeBeforeSlash(
+                                              files[index]['name']);
+                                      // print(quoteController.pathImg.value);
                                     },
                                     child: Text(removeBeforeSlash(
                                         files[index]['name'])),
@@ -163,16 +178,25 @@ class DataQuoteDetailSource extends DataGridSource {
                         }),
                   ),
                   Obx(() => Container(
-                        height: (fullSizeHeight ?? 500) * 0.8,
-                        width: (fullSizeWidth ?? 900) * 0.5,
+                        height: fullSizeHeight! * 0.8,
+                        width: fullSizeWidth! * 0.5,
                         decoration: BoxDecoration(border: Border.all()),
-                        child: Image.network(quoteController.pathImg.value,
-                            errorBuilder: (BuildContext context, Object error,
-                                StackTrace? stackTrace) {
-                          return const Center(
-                            child: Text('This image type is not supported:'),
-                          );
-                        }),
+                        child: Column(
+                          children: [
+                            Image.network(quoteController.pathImg.value,
+                                errorBuilder: (BuildContext context,
+                                    Object error, StackTrace? stackTrace) {
+                              return const Center(
+                                child:
+                                    Text('This image type is not supported:'),
+                              );
+                            }),
+                            Center(
+                                child: Text(
+                              quoteController.nameImg.value,
+                            ))
+                          ],
+                        ),
                       ))
                 ],
               ),

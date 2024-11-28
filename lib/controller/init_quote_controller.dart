@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/model/model_input_quote_detail.dart';
+import 'package:web_lotus/model/model_quote_detail.dart';
 
 final QuoteController quoteController = Get.put(QuoteController());
 
@@ -22,6 +23,7 @@ class QuoteController extends GetxController {
   var currentDate_send = ''.obs;
   RxList<XFile>? listImg;
   var pathImg = ''.obs;
+  var nameImg = ''.obs;
 
   var fromDate_text = ''.obs;
   var toDate_text = ''.obs;
@@ -82,5 +84,5 @@ class QuoteController extends GetxController {
 
   RxList<InputQuoteDetail> listInputQuoteDetail = <InputQuoteDetail>[].obs;
   RxList<InputQuoteDetail> listInputQuoteDetail_show = <InputQuoteDetail>[].obs;
-  var countRow = 0.obs;
+  // var countRow = 0.obs;
 }

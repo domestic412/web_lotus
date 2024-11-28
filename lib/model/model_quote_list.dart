@@ -32,9 +32,8 @@ class QuoteList {
       this.quoteOnline,
       this.sendAlert});
 
-  DataGridRow getDataGridRow_QuoteList(int seq) {
+  DataGridRow getDataGridRow_QuoteList() {
     return DataGridRow(cells: [
-      DataGridCell(columnName: 'Seq', value: seq),
       DataGridCell(columnName: 'eqcQuoteId', value: eqcQuoteId),
       DataGridCell(columnName: 'Quote No', value: quoteNo),
       DataGridCell(columnName: 'Port/Depot', value: portDepot),

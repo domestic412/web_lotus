@@ -158,8 +158,8 @@ class _ImportButtonState extends State<ImportButton> {
                     edit: 'I');
                 quoteController.listInputQuoteDetail.add(_listInputQuoteDetail);
 
-                quoteController.countRow.value =
-                    quoteController.countRow.value + 1;
+                // quoteController.countRow.value =
+                //     quoteController.countRow.value + 1;
 
                 InputQuoteDetail _listInputQuoteDetail_show = InputQuoteDetail(
                   chargeTypeId: chargeCode,

@@ -12,19 +12,21 @@ import 'widget/add_info_detail_quote/add_info_cont_quote.dart';
 import 'widget/add_info_quote/info_quote.dart';
 import 'widget/table_quote/table_input_quote.dart';
 
-class AEQuotePage1 extends StatefulWidget {
-  const AEQuotePage1({super.key});
-
+class AEQuotePage extends StatefulWidget {
   @override
-  State<AEQuotePage1> createState() => _AEQuotePage1State();
+  State<AEQuotePage> createState() => _AEQuotePage1State();
 }
 
-class _AEQuotePage1State extends State<AEQuotePage1> {
+class _AEQuotePage1State extends State<AEQuotePage> {
   @override
   void initState() {
     super.initState();
     quoteController.currentDate_send.value =
         changeDatetoSend(date: DateTime.now());
+  }
+
+  void refresh() {
+    setState(() {});
   }
 
   @override
@@ -53,8 +55,8 @@ class _AEQuotePage1State extends State<AEQuotePage1> {
                       style: style20_blue,
                     ),
                     InfoQuote(),
-                    InfoContQuote(),
-                    Expanded(child: TableInputQuote1()),
+                    InfoContQuote(refresh),
+                    Expanded(child: TableInputQuote()),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

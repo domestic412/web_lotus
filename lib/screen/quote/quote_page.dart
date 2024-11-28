@@ -178,9 +178,9 @@ class _QuoteListPageState extends State<QuoteListPage> {
                         onPressed: () {
                           quoteController.listInputQuoteDetail.value = [];
                           quoteController.listInputQuoteDetail_show.value = [];
-                          quoteController.countRow.value = 0;
+                          // quoteController.countRow.value = 0;
                           InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
-                          Get.to(() => AEQuotePage1());
+                          Get.to(() => AEQuotePage());
                         },
                         style: ButtonStyle(
                             backgroundColor:
@@ -216,9 +216,10 @@ class _QuoteListPageState extends State<QuoteListPage> {
                                           (addedRows, removedRows) {
                                         quoteController.eqcQuoteId.value =
                                             _dataGridController.selectedRow!
-                                                .getCells()[1]
+                                                .getCells()[0]
                                                 .value
                                                 .toString();
+                                        print(quoteController.eqcQuoteId.value);
                                         Get.to(() => const QuoteDetailsPage());
                                       },
                                       source:

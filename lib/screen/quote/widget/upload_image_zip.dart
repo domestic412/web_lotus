@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:universal_html/html.dart' as html;
+import 'package:web_lotus/controller/init_quote_controller.dart';
 
-Future<void> SelectFileZip() async {
+// ignore: non_constant_identifier_names
+Future<void> SelectFileZip(VoidCallback refresh) async {
   try {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -41,18 +46,25 @@ Future<void> SelectFileZip() async {
         request.onLoad.listen((html.ProgressEvent event) {
           switch (request.status) {
             case 200:
-              var response = request.responseText;
-              print(response);
+              var response = request.response;
+              List data = json.decode(response);
+              for (var cntr in data) {
+                int i = 0;
+                for (var cntrInput in quoteController.listInputQuoteDetail) {
+                  cntr == cntrInput.container
+                      ? quoteController.listInputQuoteDetail[i].isImgUpload =
+                          true
+                      : null;
+                  cntr == cntrInput.container
+                      ? quoteController
+                          .listInputQuoteDetail_show[i].isImgUpload = true
+                      : null;
+                  i++;
+                }
+              }
+              // refresh();
               EasyLoading.showSuccess('Upload Success');
-              // quoteController.listInputQuoteDetail_show[i].isImgUpload = true;
-              // quoteController.listInputQuoteDetail[i].isImgUpload = true;
-              // setState(() {
-              //   // print(quoteController.listInputQuoteDetail);
-              // });
               print('Success send Image quote');
-            // if (Get.isDialogOpen == true) {
-            //   Get.back();
-            // }
             default:
               EasyLoading.showError('Upload Image Fail');
           }

@@ -13,8 +13,6 @@ import 'package:web_lotus/widgets/container/WidgetGridColumn.dart';
 import 'package:web_lotus/widgets/container/WidgetTextField.dart';
 import 'package:web_lotus/widgets/container/combobox.dart';
 
-import '../../widget/upload_image.dart';
-
 class QuoteDetailsPage extends StatefulWidget {
   const QuoteDetailsPage({super.key});
 
@@ -107,7 +105,7 @@ class _QuoteDetailsPageState extends State<QuoteDetailsPage> {
                                 ),
                                 ElevatedButton(
                                     onPressed: () {
-                                      SelectFileZip();
+                                      // SelectFileZip();
                                     },
                                     child: Text('Upload Image (.zip)'))
                               ],

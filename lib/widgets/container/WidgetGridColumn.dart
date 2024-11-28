@@ -11,6 +11,7 @@ WidgetGridColumn({required String label, required bool visible}) {
   return GridColumn(
       visible: visible,
       columnName: label,
+      width: label == 'Container' ? 110 : double.nan,
       label: Container(
           padding: const EdgeInsets.all(5.0),
           alignment: Alignment.centerLeft,

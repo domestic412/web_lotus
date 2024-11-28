@@ -47,9 +47,8 @@ class InputQuoteDetail {
     // this.payer,
   });
 
-  DataGridRow getDataGridRow_InputQuoteDetail(int seq) {
+  DataGridRow getDataGridRow_InputQuoteDetail() {
     return DataGridRow(cells: [
-      DataGridCell(columnName: 'Seq', value: seq),
       DataGridCell(columnName: 'eqcQuoteId', value: eqcQuoteId),
       DataGridCell(columnName: 'Charge Type', value: chargeTypeId),
       DataGridCell(columnName: 'Container', value: container),
@@ -67,6 +66,7 @@ class InputQuoteDetail {
       DataGridCell(columnName: 'Mr Cost', value: mrCost),
       DataGridCell(columnName: 'Total Cost', value: totalCost),
       DataGridCell(columnName: 'Image', value: isImgUpload),
+      // DataGridCell(columnName: 'R', value: ''),
     ]);
   }
 

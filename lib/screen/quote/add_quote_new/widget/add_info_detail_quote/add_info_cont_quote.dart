@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_input_quote_detail.dart';
-import 'package:web_lotus/screen/quote/add_quote_new/widget/add_info_quote/widget/search_id.dart';
 import 'package:web_lotus/screen/quote/add_quote_new/widget/add_info_quote/widget/search_name.dart';
-import 'package:web_lotus/screen/quote/widget/upload_image.dart';
+import 'package:web_lotus/screen/quote/widget/upload_image_zip.dart';
 import 'package:web_lotus/widgets/check_digit/check_digit.dart';
 
 import 'widget/widget_category.dart';
@@ -23,14 +22,9 @@ import 'widget/widget_quantity.dart';
 import 'widget/widget_totalCost.dart';
 import 'widget/widget_width.dart';
 
-class InfoContQuote extends StatefulWidget {
-  const InfoContQuote({super.key});
-
-  @override
-  State<InfoContQuote> createState() => _InfoContQuoteState();
-}
-
-class _InfoContQuoteState extends State<InfoContQuote> {
+class InfoContQuote extends StatelessWidget {
+  InfoContQuote(this.refresh);
+  final VoidCallback refresh;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -95,7 +89,6 @@ class _InfoContQuoteState extends State<InfoContQuote> {
               margin: EdgeInsets.all(5),
               child: ElevatedButton(
                 onPressed: () {
-                  print(quoteController.chargeTypeId.value);
                   if (checkDigit(quoteController.container.value.text) ==
                       true) {
                     InputQuoteDetail _listInputQuoteDetail = InputQuoteDetail(
@@ -175,7 +168,7 @@ class _InfoContQuoteState extends State<InfoContQuote> {
               margin: EdgeInsets.all(5),
               child: ElevatedButton(
                   onPressed: () {
-                    SelectFileZip();
+                    SelectFileZip(refresh);
                   },
                   child: Text('Upload Image (.zip)')),
             )

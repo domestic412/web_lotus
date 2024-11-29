@@ -3,12 +3,15 @@ import 'package:http/http.dart' as http;
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:web_lotus/assets/variable.dart';
 
-class QuoteDetail {
+class ListEQC {
   String? chargeType;
   String? component;
   String? category;
   String? damageCode;
   String? container;
+  String? inGateDate;
+  String? approveDate;
+  String? completeDate;
   String? damageDetail;
   double? quantity;
   String? dimension;
@@ -20,15 +23,20 @@ class QuoteDetail {
   double? totalCost;
   String? estimateDate;
   String? payer;
+  double? tariffPrice;
   String? approveCode;
   String? isImgUpload;
+  String? completeImgUpload;
 
-  QuoteDetail(
+  ListEQC(
       {this.chargeType,
       this.component,
       this.category,
       this.damageCode,
       this.container,
+      this.inGateDate,
+      this.approveDate,
+      this.completeDate,
       this.damageDetail,
       this.quantity,
       this.dimension,
@@ -40,16 +48,16 @@ class QuoteDetail {
       this.totalCost,
       this.estimateDate,
       this.payer,
+      this.tariffPrice,
       this.approveCode,
-      this.isImgUpload});
+      this.isImgUpload,
+      this.completeImgUpload});
 
-  DataGridRow getDataGridRow_QuoteDetail() {
+  DataGridRow getDataGridRow_ListEQC() {
     return DataGridRow(cells: [
       DataGridCell(columnName: 'Charge Type', value: chargeType),
-      // [2] container for image
+      // [1] container for image
       DataGridCell(columnName: 'Container', value: container),
-      // [3]estimateDate for image
-      DataGridCell(columnName: 'Estimate Date', value: estimateDate),
       DataGridCell(columnName: 'Component', value: component),
       DataGridCell(columnName: 'Damege Detail', value: damageDetail),
       DataGridCell(columnName: 'Damage Code', value: damageCode),
@@ -63,17 +71,25 @@ class QuoteDetail {
       DataGridCell(columnName: 'Mr Cost', value: mrCost),
       DataGridCell(columnName: 'Total Cost', value: totalCost),
       DataGridCell(columnName: 'Payer', value: payer),
-      DataGridCell(columnName: 'Approve Code', value: approveCode),
+      DataGridCell(columnName: 'Tariff Price', value: tariffPrice),
+      DataGridCell(columnName: 'Status', value: approveCode),
+      // [17]estimateDate for image
+      DataGridCell(columnName: 'Request', value: estimateDate),
+      DataGridCell(columnName: 'Approval', value: approveDate),
+      DataGridCell(columnName: 'Complete', value: completeDate),
       DataGridCell(columnName: 'Image', value: isImgUpload),
     ]);
   }
 
-  QuoteDetail.fromJson(Map<String, dynamic> json) {
+  ListEQC.fromJson(Map<String, dynamic> json) {
     chargeType = json['chargeType'];
     component = json['component'];
     category = json['category'];
     damageCode = json['damageCode'];
     container = json['container'];
+    inGateDate = json['inGateDate'];
+    approveDate = json['approveDate'];
+    completeDate = json['completeDate'];
     damageDetail = json['damageDetail'];
     quantity = json['quantity'];
     dimension = json['dimension'];
@@ -85,8 +101,10 @@ class QuoteDetail {
     totalCost = json['totalCost'];
     estimateDate = json['estimateDate'];
     payer = json['payer'];
+    tariffPrice = json['tariffPrice'];
     approveCode = json['approveCode'];
     isImgUpload = json['isImgUpload'];
+    completeImgUpload = json['completeImgUpload'];
   }
 
   Map<String, dynamic> toJson() {
@@ -96,6 +114,9 @@ class QuoteDetail {
     data['category'] = this.category;
     data['damageCode'] = this.damageCode;
     data['container'] = this.container;
+    data['inGateDate'] = this.inGateDate;
+    data['approveDate'] = this.approveDate;
+    data['completeDate'] = this.completeDate;
     data['damageDetail'] = this.damageDetail;
     data['quantity'] = this.quantity;
     data['dimension'] = this.dimension;
@@ -107,14 +128,20 @@ class QuoteDetail {
     data['totalCost'] = this.totalCost;
     data['estimateDate'] = this.estimateDate;
     data['payer'] = this.payer;
+    data['tariffPrice'] = this.tariffPrice;
     data['approveCode'] = this.approveCode;
     data['isImgUpload'] = this.isImgUpload;
+    data['completeImgUpload'] = this.completeImgUpload;
     return data;
   }
 
-  Future<List<QuoteDetail>> fetchQuoteDetails(String quoteId) async {
+  Future<List<ListEQC>> fetchListEQC(
+      {required String fromDate,
+      required String toDate,
+      required String userId}) async {
     try {
-      var url = '$SERVER/EQCQuote/LoadEQCQuoteDetail?EQCQuoteId=$quoteId';
+      var url =
+          '$SERVER/EQCQuote/LoadEQCQDO?fromDate=$fromDate&toDate=$toDate&UserId=$userId';
       final response = await http.post(Uri.parse(url), headers: {
         "Content-Type": "application/json",
       });
@@ -122,15 +149,13 @@ class QuoteDetail {
         case 200:
           var body = response.body;
           print('Data EQC Quote Detail');
-          List dataQuoteList = json.decode(body);
-          return dataQuoteList
-              .map((data) => QuoteDetail.fromJson(data))
-              .toList();
+          List dataListEQC = json.decode(body);
+          return dataListEQC.map((data) => ListEQC.fromJson(data)).toList();
         default:
-          throw Exception('Error: EQC_QuoteList ${response.reasonPhrase}');
+          throw Exception('Error: EQC_ListEQC ${response.reasonPhrase}');
       }
     } on Exception catch (e) {
-      throw Exception('Error: $e EQC_QuoteList');
+      throw Exception('Error: $e EQC_ListEQC');
     }
   }
 }

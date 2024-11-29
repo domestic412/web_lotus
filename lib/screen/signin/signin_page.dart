@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/info_signin_controller.dart';
-import 'package:web_lotus/screen/quote/quote_page.dart';
+import 'package:web_lotus/screen/eqc/list_eqc/listEQC_page.dart';
+import 'package:web_lotus/screen/eqc/quote_page.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 
 import 'popUpAlert/alert.dart';
@@ -159,8 +160,8 @@ class _SignInPageState extends State<SignInPage> {
                   {
                     //update infoUser
                     List infoUser = dataLogIn['dataTable1s'];
-                    String shipperId = infoUser[0]['shipperId'];
-                    String shipperName = infoUser[0]['shipperName'];
+                    String userId = infoUser[0]['shipperId'];
+                    String userName = infoUser[0]['shipperName'];
                     String managingOfficeId = infoUser[0]['managingOfficeId'];
 
                     //update consignee
@@ -178,8 +179,8 @@ class _SignInPageState extends State<SignInPage> {
                     //     .map((e) => DataTable5s.fromJson(e))
                     //     .toList();
                     // print(commodityList);
-                    box.write(shipperId_signin, shipperId);
-                    box.write(shipperName_signin, shipperName);
+                    box.write(userId_signin, userId);
+                    box.write(userName_signin, userName);
                     box.write(managingOfficeId_signin, managingOfficeId);
                     box.write(consigneeList_signin, consigneeList_json);
                     // box.write(refList_signin, refList_json);
@@ -188,8 +189,8 @@ class _SignInPageState extends State<SignInPage> {
 
                     inforUserController.updateInfoShipperController(
                       isStaff: 0,
-                      shipperId: box.read(shipperId_signin),
-                      shipperName: box.read(shipperName_signin),
+                      userId: box.read(userId_signin),
+                      userName: box.read(userName_signin),
                       managingOfficeId: box.read(managingOfficeId_signin),
                       consigneeList: box.read(consigneeList_signin),
                       termList: box.read(termList_signin),
@@ -206,7 +207,8 @@ class _SignInPageState extends State<SignInPage> {
                     //     Get.toNamed(GetRoutes.defaultRoute);
                     //     break;
                     // }
-                    Get.to(QuoteListPage());
+                    // Get.to(QuoteListPage());
+                    Get.to(() => ListEQCPage());
                     print('Login Success');
                   }
                 case 1:
@@ -214,14 +216,14 @@ class _SignInPageState extends State<SignInPage> {
                     String userId = dataLogIn[0]['userId'];
                     String userName = dataLogIn[0]['userName'];
                     String officeId = dataLogIn[0]['officeId'];
-                    box.write(shipperId_signin, userId);
-                    box.write(shipperName_signin, userName);
+                    box.write(userId_signin, userId);
+                    box.write(userName_signin, userName);
                     box.write(managingOfficeId_signin, officeId);
 
                     inforUserController.updateInfoStaffController(
                       isStaff: 1,
-                      shipperId: box.read(shipperId_signin),
-                      shipperName: box.read(shipperName_signin),
+                      userId: box.read(userId_signin),
+                      userName: box.read(userName_signin),
                       managingOfficeId: box.read(managingOfficeId_signin),
                     );
 
@@ -236,7 +238,8 @@ class _SignInPageState extends State<SignInPage> {
                     //     Get.toNamed(GetRoutes.defaultRoute);
                     //     break;
                     // }
-                    Get.to(() => QuoteListPage());
+                    // Get.to(() => QuoteListPage());
+                    Get.to(() => ListEQCPage());
                   }
                 default:
                   LoginAlertDatabase(context);

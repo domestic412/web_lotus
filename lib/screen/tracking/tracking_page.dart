@@ -29,7 +29,7 @@ class _TrackingPageState extends State<TrackingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColor.backgroundColor,
-      bottomSheet: Footer(),
+      // bottomSheet: Footer(),
       body: SafeArea(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,

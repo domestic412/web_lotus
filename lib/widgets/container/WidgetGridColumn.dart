@@ -11,10 +11,16 @@ WidgetGridColumn({required String label, required bool visible}) {
   return GridColumn(
       visible: visible,
       columnName: label,
-      width: label == 'Container' ? 110 : double.nan,
+      width: label == 'Container'
+          ? 110
+          : label == 'Seq.'
+              ? 40
+              : label == 'R'
+                  ? 40
+                  : double.nan,
       label: Container(
           padding: const EdgeInsets.all(5.0),
           alignment: Alignment.centerLeft,
           child: Text(label,
-              style: style12_black, overflow: TextOverflow.ellipsis)));
+              style: style11_black, overflow: TextOverflow.ellipsis)));
 }

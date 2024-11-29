@@ -5,7 +5,7 @@ Map<String, String> en = {
       "Our system does not accept House BL numbers assigned by NVOCC or Freight Forwarder.",
   "title_booking": "Booking Detail",
   "size_booking": "Size",
-  "seq": "Seq",
+  "seq": "Seq.",
   "container": "Container",
   "title_container": "Container Tracking Detail",
   "status_container": "Status",

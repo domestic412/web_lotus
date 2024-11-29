@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/screen/tracking/tracking_page.dart';
 
@@ -29,13 +30,13 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     fullSizeHeight = deviceHeight(context);
     fullSizeWidth = deviceWidth(context);
     InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
+
     return GetMaterialApp(
       title: 'Lotus Link',
       debugShowCheckedModeBanner: false,

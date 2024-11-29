@@ -6,7 +6,7 @@ import 'dart:html' as html;
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_input_quote_detail.dart';
-import 'package:web_lotus/screen/quote/quote_page.dart';
+import 'package:web_lotus/screen/eqc/list_eqc/listEQC_page.dart';
 
 Future<void> PostNewQuote(
     {required String eqcQuoteId,
@@ -64,7 +64,8 @@ Future<void> PostNewQuoteDetail(
     switch (response.statusCode) {
       case 200:
         // controller.selectWidget.value = quoteList;
-        Get.to(() => QuoteListPage());
+        // Get.to(() => QuoteListPage());
+        Get.to(() => ListEQCPage());
         print('Post quote detail success');
       default:
         print('Error post quote detail: ${response.statusCode}');

@@ -2,12 +2,12 @@ import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/info_signin_controller.dart';
 
 void checkInfoUser() {
-  switch (box.read(shipperName_signin)) {
+  switch (box.read(userName_signin)) {
     case null:
       break;
     default:
       {
-        switch (inforUserController.shipperName.value) {
+        switch (inforUserController.userName.value) {
           case '':
             {
               switch (box.read(is_staff_signin)) {
@@ -15,8 +15,8 @@ void checkInfoUser() {
                   {
                     inforUserController.updateInfoShipperController(
                       isStaff: 0,
-                      shipperId: box.read(shipperId_signin),
-                      shipperName: box.read(shipperName_signin),
+                      userId: box.read(userId_signin),
+                      userName: box.read(userName_signin),
                       managingOfficeId: box.read(managingOfficeId_signin),
                       consigneeList: box.read(consigneeList_signin),
                       termList: box.read(termList_signin),
@@ -27,8 +27,8 @@ void checkInfoUser() {
                   {
                     inforUserController.updateInfoStaffController(
                       isStaff: 1,
-                      shipperId: box.read(shipperId_signin),
-                      shipperName: box.read(shipperName_signin),
+                      userId: box.read(userId_signin),
+                      userName: box.read(userName_signin),
                       managingOfficeId: box.read(managingOfficeId_signin),
                     );
                     break;

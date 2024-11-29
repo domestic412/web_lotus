@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_lotus/assets/color.dart';
-import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/divider_controller.dart';
 import 'package:web_lotus/controller/info_signin_controller.dart';
-import 'package:web_lotus/screen/quote/quote_page.dart';
+import 'package:web_lotus/screen/eqc/list_eqc/listEQC_page.dart';
 import 'package:web_lotus/screen/signin/signin_page.dart';
 import 'package:web_lotus/screen/tracking/tracking_page.dart';
 
@@ -65,11 +64,11 @@ class _AppbarWidgetState extends State<AppbarWidget> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        inforUserController.shipperName.value != ''
+                        inforUserController.userName.value != ''
                             ? Row(
                                 children: [
                                   Text(
-                                    inforUserController.shipperName.value,
+                                    inforUserController.userName.value,
                                     style: TextStyle(color: white),
                                   ),
                                   const SizedBox(
@@ -77,7 +76,7 @@ class _AppbarWidgetState extends State<AppbarWidget> {
                                   ),
                                   IconButton(
                                     onPressed: () {
-                                      box.remove(shipperName_signin);
+                                      box.remove(userName_signin);
                                       inforUserController.resetInfoController();
                                       Get.to(() => TrackingPage());
                                       // controller.selectWidget.value = dashboard;
@@ -283,12 +282,13 @@ class _MenuBarState extends State<MenuBar> {
                   ),
                   onPressed: () {
                     dividerController.dividerPage.value = 'Quote';
-                    switch (inforUserController.shipperName.value) {
+                    switch (inforUserController.userName.value) {
                       case '':
                         Get.to(() => SignInPage());
                         break;
                       default:
-                        Get.to(() => QuoteListPage());
+                        // Get.to(() => QuoteListPage());
+                        Get.to(() => ListEQCPage());
                         break;
                     }
                   },
@@ -338,7 +338,7 @@ class _MenuBarState extends State<MenuBar> {
           //                   children: [
           //                     Text(
           //                       'Quote List',
-          //                       style: style12_white,
+          //                       style: style11_white,
           //                     ),
           //                     SizedBox(
           //                       height: 5,
@@ -370,7 +370,7 @@ class _MenuBarState extends State<MenuBar> {
           //                   children: [
           //                     Text(
           //                       'Draft',
-          //                       style: style12_white,
+          //                       style: style11_white,
           //                     ),
           //                     SizedBox(
           //                       height: 5,
@@ -402,7 +402,7 @@ class _MenuBarState extends State<MenuBar> {
           //                   children: [
           //                     Text(
           //                       'Approved',
-          //                       style: style12_white,
+          //                       style: style11_white,
           //                     ),
           //                     SizedBox(
           //                       height: 5,
@@ -434,7 +434,7 @@ class _MenuBarState extends State<MenuBar> {
           //                   children: [
           //                     Text(
           //                       'Complete',
-          //                       style: style12_white,
+          //                       style: style11_white,
           //                     ),
           //                     SizedBox(
           //                       height: 5,

@@ -348,22 +348,22 @@
 //                             Container(
 //                               width: 200,
 //                               child: Center(
-//                                 child: Text(data.container.toString(), style: style12_black,)),
+//                                 child: Text(data.container.toString(), style: style11_black,)),
 //                             )),
 //                           // DataCell(
 //                           //   Container(
 //                           //     width: 40,
-//                           //     child: Text(data.size.toString(), style: style12_black,))),
+//                           //     child: Text(data.size.toString(), style: style11_black,))),
 //                           // DataCell(
 //                           //   Container(
 //                           //     width: 80,
 //                           //     child: Center(
-//                           //       child: Text(detailVessel, style: style12_black,)))),
+//                           //       child: Text(detailVessel, style: style11_black,)))),
 //                           // DataCell(
 //                           //   Container(
 //                           //     width: 50,
 //                           //     child: Center(
-//                           //       child: Text(detailVoyage, style: style12_black,)),
+//                           //       child: Text(detailVoyage, style: style11_black,)),
 //                           //   )),
                           
 //                           DataCell(
@@ -374,13 +374,13 @@
 //                             Container(
 //                               width: 200,
 //                               child: Center(
-//                                 child: Text(snapshot.data![index].location!, style: style12_black,)),
+//                                 child: Text(snapshot.data![index].location!, style: style11_black,)),
 //                             )),
 //                           DataCell(
 //                             Container(
 //                               width: 150,
 //                               child: Center(
-//                                 child: Text('$date \n $time', style: style12_black)),
+//                                 child: Text('$date \n $time', style: style11_black)),
 //                             )),
 //                         ]);
 //                       })

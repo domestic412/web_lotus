@@ -66,7 +66,7 @@ class InputQuoteDetail {
       DataGridCell(columnName: 'Mr Cost', value: mrCost),
       DataGridCell(columnName: 'Total Cost', value: totalCost),
       DataGridCell(columnName: 'Image', value: isImgUpload),
-      // DataGridCell(columnName: 'R', value: ''),
+      DataGridCell(columnName: 'R', value: ''),
     ]);
   }
 

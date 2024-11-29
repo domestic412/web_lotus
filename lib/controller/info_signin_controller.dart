@@ -19,8 +19,8 @@ class InformationSignInController extends GetxController {
   //new     information shipper
   var username = TextEditingController().obs;
   var password = TextEditingController().obs;
-  var shipperId = ''.obs;
-  var shipperName = ''.obs;
+  var userId = ''.obs;
+  var userName = ''.obs;
   var managingOfficeId = ''.obs;
 
   //new     info consignee, term
@@ -29,27 +29,27 @@ class InformationSignInController extends GetxController {
 
   updateInfoStaffController({
     @required isStaff,
-    @required shipperId,
-    @required shipperName,
+    @required userId,
+    @required userName,
     @required managingOfficeId,
   }) {
     this.isStaff.value = isStaff;
-    this.shipperId.value = shipperId;
-    this.shipperName.value = shipperName;
+    this.userId.value = userId;
+    this.userName.value = userName;
     this.managingOfficeId.value = managingOfficeId;
   }
 
   updateInfoShipperController({
     @required isStaff,
-    @required shipperId,
-    @required shipperName,
+    @required userId,
+    @required userName,
     @required managingOfficeId,
     @required consigneeList,
     @required termList,
   }) {
     this.isStaff.value = isStaff;
-    this.shipperId.value = shipperId;
-    this.shipperName.value = shipperName;
+    this.userId.value = userId;
+    this.userName.value = userName;
     this.managingOfficeId.value = managingOfficeId;
     this.consigneeList.value = consigneeList;
     this.termList.value = termList;
@@ -58,8 +58,8 @@ class InformationSignInController extends GetxController {
   resetInfoController() {
     username.value.clear();
     password.value.clear();
-    shipperId = ''.obs;
-    shipperName = ''.obs;
+    userId = ''.obs;
+    userName = ''.obs;
     managingOfficeId = ''.obs;
     consigneeList = [].obs;
     termList = [].obs;

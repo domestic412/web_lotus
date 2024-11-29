@@ -5,16 +5,13 @@ import 'package:web_lotus/assets/style.dart';
 Combobox<T>({
   required TextEditingController controllerCombobox,
   required List<T> list,
-  // required String valueName,
-  // required String valueId,
-  // required String valueSend,
   required String Function(T) valueName,
   // required String Function(T) valueId,
   // required String valueSend,
   Function(T?)? onChanged,
 }) {
   return Container(
-    width: 100,
+    width: 90,
     margin: const EdgeInsets.all(5),
     child: TypeAheadField<T>(
       animationDuration: const Duration(milliseconds: 0),
@@ -28,7 +25,7 @@ Combobox<T>({
         return TextField(
           controller: controller,
           focusNode: focusNode,
-          style: const TextStyle(fontSize: 12),
+          style: style11_black,
           decoration: const InputDecoration(
             contentPadding: EdgeInsets.all(8),
             isDense: true,
@@ -44,7 +41,7 @@ Combobox<T>({
         title: Text(
           valueName(value),
           // value.valueName!,
-          style: style12_black,
+          style: style11_black,
         ),
       ),
       onSelected: (value) {

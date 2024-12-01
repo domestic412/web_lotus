@@ -9,7 +9,7 @@ import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
-import 'package:web_lotus/model/model_quote_detail.dart';
+import 'package:web_lotus/model/model_listEQC.dart';
 import 'package:http/http.dart' as http;
 import 'package:universal_html/html.dart' as html;
 import 'package:web_lotus/widgets/removeBeforeSlash.dart';
@@ -20,13 +20,14 @@ class DataListEQCSource extends DataGridSource {
     buildDataGridRows();
   }
 
-  List<ListEQC> _listEQC = [];
-  List<ListEQC> _listEQC_original = [];
+  List<ListEQC123> _listEQC = [];
+  List<ListEQC123> _listEQC_original = [];
   List<DataGridRow> dataGridRows = [];
+  String remarks = '';
 
   void buildDataGridRows() {
     dataGridRows = _listEQC.map<DataGridRow>((DataGridRow) {
-      return DataGridRow.getDataGridRow_ListEQC();
+      return DataGridRow.getDataGridRow_ListEQC123();
     }).toList();
   }
 
@@ -49,62 +50,81 @@ class DataListEQCSource extends DataGridSource {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.all(5.0),
             child: dataGridCell.value == null ||
-                    dataGridCell.value == 'Cancel' ||
-                    dataGridCell.value == 'Not yet'
+                    dataGridCell.value.toString().toUpperCase() == 'CANCEL'
                 ? SizedBox()
                 : dataGridCell.columnName == 'Request' ||
                         dataGridCell.columnName == 'Approval' ||
                         dataGridCell.columnName == 'Complete'
-                    ? Text(
-                        changeDatetoShow(
-                            date:
-                                DateTime.parse(dataGridCell.value.toString())),
+                    ?
+                    // dataGridCell.columnName == 'isImgUpload' &&
+                    //         dataGridCell.value.toString() == ''
+                    //     ? TextButton(
+                    //         child: Text(
+                    //             changeDatetoShow(
+                    //                 date: DateTime.parse(
+                    //                     dataGridCell.value.toString())),
+                    //             style: style11_black,
+                    //             overflow: TextOverflow.ellipsis),
+                    //         onPressed: () {
+                    //           downloadAndExtractZip(
+                    //               cntr: row.getCells()[1].value,
+                    //               esdate: row.getCells()[2].value);
+                    //         },
+                    //       )
+                    //     :
+                    Text(
+                        changeStringDatetoShow(
+                            date: dataGridCell.value.toString()),
                         style: style11_black,
                         overflow: TextOverflow.ellipsis)
-                    : dataGridCell.columnName == 'Image'
-                        ? InkWell(
-                            onTap: () {
-                              downloadAndExtractZip(
-                                  cntr: row.getCells()[1].value,
-                                  esdate: row.getCells()[17].value);
-                            },
-                            child: Text(
-                              dataGridCell.value.toString(),
-                              style: style12_blue,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )
-                        : Text(dataGridCell.value.toString(),
-                            style: style11_black,
-                            overflow: TextOverflow.ellipsis),
+                    : Text(dataGridCell.value.toString(),
+                        style: style11_black, overflow: TextOverflow.ellipsis),
           ))
     ].toList());
   }
 
   void applyFilter({
+    required String depot,
     required String cntr,
-    required String chargeTypeCode,
-    required String componentCode,
-    required String categoryCode,
+    required String size,
+    required String quoteCcy,
+    required String approveCode,
+    required String quoteNo,
+    //search detail
+    required String charge,
+    required String component,
     required String damageCode,
+    required String damageDetail,
+    required String category,
     required String location,
+    required String payer,
   }) {
     _listEQC = _listEQC_original
         .where((element) =>
+            element.depot!.toUpperCase().contains(depot.toUpperCase()) &&
             element.container!.toUpperCase().contains(cntr.toUpperCase()) &&
-            element.chargeType!
+            element.size!.toUpperCase().contains(size.toUpperCase()) &&
+            element.quoteCcy!.toUpperCase().contains(quoteCcy.toUpperCase()) &&
+            element.approveCode!
                 .toUpperCase()
-                .contains(chargeTypeCode.toUpperCase()) &&
-            element.component!
+                .contains(approveCode.toUpperCase()) &&
+            element.quoteNo!.toUpperCase().contains(quoteNo.toUpperCase()) &&
+            element.details!.any((value) => value.chargeType!
                 .toUpperCase()
-                .contains(componentCode.toUpperCase()) &&
-            element.category!
+                .contains(charge.toUpperCase())) &&
+            element.details!.any((value) => value.component!
                 .toUpperCase()
-                .contains(categoryCode.toUpperCase()) &&
-            element.damageCode!
+                .contains(component.toUpperCase())) &&
+            element.details!.any((value) => value.damageCode!
                 .toUpperCase()
-                .contains(damageCode.toUpperCase()) &&
-            element.location!.toUpperCase().contains(location.toUpperCase()))
+                .contains(damageCode.toUpperCase())) &&
+            element.details!.any((value) => value.damageDetail!
+                .toUpperCase()
+                .contains(damageDetail.toUpperCase())) &&
+            element.details!.any(
+                (value) => value.category!.toUpperCase().contains(category.toUpperCase())) &&
+            element.details!.any((value) => value.location!.toUpperCase().contains(location.toUpperCase())) &&
+            element.details!.any((value) => value.payer!.toUpperCase().contains(payer.toUpperCase())))
         .toList();
     buildDataGridRows();
     notifyListeners();
@@ -116,13 +136,13 @@ class DataListEQCSource extends DataGridSource {
     notifyListeners();
   }
 
-  @override
-  Widget? buildGroupCaptionCellWidget(
-      RowColumnIndex rowColumnIndex, String summaryValue) {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-        child: Text(summaryValue));
-  }
+  // @override
+  // Widget? buildGroupCaptionCellWidget(
+  //     RowColumnIndex rowColumnIndex, String summaryValue) {
+  //   return Container(
+  //       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
+  //       child: Text(summaryValue));
+  // }
 
   Future<void> downloadAndExtractZip(
       {required String cntr, required String esdate}) async {

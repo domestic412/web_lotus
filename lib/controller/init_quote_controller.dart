@@ -3,18 +3,17 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/model/model_input_quote_detail.dart';
-import 'package:web_lotus/model/model_quote_detail.dart';
+import 'package:web_lotus/model/model_listEQC.dart';
 
 final QuoteController quoteController = Get.put(QuoteController());
 
 class QuoteController extends GetxController {
-  // Future<InitEQCQuote>? initEQC;
-
   RxList<CurrencyQuotes> listCurrency = <CurrencyQuotes>[].obs;
   RxList<ChargeTypeQuotes> listCharge = <ChargeTypeQuotes>[].obs;
   RxList<ComponentQuotes> listComponent = <ComponentQuotes>[].obs;
   RxList<ErrorQuotes> listError = <ErrorQuotes>[].obs;
   RxList<CategoryQuotes> listCategory = <CategoryQuotes>[].obs;
+  RxList<Details> listDetails = <Details>[].obs;
 
   RxList listCont = [].obs;
 

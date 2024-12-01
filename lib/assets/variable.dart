@@ -12,6 +12,10 @@ changeDatetoShow({required DateTime date}) {
   return DateFormat('dd/MM/yyyy').format(date);
 }
 
+changeStringDatetoShow({required String date}) {
+  return changeDatetoShow(date: DateTime.parse(date));
+}
+
 changeDatetoSend({required DateTime date}) {
   return DateFormat('MM/dd/yyyy').format(date);
 }

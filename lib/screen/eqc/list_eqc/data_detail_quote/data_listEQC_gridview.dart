@@ -48,23 +48,35 @@ class DataListEQCSource extends DataGridSource {
       ...row.getCells().map<Widget>((dataGridCell) => Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.all(5.0),
-            child: dataGridCell.value == null
+            child: dataGridCell.value == null ||
+                    dataGridCell.value == 'Cancel' ||
+                    dataGridCell.value == 'Not yet'
                 ? SizedBox()
-                : dataGridCell.columnName == 'Image'
-                    ? InkWell(
-                        onTap: () {
-                          downloadAndExtractZip(
-                              cntr: row.getCells()[1].value,
-                              esdate: row.getCells()[17].value);
-                        },
-                        child: Text(
-                          dataGridCell.value.toString(),
-                          style: style12_blue,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      )
-                    : Text(dataGridCell.value.toString(),
-                        style: style11_black, overflow: TextOverflow.ellipsis),
+                : dataGridCell.columnName == 'Request' ||
+                        dataGridCell.columnName == 'Approval' ||
+                        dataGridCell.columnName == 'Complete'
+                    ? Text(
+                        changeDatetoShow(
+                            date:
+                                DateTime.parse(dataGridCell.value.toString())),
+                        style: style11_black,
+                        overflow: TextOverflow.ellipsis)
+                    : dataGridCell.columnName == 'Image'
+                        ? InkWell(
+                            onTap: () {
+                              downloadAndExtractZip(
+                                  cntr: row.getCells()[1].value,
+                                  esdate: row.getCells()[17].value);
+                            },
+                            child: Text(
+                              dataGridCell.value.toString(),
+                              style: style12_blue,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )
+                        : Text(dataGridCell.value.toString(),
+                            style: style11_black,
+                            overflow: TextOverflow.ellipsis),
           ))
     ].toList());
   }

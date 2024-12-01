@@ -329,12 +329,12 @@ class _ListEQCPageState extends State<ListEQCPage> {
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
-                                          label: 'Payer',
+                                          label: 'Tariff Price',
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
-                                          label: 'Tariff Price',
-                                          visible: false,
+                                          label: 'Payer',
+                                          visible: true,
                                         ),
                                         WidgetGridColumn(
                                           label: 'Status',
@@ -342,15 +342,15 @@ class _ListEQCPageState extends State<ListEQCPage> {
                                         ),
                                         WidgetGridColumn(
                                           label: 'Request',
-                                          visible: false,
+                                          visible: true,
                                         ),
                                         WidgetGridColumn(
                                           label: 'Approval',
-                                          visible: false,
+                                          visible: true,
                                         ),
                                         WidgetGridColumn(
                                           label: 'Complete',
-                                          visible: false,
+                                          visible: true,
                                         ),
                                         WidgetGridColumn(
                                           label: 'Image',

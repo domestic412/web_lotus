@@ -36,7 +36,7 @@ class QuoteController extends GetxController {
 
   // var portDepotId = '84B9B9A3-99CE-4865-81B7-74070F075EAB'.obs;
 
-  var currency_controller = TextEditingController().obs;
+  // var currency_controller = TextEditingController().obs;
   var currency = ''.obs;
 
   var exRate = TextEditingController().obs;

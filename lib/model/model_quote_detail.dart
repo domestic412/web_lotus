@@ -70,8 +70,8 @@ class ListEQC {
       DataGridCell(columnName: 'Labor Cost', value: laborCost),
       DataGridCell(columnName: 'Mr Cost', value: mrCost),
       DataGridCell(columnName: 'Total Cost', value: totalCost),
-      DataGridCell(columnName: 'Payer', value: payer),
       DataGridCell(columnName: 'Tariff Price', value: tariffPrice),
+      DataGridCell(columnName: 'Payer', value: payer),
       DataGridCell(columnName: 'Status', value: approveCode),
       // [17]estimateDate for image
       DataGridCell(columnName: 'Request', value: estimateDate),

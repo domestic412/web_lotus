@@ -6,6 +6,7 @@ double deviceHeight(context) => MediaQuery.sizeOf(context).height;
 double deviceWidth(context) => MediaQuery.sizeOf(context).width;
 
 const SERVER = 'http://222.252.166.214:6505';
+// const SERVER = 'http://113.160.100.137:9999';
 //format date
 changeDatetoShow({required DateTime date}) {
   return DateFormat('dd/MM/yyyy').format(date);

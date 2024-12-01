@@ -27,7 +27,10 @@ class _WidgetCurrencyState extends State<WidgetCurrency> {
             controllerCombobox: _controller,
             list: quoteController.listCurrency,
             valueName: (element) => element.currency!,
-            onChanged: (p0) {},
+            onChanged: (value) {
+              quoteController.currency.value = value!.currency!;
+              print(quoteController.currency.value);
+            },
           ),
         ],
       ),

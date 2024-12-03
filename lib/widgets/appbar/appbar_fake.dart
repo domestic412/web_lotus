@@ -1,10 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:web_lotus/assets/color.dart';
+import 'package:web_lotus/assets/text.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/divider_controller.dart';
 import 'package:web_lotus/controller/info_signin_controller.dart';
+import 'package:web_lotus/screen/eqc/add_quote_new/add_edit_quote.dart';
 import 'package:web_lotus/screen/eqc/list_eqc/listEQC_page.dart';
+import 'package:web_lotus/screen/eqc/repair_complete/list_repair_complete_page.dart';
 import 'package:web_lotus/screen/signin/signin_page.dart';
 import 'package:web_lotus/screen/tracking/tracking_page.dart';
 
@@ -275,6 +279,24 @@ class _MenuBarState extends State<MenuBar> {
                     ],
                   )),
               // SizedBox(width: 10),
+              PopupMenuButton(
+                child: Text('Quote', style: TextStyle(color: Colors.white)),
+                itemBuilder: (BuildContext context) {
+                  return listQuote
+                      .map((e) => PopupMenuItem(child: Text(e), value: e))
+                      .toList();
+                },
+                onSelected: (value) {
+                  switch (value) {
+                    case 'Create Quote':
+                      Get.to(() => AEQuotePage());
+                    case 'Management EQC':
+                      Get.to(() => ListEQCPage());
+                    case 'Repair Complete':
+                      Get.to(() => ListRepairCompletePage());
+                  }
+                },
+              ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: haian,
@@ -287,7 +309,6 @@ class _MenuBarState extends State<MenuBar> {
                         Get.to(() => SignInPage());
                         break;
                       default:
-                        // Get.to(() => QuoteListPage());
                         Get.to(() => ListEQCPage());
                         break;
                     }

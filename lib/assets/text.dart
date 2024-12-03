@@ -1,18 +1,24 @@
-
-
 String detailStatus = '';
 String detailVessel = '';
 String detailRemark = '';
 String detailVoyage = '';
 String showTextError = '';
-String errorInput =  'Please check your Booking / Bill Number or Container Number';
-String errorInput2 =  'Please enter your Booking / Bill Number or Container Number';
-String errorServer =  'Server error';
+String errorInput =
+    'Please check your Booking / Bill Number or Container Number';
+String errorInput2 =
+    'Please enter your Booking / Bill Number or Container Number';
+String errorServer = 'Server error';
 String Ccontainer = '';
 bool bool_data_container = false;
 
 int seq = 1;
 String? cntr_no;
+
+List<String> listQuote = [
+  'Create Quote',
+  'Management EQC',
+  'Repair Complete',
+];
 // String data_container_MIA_depo = '';
 // String data_container_MIA_date = '';
 // String data_container_MIA_time = '';

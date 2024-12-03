@@ -13,22 +13,22 @@ import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/model/model_listEQC.dart';
 import 'package:web_lotus/screen/eqc/add_quote_new/add_edit_quote.dart';
 import 'package:web_lotus/screen/eqc/list_eqc/data_listEQC_gridview.dart';
+import 'package:web_lotus/screen/eqc/list_eqc/detail_eqc/widget_detail_eqc.dart';
+import 'package:web_lotus/screen/eqc/repair_complete/detail_repair/widget_detail_repair.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/container/ContainerLabel.dart';
 import 'package:web_lotus/widgets/container/WidgetGridColumn.dart';
 import 'package:web_lotus/widgets/container/WidgetTextField.dart';
 import 'package:web_lotus/widgets/container/combobox.dart';
 
-import 'detail_eqc/widget_detail_eqc.dart';
-
-class ListEQCPage extends StatefulWidget {
-  const ListEQCPage({super.key});
+class ListRepairCompletePage extends StatefulWidget {
+  const ListRepairCompletePage({super.key});
 
   @override
-  State<ListEQCPage> createState() => _ListEQCPageState();
+  State<ListRepairCompletePage> createState() => _ListRepairCompletePageState();
 }
 
-class _ListEQCPageState extends State<ListEQCPage> {
+class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
   final DataGridController _dataGridController = DataGridController();
   late DataListEQCSource _dataListEQCSource;
   List<ListEQC123> _listEQC = <ListEQC123>[];
@@ -39,14 +39,6 @@ class _ListEQCPageState extends State<ListEQCPage> {
   TextEditingController _controller_quoteCcy = TextEditingController();
   TextEditingController _controller_approveCode = TextEditingController();
   TextEditingController _controller_quoteNo = TextEditingController();
-  // search details
-  TextEditingController _controller_charge = TextEditingController();
-  TextEditingController _controller_component = TextEditingController();
-  TextEditingController _controller_damageCode = TextEditingController();
-  TextEditingController _controller_damageDetail = TextEditingController();
-  TextEditingController _controller_category = TextEditingController();
-  TextEditingController _controller_location = TextEditingController();
-  TextEditingController _controller_payer = TextEditingController();
 
   @override
   void initState() {
@@ -71,7 +63,7 @@ class _ListEQCPageState extends State<ListEQCPage> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           AppbarWidget(),
           Text(
-            'Management EQC',
+            'Repair Complete',
             style: style20_blue,
           ),
           const SizedBox(
@@ -159,19 +151,6 @@ class _ListEQCPageState extends State<ListEQCPage> {
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  quoteController.listInputQuoteDetail.value = [];
-                  quoteController.listInputQuoteDetail_show.value = [];
-                  InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
-                  Get.to(() => AEQuotePage());
-                },
-                style: ButtonStyle(
-                    backgroundColor:
-                        WidgetStatePropertyAll<Color>(Colors.orange),
-                    minimumSize: WidgetStateProperty.all(Size(100, 40))),
-                child: Text('Add Quote'),
-              ),
             ],
           ),
           Expanded(
@@ -192,14 +171,14 @@ class _ListEQCPageState extends State<ListEQCPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                WidgetDepo(controller: _controller_depo),
+                                WidgetQuoteNo(controller: _controller_quoteNo),
                                 WidgetCntr(controller: _controller_cntr),
                                 WidgetSize(controller: _controller_size),
                                 WidgetCurrency(
                                     controller: _controller_quoteCcy),
                                 // WidgetStatus(
                                 //     controller: _controller_approveCode),
-                                WidgetQuoteNo(controller: _controller_quoteNo),
+
                                 ElevatedButton(
                                     onPressed: () {
                                       _dataListEQCSource.applyFilter(
@@ -210,15 +189,6 @@ class _ListEQCPageState extends State<ListEQCPage> {
                                         approveCode:
                                             _controller_approveCode.text,
                                         quoteNo: _controller_quoteNo.text,
-                                        //details
-                                        charge: _controller_charge.text,
-                                        component: _controller_component.text,
-                                        damageCode: _controller_damageCode.text,
-                                        damageDetail:
-                                            _controller_damageDetail.text,
-                                        category: _controller_category.text,
-                                        location: _controller_location.text,
-                                        payer: _controller_payer.text,
                                       );
                                     },
                                     child: const Text('Filter')),
@@ -233,44 +203,9 @@ class _ListEQCPageState extends State<ListEQCPage> {
                                       _controller_quoteCcy.clear();
                                       _controller_approveCode.clear();
                                       _controller_quoteNo.clear();
-                                      _controller_charge.clear();
-                                      _controller_component.clear();
-                                      _controller_damageCode.clear();
-                                      _controller_damageDetail.clear();
-                                      _controller_category.clear();
-                                      _controller_location.clear();
-                                      _controller_payer.clear();
                                       _dataListEQCSource.clear();
                                     },
                                     child: const Text('Remove Filter')),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      // SelectFileZip(refresh);
-                                    },
-                                    child: Text('Upload Image (.zip)'))
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                WidgetCharge(controller: _controller_charge),
-                                WidgetComponent(
-                                    controller: _controller_component),
-                                WidgetDamage(
-                                    controller: _controller_damageCode),
-                                WidgetDamageDetail(
-                                    controller: _controller_damageDetail),
-                                WidgetCategory(
-                                    controller: _controller_category),
-                                WidgetLocation(
-                                    controller: _controller_location),
-                                WidgetPayer(controller: _controller_payer),
                               ],
                             ),
                             Expanded(
@@ -307,15 +242,15 @@ class _ListEQCPageState extends State<ListEQCPage> {
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
+                                          label: 'Quote No',
+                                          visible: true,
+                                        ),
+                                        WidgetGridColumn(
                                           label: 'Container',
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
                                           label: 'inGateDate',
-                                          visible: false,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'isImgUpload',
                                           visible: false,
                                         ),
                                         WidgetGridColumn(
@@ -328,18 +263,6 @@ class _ListEQCPageState extends State<ListEQCPage> {
                                         ),
                                         WidgetGridColumn(
                                           label: 'Size',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Ccy',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Total Cost',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Tarrif',
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
@@ -359,11 +282,15 @@ class _ListEQCPageState extends State<ListEQCPage> {
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
-                                          label: 'Remarks',
+                                          label: 'Ccy',
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
-                                          label: 'Quote No',
+                                          label: 'Total Cost',
+                                          visible: true,
+                                        ),
+                                        WidgetGridColumn(
+                                          label: 'Tarrif',
                                           visible: true,
                                         ),
                                       ])),
@@ -371,7 +298,7 @@ class _ListEQCPageState extends State<ListEQCPage> {
                             SizedBox(
                               height: 10,
                             ),
-                            DetailEQC()
+                            DetailRepair()
                           ],
                         )
                       : const Center(child: CircularProgressIndicator());
@@ -382,10 +309,19 @@ class _ListEQCPageState extends State<ListEQCPage> {
     );
   }
 
-  Row WidgetDepo({required TextEditingController controller}) {
+  // Row WidgetDepo({required TextEditingController controller}) {
+  //   return Row(
+  //     children: [
+  //       WidgetContainerLabel(label: 'Depot'),
+  //       WidgetTextField(controller: controller),
+  //     ],
+  //   );
+  // }
+
+  Row WidgetQuoteNo({required TextEditingController controller}) {
     return Row(
       children: [
-        WidgetContainerLabel(label: 'Depot'),
+        WidgetContainerLabel(label: 'Quote No.'),
         WidgetTextField(controller: controller),
       ],
     );
@@ -441,96 +377,4 @@ class _ListEQCPageState extends State<ListEQCPage> {
   //     ],
   //   );
   // }
-
-  Row WidgetQuoteNo({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Quote No.'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
-  Row WidgetCharge({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Charge'),
-        Combobox<ChargeTypeQuotes>(
-          controllerCombobox: controller,
-          list: quoteController.listCharge,
-          valueName: (element) => element.chargeTypeCode!,
-          onChanged: (p0) {},
-        ),
-      ],
-    );
-  }
-
-  Row WidgetComponent({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Component'),
-        Combobox<ComponentQuotes>(
-          controllerCombobox: controller,
-          list: quoteController.listComponent,
-          valueName: (element) => element.componentCode!,
-          onChanged: (p0) {},
-        ),
-      ],
-    );
-  }
-
-  Row WidgetDamage({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Damage'),
-        Combobox<ErrorQuotes>(
-          controllerCombobox: controller,
-          list: quoteController.listError,
-          valueName: (element) => element.errorCode!,
-          onChanged: (p0) {},
-        ),
-      ],
-    );
-  }
-
-  Row WidgetDamageDetail({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Damage Detail'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
-  Row WidgetCategory({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Category'),
-        Combobox<CategoryQuotes>(
-          controllerCombobox: controller,
-          list: quoteController.listCategory,
-          valueName: (element) => element.categoryCode!,
-          onChanged: (p0) {},
-        ),
-      ],
-    );
-  }
-
-  Row WidgetLocation({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Location'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
-  Row WidgetPayer({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Payer'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
 }

@@ -4,7 +4,7 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:http/http.dart' as http;
 
-class ListEQC123 {
+class ListEQC {
   String? quoteNo;
   String? quoteCcy;
   String? size;
@@ -21,7 +21,7 @@ class ListEQC123 {
   String? completeImgUpload;
   List<Details>? details;
 
-  Future<List<ListEQC123>> fetchListEQC(
+  Future<List<ListEQC>> fetchListEQC(
       {required String fromDate,
       required String toDate,
       required String userId}) async {
@@ -36,7 +36,7 @@ class ListEQC123 {
           var body = response.body;
           print('Data EQC Quote Detail');
           List dataListEQC = json.decode(body);
-          return dataListEQC.map((data) => ListEQC123.fromJson(data)).toList();
+          return dataListEQC.map((data) => ListEQC.fromJson(data)).toList();
         default:
           throw Exception('Error: EQC_ListEQC ${response.reasonPhrase}');
       }
@@ -45,7 +45,7 @@ class ListEQC123 {
     }
   }
 
-  DataGridRow getDataGridRow_ListEQC123() {
+  DataGridRow getDataGridRow_ListEQC() {
     return DataGridRow(cells: [
       DataGridCell(columnName: 'Depot', value: depot),
       // [1] container for image
@@ -71,7 +71,31 @@ class ListEQC123 {
     ]);
   }
 
-  ListEQC123(
+  DataGridRow getDataGridRow_RepairComplete() {
+    return DataGridRow(cells: [
+      DataGridCell(columnName: 'Depot', value: depot),
+      DataGridCell(columnName: 'Quote No', value: quoteNo),
+      // [2] container for image
+      DataGridCell(columnName: 'Container', value: container),
+      // [3] inGateDate for image
+      DataGridCell(columnName: 'inGateDate', value: inGateDate),
+      // [4] isImgUpload
+      DataGridCell(columnName: 'isImgUpload', value: isImgUpload),
+      // [5] completeImgUpload
+      DataGridCell(columnName: 'completeImgUpload', value: completeImgUpload),
+      // [6] details
+      DataGridCell(columnName: 'details', value: details),
+      DataGridCell(columnName: 'Size', value: size),
+      DataGridCell(columnName: 'Request', value: estimateDate),
+      DataGridCell(columnName: 'Approval', value: approveDate),
+      DataGridCell(columnName: 'Complete', value: completeDate),
+      DataGridCell(columnName: 'Ccy', value: quoteCcy),
+      DataGridCell(columnName: 'Total Cost', value: totalCost),
+      DataGridCell(columnName: 'Tarrif', value: tariffPrice),
+    ]);
+  }
+
+  ListEQC(
       {this.quoteNo,
       this.quoteCcy,
       this.size,
@@ -88,7 +112,7 @@ class ListEQC123 {
       this.completeImgUpload,
       this.details});
 
-  ListEQC123.fromJson(Map<String, dynamic> json) {
+  ListEQC.fromJson(Map<String, dynamic> json) {
     quoteNo = json['quoteNo'];
     quoteCcy = json['quoteCcy'];
     size = json['size'];

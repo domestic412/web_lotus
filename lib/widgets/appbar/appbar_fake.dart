@@ -6,6 +6,7 @@ import 'package:web_lotus/assets/text.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/divider_controller.dart';
 import 'package:web_lotus/controller/info_signin_controller.dart';
+import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/screen/eqc/add_quote_new/add_edit_quote.dart';
 import 'package:web_lotus/screen/eqc/list_eqc/listEQC_page.dart';
 import 'package:web_lotus/screen/eqc/repair_complete/list_repair_complete_page.dart';
@@ -42,7 +43,7 @@ class _AppbarWidgetState extends State<AppbarWidget> {
         color: MyColor.haian,
         // padding: EdgeInsets.fromLTRB(40, 5, 20, 0),
         padding: EdgeInsets.only(top: 5),
-        height: 50,
+        height: 40,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -246,90 +247,105 @@ class _MenuBarState extends State<MenuBar> {
         }
     }
     return Container(
-      margin: EdgeInsets.all(5),
+      margin: EdgeInsets.only(top: 8),
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: haian,
-                    elevation: 0.0,
-                  ),
-                  onPressed: () {
-                    dividerController.dividerPage.value = 'Tracking';
-                    Get.to(() => TrackingPage());
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                          padding: EdgeInsets.only(top: 10),
-                          child: Text(
-                            'Tracking',
-                            style: TextStyle(color: Colors.white),
-                          )),
-                      SizedBox(
-                        width: 90,
-                        child: Divider(
-                          thickness: 2,
-                          color: colorDividerTracking,
-                        ),
-                      )
-                    ],
-                  )),
+              InkWell(
+                onTap: () {
+                  dividerController.dividerPage.value = 'Tracking';
+                  Get.to(() => TrackingPage());
+                },
+                child: Column(
+                  children: [
+                    Text(
+                      'Tracking',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(
+                      width: 90,
+                      child: Divider(
+                        thickness: 2,
+                        color: colorDividerTracking,
+                      ),
+                    )
+                  ],
+                ),
+              ),
               // SizedBox(width: 10),
               PopupMenuButton(
-                child: Text('Quote', style: TextStyle(color: Colors.white)),
+                child: Column(
+                  children: [
+                    Text(
+                      'Quote',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(
+                      width: 90,
+                      child: Divider(
+                        thickness: 2,
+                        color: colorDividerQuote,
+                      ),
+                    )
+                  ],
+                ),
                 itemBuilder: (BuildContext context) {
                   return listQuote
                       .map((e) => PopupMenuItem(child: Text(e), value: e))
                       .toList();
                 },
                 onSelected: (value) {
-                  switch (value) {
-                    case 'Create Quote':
-                      Get.to(() => AEQuotePage());
-                    case 'Management EQC':
-                      Get.to(() => ListEQCPage());
-                    case 'Repair Complete':
-                      Get.to(() => ListRepairCompletePage());
+                  quoteController.listDetails.clear();
+                  dividerController.dividerPage.value = 'Quote';
+                  if (inforUserController.userName.value == '') {
+                    Get.to(() => SignInPage());
+                  } else {
+                    switch (value) {
+                      case 'Create Quote':
+                        Get.to(() => AEQuotePage());
+                      case 'Management EQC':
+                        Get.to(() => ListEQCPage());
+                      case 'Repair Complete':
+                        Get.to(() => ListRepairCompletePage());
+                    }
                   }
                 },
               ),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: haian,
-                    elevation: 0.0,
-                  ),
-                  onPressed: () {
-                    dividerController.dividerPage.value = 'Quote';
-                    switch (inforUserController.userName.value) {
-                      case '':
-                        Get.to(() => SignInPage());
-                        break;
-                      default:
-                        Get.to(() => ListEQCPage());
-                        break;
-                    }
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                          padding: EdgeInsets.only(top: 10),
-                          child: Text(
-                            'Quote',
-                            style: TextStyle(color: Colors.white),
-                          )),
-                      SizedBox(
-                        width: 90,
-                        child: Divider(
-                          thickness: 2,
-                          color: colorDividerQuote,
-                        ),
-                      ),
-                    ],
-                  )),
+              // ElevatedButton(
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: haian,
+              //       elevation: 0.0,
+              //     ),
+              //     onPressed: () {
+              //       dividerController.dividerPage.value = 'Quote';
+              //       switch (inforUserController.userName.value) {
+              //         case '':
+              //           Get.to(() => SignInPage());
+              //           break;
+              //         default:
+              //           Get.to(() => ListEQCPage());
+              //           break;
+              //       }
+              //     },
+              //     child: Column(
+              //       children: [
+              //         Container(
+              //             padding: EdgeInsets.only(top: 10),
+              //             child: Text(
+              //               'Quote',
+              //               style: TextStyle(color: Colors.white),
+              //             )),
+              //         SizedBox(
+              //           width: 90,
+              //           child: Divider(
+              //             thickness: 2,
+              //             color: colorDividerQuote,
+              //           ),
+              //         ),
+              //       ],
+              //     )),
             ],
           ),
           // dividerController.dividerPage.value == 'Quote'

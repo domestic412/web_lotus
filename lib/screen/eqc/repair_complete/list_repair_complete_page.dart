@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_popup/flutter_popup.dart';
-import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:web_lotus/assets/color.dart';
@@ -11,15 +10,14 @@ import 'package:web_lotus/controller/info_signin_controller.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/model/model_listEQC.dart';
-import 'package:web_lotus/screen/eqc/add_quote_new/add_edit_quote.dart';
-import 'package:web_lotus/screen/eqc/list_eqc/data_listEQC_gridview.dart';
 import 'package:web_lotus/screen/eqc/list_eqc/detail_eqc/widget_detail_eqc.dart';
-import 'package:web_lotus/screen/eqc/repair_complete/detail_repair/widget_detail_repair.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/container/ContainerLabel.dart';
 import 'package:web_lotus/widgets/container/WidgetGridColumn.dart';
 import 'package:web_lotus/widgets/container/WidgetTextField.dart';
 import 'package:web_lotus/widgets/container/combobox.dart';
+
+import 'data_repair_complete_gridview.dart';
 
 class ListRepairCompletePage extends StatefulWidget {
   const ListRepairCompletePage({super.key});
@@ -30,15 +28,14 @@ class ListRepairCompletePage extends StatefulWidget {
 
 class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
   final DataGridController _dataGridController = DataGridController();
-  late DataListEQCSource _dataListEQCSource;
-  List<ListEQC123> _listEQC = <ListEQC123>[];
+  late DataRepairCompleteSource _dataListEQCSource;
+  List<ListEQC> _listEQC = <ListEQC>[];
 
   TextEditingController _controller_depo = TextEditingController();
+  TextEditingController _controller_quoteNo = TextEditingController();
   TextEditingController _controller_cntr = TextEditingController();
   TextEditingController _controller_size = TextEditingController();
   TextEditingController _controller_quoteCcy = TextEditingController();
-  TextEditingController _controller_approveCode = TextEditingController();
-  TextEditingController _controller_quoteNo = TextEditingController();
 
   @override
   void initState() {
@@ -154,15 +151,15 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
             ],
           ),
           Expanded(
-            child: FutureBuilder<List<ListEQC123>>(
-                future: ListEQC123().fetchListEQC(
+            child: FutureBuilder<List<ListEQC>>(
+                future: ListEQC().fetchListEQC(
                     fromDate: quoteController.fromDate_send.value,
                     toDate: quoteController.toDate_send.value,
                     userId: inforUserController.userId.value),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     _listEQC = snapshot.data;
-                    _dataListEQCSource = DataListEQCSource(_listEQC);
+                    _dataListEQCSource = DataRepairCompleteSource(_listEQC);
                   }
                   return snapshot.hasData
                       ? Column(
@@ -182,13 +179,13 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                                 ElevatedButton(
                                     onPressed: () {
                                       _dataListEQCSource.applyFilter(
+                                        quoteNo: _controller_quoteNo.text,
                                         depot: _controller_depo.text,
                                         cntr: _controller_cntr.text,
                                         size: _controller_size.text,
                                         quoteCcy: _controller_quoteCcy.text,
-                                        approveCode:
-                                            _controller_approveCode.text,
-                                        quoteNo: _controller_quoteNo.text,
+                                        // approveCode:
+                                        //     _controller_approveCode.text,
                                       );
                                     },
                                     child: const Text('Filter')),
@@ -198,11 +195,11 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                                 ElevatedButton(
                                     onPressed: () {
                                       _controller_depo.clear();
+                                      _controller_quoteNo.clear();
                                       _controller_cntr.clear();
                                       _controller_size.clear();
                                       _controller_quoteCcy.clear();
-                                      _controller_approveCode.clear();
-                                      _controller_quoteNo.clear();
+                                      // _controller_approveCode.clear();
                                       _dataListEQCSource.clear();
                                     },
                                     child: const Text('Remove Filter')),
@@ -228,7 +225,7 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                                           (addedRows, removedRows) {
                                         quoteController.listDetails.value =
                                             _dataGridController.selectedRow!
-                                                .getCells()[5]
+                                                .getCells()[6]
                                                 .value;
                                       },
                                       source: _dataListEQCSource,
@@ -254,6 +251,10 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                                           visible: false,
                                         ),
                                         WidgetGridColumn(
+                                          label: 'isImgUpload',
+                                          visible: false,
+                                        ),
+                                        WidgetGridColumn(
                                           label: 'completeImgUpload',
                                           visible: false,
                                         ),
@@ -263,10 +264,6 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                                         ),
                                         WidgetGridColumn(
                                           label: 'Size',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Status',
                                           visible: true,
                                         ),
                                         WidgetGridColumn(
@@ -298,7 +295,7 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                             SizedBox(
                               height: 10,
                             ),
-                            DetailRepair()
+                            DetailEQC()
                           ],
                         )
                       : const Center(child: CircularProgressIndicator());
@@ -309,14 +306,14 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
     );
   }
 
-  // Row WidgetDepo({required TextEditingController controller}) {
-  //   return Row(
-  //     children: [
-  //       WidgetContainerLabel(label: 'Depot'),
-  //       WidgetTextField(controller: controller),
-  //     ],
-  //   );
-  // }
+  Row WidgetDepo({required TextEditingController controller}) {
+    return Row(
+      children: [
+        WidgetContainerLabel(label: 'Depot'),
+        WidgetTextField(controller: controller),
+      ],
+    );
+  }
 
   Row WidgetQuoteNo({required TextEditingController controller}) {
     return Row(
@@ -340,12 +337,7 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
     return Row(
       children: [
         WidgetContainerLabel(label: 'Size'),
-        Combobox<ChargeTypeQuotes>(
-          controllerCombobox: controller,
-          list: quoteController.listCharge,
-          valueName: (element) => element.chargeTypeCode!,
-          onChanged: (p0) {},
-        ),
+        WidgetTextField(controller: controller),
       ],
     );
   }

@@ -14,8 +14,10 @@ import 'package:http/http.dart' as http;
 import 'package:universal_html/html.dart' as html;
 import 'package:web_lotus/widgets/removeBeforeSlash.dart';
 
-class DataListEQCSource extends DataGridSource {
-  DataListEQCSource(this._listEQC) {
+class DataRepairCompleteSource extends DataGridSource {
+  DataRepairCompleteSource(this._listEQC) {
+    _listEQC =
+        _listEQC.where((element) => element.approveDate != null).toList();
     _listEQC_original = _listEQC;
     buildDataGridRows();
   }
@@ -23,11 +25,10 @@ class DataListEQCSource extends DataGridSource {
   List<ListEQC> _listEQC = [];
   List<ListEQC> _listEQC_original = [];
   List<DataGridRow> dataGridRows = [];
-  String remarks = '';
 
   void buildDataGridRows() {
     dataGridRows = _listEQC.map<DataGridRow>((DataGridRow) {
-      return DataGridRow.getDataGridRow_ListEQC();
+      return DataGridRow.getDataGridRow_RepairComplete();
     }).toList();
   }
 
@@ -88,16 +89,8 @@ class DataListEQCSource extends DataGridSource {
     required String cntr,
     required String size,
     required String quoteCcy,
-    required String approveCode,
+    // required String approveCode,
     required String quoteNo,
-    //search detail
-    required String charge,
-    required String component,
-    required String damageCode,
-    required String damageDetail,
-    required String category,
-    required String location,
-    required String payer,
   }) {
     _listEQC = _listEQC_original
         .where((element) =>
@@ -105,26 +98,10 @@ class DataListEQCSource extends DataGridSource {
             element.container!.toUpperCase().contains(cntr.toUpperCase()) &&
             element.size!.toUpperCase().contains(size.toUpperCase()) &&
             element.quoteCcy!.toUpperCase().contains(quoteCcy.toUpperCase()) &&
-            element.approveCode!
-                .toUpperCase()
-                .contains(approveCode.toUpperCase()) &&
-            element.quoteNo!.toUpperCase().contains(quoteNo.toUpperCase()) &&
-            element.details!.any((value) => value.chargeType!
-                .toUpperCase()
-                .contains(charge.toUpperCase())) &&
-            element.details!.any((value) => value.component!
-                .toUpperCase()
-                .contains(component.toUpperCase())) &&
-            element.details!.any((value) => value.damageCode!
-                .toUpperCase()
-                .contains(damageCode.toUpperCase())) &&
-            element.details!.any((value) => value.damageDetail!
-                .toUpperCase()
-                .contains(damageDetail.toUpperCase())) &&
-            element.details!.any(
-                (value) => value.category!.toUpperCase().contains(category.toUpperCase())) &&
-            element.details!.any((value) => value.location!.toUpperCase().contains(location.toUpperCase())) &&
-            element.details!.any((value) => value.payer!.toUpperCase().contains(payer.toUpperCase())))
+            // element.approveCode!
+            //     .toUpperCase()
+            //     .contains(approveCode.toUpperCase()) &&
+            element.quoteNo!.toUpperCase().contains(quoteNo.toUpperCase()))
         .toList();
     buildDataGridRows();
     notifyListeners();

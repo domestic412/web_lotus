@@ -31,7 +31,7 @@ class ListEQCPage extends StatefulWidget {
 class _ListEQCPageState extends State<ListEQCPage> {
   final DataGridController _dataGridController = DataGridController();
   late DataListEQCSource _dataListEQCSource;
-  List<ListEQC123> _listEQC = <ListEQC123>[];
+  List<ListEQC> _listEQC = <ListEQC>[];
 
   TextEditingController _controller_depo = TextEditingController();
   TextEditingController _controller_cntr = TextEditingController();
@@ -84,7 +84,8 @@ class _ListEQCPageState extends State<ListEQCPage> {
                 padding: EdgeInsets.all(5.0),
                 child: Row(
                   children: [
-                    Text('From Date'),
+                    WidgetContainerLabel(label: 'From Date'),
+                    // Text('From Date'),
                     CustomPopup(
                       showArrow: false,
                       content: SizedBox(
@@ -118,7 +119,8 @@ class _ListEQCPageState extends State<ListEQCPage> {
                         ),
                       ),
                     ),
-                    Text('To Date'),
+                    // Text('To Date'),
+                    WidgetContainerLabel(label: 'To Date'),
                     SizedBox(
                       child: CustomPopup(
                         showArrow: false,
@@ -175,8 +177,8 @@ class _ListEQCPageState extends State<ListEQCPage> {
             ],
           ),
           Expanded(
-            child: FutureBuilder<List<ListEQC123>>(
-                future: ListEQC123().fetchListEQC(
+            child: FutureBuilder<List<ListEQC>>(
+                future: ListEQC().fetchListEQC(
                     fromDate: quoteController.fromDate_send.value,
                     toDate: quoteController.toDate_send.value,
                     userId: inforUserController.userId.value),
@@ -191,86 +193,55 @@ class _ListEQCPageState extends State<ListEQCPage> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                WidgetDepo(controller: _controller_depo),
-                                WidgetCntr(controller: _controller_cntr),
-                                WidgetSize(controller: _controller_size),
-                                WidgetCurrency(
-                                    controller: _controller_quoteCcy),
-                                // WidgetStatus(
-                                //     controller: _controller_approveCode),
-                                WidgetQuoteNo(controller: _controller_quoteNo),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      _dataListEQCSource.applyFilter(
-                                        depot: _controller_depo.text,
-                                        cntr: _controller_cntr.text,
-                                        size: _controller_size.text,
-                                        quoteCcy: _controller_quoteCcy.text,
-                                        approveCode:
-                                            _controller_approveCode.text,
-                                        quoteNo: _controller_quoteNo.text,
-                                        //details
-                                        charge: _controller_charge.text,
-                                        component: _controller_component.text,
-                                        damageCode: _controller_damageCode.text,
-                                        damageDetail:
-                                            _controller_damageDetail.text,
-                                        category: _controller_category.text,
-                                        location: _controller_location.text,
-                                        payer: _controller_payer.text,
-                                      );
-                                    },
-                                    child: const Text('Filter')),
-                                const SizedBox(
-                                  width: 10,
+                                Column(
+                                  children: [
+                                    WidgetQuoteNo(
+                                        controller: _controller_quoteNo),
+                                    WidgetDepo(controller: _controller_depo),
+                                  ],
                                 ),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      _controller_depo.clear();
-                                      _controller_cntr.clear();
-                                      _controller_size.clear();
-                                      _controller_quoteCcy.clear();
-                                      _controller_approveCode.clear();
-                                      _controller_quoteNo.clear();
-                                      _controller_charge.clear();
-                                      _controller_component.clear();
-                                      _controller_damageCode.clear();
-                                      _controller_damageDetail.clear();
-                                      _controller_category.clear();
-                                      _controller_location.clear();
-                                      _controller_payer.clear();
-                                      _dataListEQCSource.clear();
-                                    },
-                                    child: const Text('Remove Filter')),
-                                const SizedBox(
+                                Column(
+                                  children: [
+                                    WidgetCntr(controller: _controller_cntr),
+                                    WidgetSize(controller: _controller_size),
+                                    WidgetCurrency(
+                                        controller: _controller_quoteCcy),
+                                  ],
+                                ),
+                                SizedBox(
                                   width: 20,
                                 ),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      // SelectFileZip(refresh);
-                                    },
-                                    child: Text('Upload Image (.zip)'))
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                WidgetCharge(controller: _controller_charge),
-                                WidgetComponent(
-                                    controller: _controller_component),
-                                WidgetDamage(
-                                    controller: _controller_damageCode),
-                                WidgetDamageDetail(
-                                    controller: _controller_damageDetail),
-                                WidgetCategory(
-                                    controller: _controller_category),
-                                WidgetLocation(
-                                    controller: _controller_location),
-                                WidgetPayer(controller: _controller_payer),
+                                Column(
+                                  children: [
+                                    WidgetCharge(
+                                        controller: _controller_charge),
+                                    WidgetComponent(
+                                        controller: _controller_component),
+                                    WidgetDamage(
+                                        controller: _controller_damageCode),
+                                    WidgetDamageDetail(
+                                        controller: _controller_damageDetail),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    WidgetCategory(
+                                        controller: _controller_category),
+                                    WidgetLocation(
+                                        controller: _controller_location),
+                                    WidgetPayer(controller: _controller_payer),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    WidgetButtonFilter(),
+                                    WidgetButtonRemoveFilter(),
+                                    WidgetButtonUploadImg()
+                                  ],
+                                )
                               ],
                             ),
                             Expanded(
@@ -531,6 +502,86 @@ class _ListEQCPageState extends State<ListEQCPage> {
         WidgetContainerLabel(label: 'Payer'),
         WidgetTextField(controller: controller),
       ],
+    );
+  }
+
+  WidgetButtonFilter() {
+    return Container(
+      margin: EdgeInsets.all(5),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: haian,
+            minimumSize: Size(150, 35),
+          ),
+          onPressed: () {
+            _dataListEQCSource.applyFilter(
+              depot: _controller_depo.text,
+              cntr: _controller_cntr.text,
+              size: _controller_size.text,
+              quoteCcy: _controller_quoteCcy.text,
+              approveCode: _controller_approveCode.text,
+              quoteNo: _controller_quoteNo.text,
+              //details
+              charge: _controller_charge.text,
+              component: _controller_component.text,
+              damageCode: _controller_damageCode.text,
+              damageDetail: _controller_damageDetail.text,
+              category: _controller_category.text,
+              location: _controller_location.text,
+              payer: _controller_payer.text,
+            );
+          },
+          child: Text(
+            'Filter',
+            style: style11_white,
+          )),
+    );
+  }
+
+  WidgetButtonRemoveFilter() {
+    return Container(
+      margin: EdgeInsets.all(5),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: grey,
+            minimumSize: Size(150, 35),
+          ),
+          onPressed: () {
+            _controller_depo.clear();
+            _controller_cntr.clear();
+            _controller_size.clear();
+            _controller_quoteCcy.clear();
+            _controller_approveCode.clear();
+            _controller_quoteNo.clear();
+            _controller_charge.clear();
+            _controller_component.clear();
+            _controller_damageCode.clear();
+            _controller_damageDetail.clear();
+            _controller_category.clear();
+            _controller_location.clear();
+            _controller_payer.clear();
+            _dataListEQCSource.clear();
+          },
+          child: Text(
+            'Remove Filter',
+            style: style11_white,
+          )),
+    );
+  }
+
+  WidgetButtonUploadImg() {
+    return Container(
+      margin: EdgeInsets.all(5),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.orange, minimumSize: Size(150, 35)),
+          onPressed: () {
+            // SelectFileZip(refresh);
+          },
+          child: Text(
+            'Upload Image (.zip)',
+            style: style11_white,
+          )),
     );
   }
 }

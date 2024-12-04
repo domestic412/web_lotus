@@ -6,7 +6,6 @@ import 'package:web_lotus/controller/info_signin_controller.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_add_quote.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
-import 'package:web_lotus/widgets/footer.dart';
 
 import 'widget/add_info_detail_quote/add_info_cont_quote.dart';
 import 'widget/add_info_quote/info_quote.dart';
@@ -54,8 +53,18 @@ class _AEQuotePage1State extends State<AEQuotePage> {
                       'Create Quote',
                       style: style20_blue,
                     ),
-                    InfoQuote(refresh),
-                    InfoContQuote(),
+                    Container(
+                      width: 890,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Column(
+                          children: [
+                            InfoQuote(refresh),
+                            InfoContQuote(),
+                          ],
+                        ),
+                      ),
+                    ),
                     Expanded(child: TableInputQuote()),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -76,39 +85,42 @@ class _AEQuotePage1State extends State<AEQuotePage> {
                               );
                             }
                           },
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  WidgetStatePropertyAll<Color>(haian),
-                              minimumSize:
-                                  WidgetStateProperty.all(Size(100, 40))),
-                          child: Text('Send Quote'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: haian,
+                            minimumSize: Size(100, 40),
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                          ),
+                          child: Text(
+                            'Send Quote',
+                            style: TextStyle(fontSize: 12, color: Colors.white),
+                          ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            if ((quoteController.currency.value != '') &&
-                                (quoteController.exRate.value.text != '')) {
-                              PostNewQuote(
-                                eqcQuoteId: quoteController.eqcQuoteId.value,
-                                portDepotId: inforUserController.userId.value,
-                                quoteNo: quoteController.quoteNo.value,
-                                quoteStatus: 'D',
-                                quoteCcy: quoteController.currency.value,
-                                exRate: quoteController.exRate.value.text,
-                                quoteUser: inforUserController.userName.value,
-                                edit: 'I',
-                              );
-                            }
-                          },
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  WidgetStatePropertyAll<Color>(grey),
-                              minimumSize:
-                                  WidgetStateProperty.all(Size(100, 40))),
-                          child: Text('Save Draft'),
-                        ),
+                        // const SizedBox(
+                        //   width: 10,
+                        // ),
+                        // ElevatedButton(
+                        //   onPressed: () {
+                        //     if ((quoteController.currency.value != '') &&
+                        //         (quoteController.exRate.value.text != '')) {
+                        //       PostNewQuote(
+                        //         eqcQuoteId: quoteController.eqcQuoteId.value,
+                        //         portDepotId: inforUserController.userId.value,
+                        //         quoteNo: quoteController.quoteNo.value,
+                        //         quoteStatus: 'D',
+                        //         quoteCcy: quoteController.currency.value,
+                        //         exRate: quoteController.exRate.value.text,
+                        //         quoteUser: inforUserController.userName.value,
+                        //         edit: 'I',
+                        //       );
+                        //     }
+                        //   },
+                        //   style: ButtonStyle(
+                        //       backgroundColor:
+                        //           WidgetStatePropertyAll<Color>(grey),
+                        //       minimumSize:
+                        //           WidgetStateProperty.all(Size(100, 40))),
+                        //   child: Text('Save Draft'),
+                        // ),
                       ],
                     ),
                   ]),

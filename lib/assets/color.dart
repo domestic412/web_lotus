@@ -14,10 +14,10 @@ class MyColor {
   static const footerColor = Color(0xFF99A0A4);
 }
 
-Color haian = Color(0xff1E338C);
+Color haian = const Color(0xff1E338C);
 Color white = Colors.white;
 Color blue = Colors.blue;
 Color black = Colors.black;
 Color grey = Colors.grey;
-Color button = Color(0xFF2E3192);
-Color field = Color.fromARGB(255, 92, 117, 160);
+Color button = const Color(0xFF2E3192);
+Color field = const Color.fromARGB(255, 92, 117, 160);

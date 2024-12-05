@@ -24,6 +24,7 @@ class DataListEQCSource extends DataGridSource {
   List<ListEQC> _listEQC_original = [];
   List<DataGridRow> dataGridRows = [];
   String remarks = '';
+  bool reject = false;
 
   void buildDataGridRows() {
     dataGridRows = _listEQC.map<DataGridRow>((DataGridRow) {
@@ -46,40 +47,53 @@ class DataListEQCSource extends DataGridSource {
           style: style11_black,
         ),
       ),
-      ...row.getCells().map<Widget>((dataGridCell) => Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.all(5.0),
-            child: dataGridCell.value == null ||
-                    dataGridCell.value.toString().toUpperCase() == 'CANCEL'
-                ? SizedBox()
-                : dataGridCell.columnName == 'Request' ||
-                        dataGridCell.columnName == 'Approval' ||
-                        dataGridCell.columnName == 'Complete'
-                    ?
-                    // dataGridCell.columnName == 'isImgUpload' &&
-                    //         dataGridCell.value.toString() == ''
-                    //     ? TextButton(
-                    //         child: Text(
-                    //             changeDatetoShow(
-                    //                 date: DateTime.parse(
-                    //                     dataGridCell.value.toString())),
-                    //             style: style11_black,
-                    //             overflow: TextOverflow.ellipsis),
-                    //         onPressed: () {
-                    //           downloadAndExtractZip(
-                    //               cntr: row.getCells()[1].value,
-                    //               esdate: row.getCells()[2].value);
-                    //         },
-                    //       )
-                    //     :
-                    Text(
-                        changeStringDatetoShow(
-                            date: dataGridCell.value.toString()),
-                        style: style11_black,
-                        overflow: TextOverflow.ellipsis)
-                    : Text(dataGridCell.value.toString(),
-                        style: style11_black, overflow: TextOverflow.ellipsis),
-          ))
+      ...row.getCells().map<Widget>((dataGridCell) {
+        if (dataGridCell.columnName == 'Status') {
+          if (dataGridCell.value.toString().toUpperCase() == 'CANCEL') {
+            reject = true;
+          } else {
+            reject = false;
+          }
+        }
+        if (dataGridCell.columnName == 'completeImgUpload') {
+          if (dataGridCell.value.toString() == '') {
+            remarks = 'Ask for the post repair photos';
+          }
+        } else if (dataGridCell.columnName == 'Approval') {
+          if (dataGridCell.value == null) {
+            remarks = 'Waiting for approval';
+          } else {
+            if (reject == true) {
+              remarks = '';
+            }
+          }
+        } else if (dataGridCell.columnName == 'isImgUpload') {
+          if (dataGridCell.value.toString() == '') {
+            remarks = 'Add photos to Quote Request';
+          }
+        }
+        return Container(
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.all(5.0),
+          child: dataGridCell.value == null ||
+                  dataGridCell.value.toString().toUpperCase() == 'CANCEL'
+              ? SizedBox()
+              : dataGridCell.columnName == 'Request' ||
+                      dataGridCell.columnName == 'Approval' ||
+                      dataGridCell.columnName == 'Complete'
+                  ? Text(
+                      changeStringDatetoShow(
+                          date: dataGridCell.value.toString()),
+                      style: style11_black,
+                      overflow: TextOverflow.ellipsis)
+                  : dataGridCell.columnName == 'Remarks'
+                      ? Text(remarks,
+                          style: style11_black, overflow: TextOverflow.ellipsis)
+                      : Text(dataGridCell.value.toString(),
+                          style: style11_black,
+                          overflow: TextOverflow.ellipsis),
+        );
+      })
     ].toList());
   }
 

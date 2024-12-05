@@ -7,6 +7,7 @@ import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/divider_controller.dart';
 import 'package:web_lotus/controller/info_signin_controller.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
+import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/screen/eqc/add_quote_new/add_edit_quote.dart';
 import 'package:web_lotus/screen/eqc/list_eqc/listEQC_page.dart';
 import 'package:web_lotus/screen/eqc/repair_complete/list_repair_complete_page.dart';
@@ -304,6 +305,9 @@ class _MenuBarState extends State<MenuBar> {
                   } else {
                     switch (value) {
                       case 'Create Quote':
+                        quoteController.listInputQuoteDetail.value = [];
+                        quoteController.listInputQuoteDetail_show.value = [];
+                        InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
                         Get.to(() => AEQuotePage());
                       case 'Management EQC':
                         Get.to(() => ListEQCPage());

@@ -77,7 +77,7 @@ class _AEQuotePage1State extends State<AEQuotePage> {
                                 eqcQuoteId: quoteController.eqcQuoteId.value,
                                 portDepotId: inforUserController.userId.value,
                                 quoteNo: quoteController.quoteNo.value,
-                                quoteStatus: 'N',
+                                quoteStatus: 'C',
                                 quoteCcy: quoteController.currency.value,
                                 exRate: quoteController.exRate.value.text,
                                 quoteUser: inforUserController.userName.value,

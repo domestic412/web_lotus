@@ -264,7 +264,7 @@ class _ListEQCPageState extends State<ListEQCPage> {
                                           (addedRows, removedRows) {
                                         quoteController.listDetails.value =
                                             _dataGridController.selectedRow!
-                                                .getCells()[5]
+                                                .getCells()[4]
                                                 .value;
                                       },
                                       source: _dataListEQCSource,
@@ -283,10 +283,6 @@ class _ListEQCPageState extends State<ListEQCPage> {
                                         ),
                                         WidgetGridColumn(
                                           label: 'inGateDate',
-                                          visible: false,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'isImgUpload',
                                           visible: false,
                                         ),
                                         WidgetGridColumn(
@@ -328,6 +324,10 @@ class _ListEQCPageState extends State<ListEQCPage> {
                                         WidgetGridColumn(
                                           label: 'Complete',
                                           visible: true,
+                                        ),
+                                        WidgetGridColumn(
+                                          label: 'isImgUpload',
+                                          visible: false,
                                         ),
                                         WidgetGridColumn(
                                           label: 'Remarks',

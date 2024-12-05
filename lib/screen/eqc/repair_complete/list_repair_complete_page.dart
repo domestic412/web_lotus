@@ -73,7 +73,7 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                 padding: EdgeInsets.all(5.0),
                 child: Row(
                   children: [
-                    Text('From Date'),
+                    WidgetContainerLabel(label: 'From Date'),
                     CustomPopup(
                       showArrow: false,
                       content: SizedBox(
@@ -107,7 +107,7 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                         ),
                       ),
                     ),
-                    Text('To Date'),
+                    WidgetContainerLabel(label: 'To Date'),
                     SizedBox(
                       child: CustomPopup(
                         showArrow: false,
@@ -176,33 +176,8 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                                 // WidgetStatus(
                                 //     controller: _controller_approveCode),
 
-                                ElevatedButton(
-                                    onPressed: () {
-                                      _dataListEQCSource.applyFilter(
-                                        quoteNo: _controller_quoteNo.text,
-                                        depot: _controller_depo.text,
-                                        cntr: _controller_cntr.text,
-                                        size: _controller_size.text,
-                                        quoteCcy: _controller_quoteCcy.text,
-                                        // approveCode:
-                                        //     _controller_approveCode.text,
-                                      );
-                                    },
-                                    child: const Text('Filter')),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      _controller_depo.clear();
-                                      _controller_quoteNo.clear();
-                                      _controller_cntr.clear();
-                                      _controller_size.clear();
-                                      _controller_quoteCcy.clear();
-                                      // _controller_approveCode.clear();
-                                      _dataListEQCSource.clear();
-                                    },
-                                    child: const Text('Remove Filter')),
+                                WidgetButtonFilter(),
+                                WidgetButtonRemoveFilter(),
                               ],
                             ),
                             Expanded(
@@ -303,6 +278,56 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
           ),
         ]),
       ),
+    );
+  }
+
+  Container WidgetButtonRemoveFilter() {
+    return Container(
+      margin: EdgeInsets.all(5),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: grey,
+            minimumSize: Size(150, 35),
+          ),
+          onPressed: () {
+            _controller_depo.clear();
+            _controller_quoteNo.clear();
+            _controller_cntr.clear();
+            _controller_size.clear();
+            _controller_quoteCcy.clear();
+            // _controller_approveCode.clear();
+            _dataListEQCSource.clear();
+          },
+          child: Text(
+            'Remove Filter',
+            style: style11_white,
+          )),
+    );
+  }
+
+  Container WidgetButtonFilter() {
+    return Container(
+      margin: EdgeInsets.all(5),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: haian,
+            minimumSize: Size(150, 35),
+          ),
+          onPressed: () {
+            _dataListEQCSource.applyFilter(
+              quoteNo: _controller_quoteNo.text,
+              depot: _controller_depo.text,
+              cntr: _controller_cntr.text,
+              size: _controller_size.text,
+              quoteCcy: _controller_quoteCcy.text,
+              // approveCode:
+              //     _controller_approveCode.text,
+            );
+          },
+          child: Text(
+            'Filter',
+            style: style11_white,
+          )),
     );
   }
 

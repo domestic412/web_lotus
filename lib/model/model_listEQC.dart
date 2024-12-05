@@ -52,11 +52,9 @@ class ListEQC {
       DataGridCell(columnName: 'Container', value: container),
       // [2] inGateDate for image
       DataGridCell(columnName: 'inGateDate', value: inGateDate),
-      // [3] isImgUpload
-      DataGridCell(columnName: 'isImgUpload', value: isImgUpload),
-      // [4] completeImgUpload
+      // [3] completeImgUpload
       DataGridCell(columnName: 'completeImgUpload', value: completeImgUpload),
-      // [5] details
+      // [4] details
       DataGridCell(columnName: 'details', value: details),
       DataGridCell(columnName: 'Size', value: size),
       DataGridCell(columnName: 'Ccy', value: quoteCcy),
@@ -66,6 +64,8 @@ class ListEQC {
       DataGridCell(columnName: 'Request', value: estimateDate),
       DataGridCell(columnName: 'Approval', value: approveDate),
       DataGridCell(columnName: 'Complete', value: completeDate),
+      // [13] isImgUpload
+      DataGridCell(columnName: 'isImgUpload', value: isImgUpload),
       const DataGridCell(columnName: 'Remarks', value: ''),
       DataGridCell(columnName: 'Quote No', value: quoteNo),
     ]);

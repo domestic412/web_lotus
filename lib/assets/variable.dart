@@ -5,8 +5,8 @@ import 'package:intl/intl.dart';
 double deviceHeight(context) => MediaQuery.sizeOf(context).height;
 double deviceWidth(context) => MediaQuery.sizeOf(context).width;
 
-const SERVER = 'http://222.252.166.214:6505';
-// const SERVER = 'http://113.160.100.137:9999';
+// const SERVER = 'http://222.252.166.214:6505';
+const SERVER = 'http://113.160.100.137:9999';
 //format date
 changeDatetoShow({required DateTime date}) {
   return DateFormat('dd/MM/yyyy').format(date);
@@ -18,6 +18,10 @@ changeStringDatetoShow({required String date}) {
 
 changeDatetoSend({required DateTime date}) {
   return DateFormat('MM/dd/yyyy').format(date);
+}
+
+changeStringDatetoSend({required String date}) {
+  return changeDatetoSend(date: DateTime.parse(date));
 }
 
 DateFormat dateFormat = DateFormat('dd/MM/yyyy');

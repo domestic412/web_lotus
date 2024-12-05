@@ -71,6 +71,10 @@ class DataListEQCSource extends DataGridSource {
           if (dataGridCell.value.toString() == '') {
             remarks = 'Add photos to Quote Request';
           }
+        } else if (dataGridCell.columnName == 'Complete') {
+          if (dataGridCell.value != null) {
+            remarks = '';
+          }
         }
         return Container(
           alignment: Alignment.centerLeft,
@@ -102,7 +106,7 @@ class DataListEQCSource extends DataGridSource {
     required String cntr,
     required String size,
     required String quoteCcy,
-    required String approveCode,
+    // required String approveCode,
     required String quoteNo,
     //search detail
     required String charge,
@@ -115,14 +119,14 @@ class DataListEQCSource extends DataGridSource {
   }) {
     _listEQC = _listEQC_original
         .where((element) =>
+            element.quoteNo!.toUpperCase().contains(quoteNo.toUpperCase()) &&
             element.depot!.toUpperCase().contains(depot.toUpperCase()) &&
             element.container!.toUpperCase().contains(cntr.toUpperCase()) &&
             element.size!.toUpperCase().contains(size.toUpperCase()) &&
             element.quoteCcy!.toUpperCase().contains(quoteCcy.toUpperCase()) &&
-            element.approveCode!
-                .toUpperCase()
-                .contains(approveCode.toUpperCase()) &&
-            element.quoteNo!.toUpperCase().contains(quoteNo.toUpperCase()) &&
+            // element.approveCode!
+            //     .toUpperCase()
+            //     .contains(approveCode.toUpperCase()) &&
             element.details!.any((value) => value.chargeType!
                 .toUpperCase()
                 .contains(charge.toUpperCase())) &&
@@ -135,11 +139,16 @@ class DataListEQCSource extends DataGridSource {
             element.details!.any((value) => value.damageDetail!
                 .toUpperCase()
                 .contains(damageDetail.toUpperCase())) &&
-            element.details!.any(
-                (value) => value.category!.toUpperCase().contains(category.toUpperCase())) &&
-            element.details!.any((value) => value.location!.toUpperCase().contains(location.toUpperCase())) &&
-            element.details!.any((value) => value.payer!.toUpperCase().contains(payer.toUpperCase())))
+            element.details!.any((value) => value.category!
+                .toUpperCase()
+                .contains(category.toUpperCase())) &&
+            element.details!.any((value) => value.location!
+                .toUpperCase()
+                .contains(location.toUpperCase())) &&
+            element.details!
+                .any((value) => value.payer!.toUpperCase().contains(payer.toUpperCase())))
         .toList();
+    print(_listEQC);
     buildDataGridRows();
     notifyListeners();
   }

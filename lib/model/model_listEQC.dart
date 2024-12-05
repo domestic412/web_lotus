@@ -282,6 +282,7 @@ class Details {
     return DataGridRow(cells: [
       DataGridCell(columnName: 'Charge', value: chargeType),
       DataGridCell(columnName: 'Container', value: container),
+      // [2] inGateDate for image
       DataGridCell(columnName: 'inGateDate', value: inGateDate),
       DataGridCell(columnName: 'Component', value: component),
       DataGridCell(columnName: 'Damage Code', value: damageCode),
@@ -298,7 +299,8 @@ class Details {
       DataGridCell(columnName: 'Tariff', value: tariffPrice),
       DataGridCell(columnName: 'Payer', value: payer),
       DataGridCell(columnName: 'Status', value: approveCode),
-      DataGridCell(columnName: 'Image', value: isImgUpload),
+      DataGridCell(columnName: 'Error Img', value: isImgUpload),
+      DataGridCell(columnName: 'Repair Img', value: completeImgUpload),
     ]);
   }
 }

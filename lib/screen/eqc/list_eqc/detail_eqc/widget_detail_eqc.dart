@@ -107,7 +107,11 @@ class DetailEQC extends StatelessWidget {
                     visible: true,
                   ),
                   WidgetGridColumn(
-                    label: 'Image',
+                    label: 'Error Img',
+                    visible: true,
+                  ),
+                  WidgetGridColumn(
+                    label: 'Repair Img',
                     visible: true,
                   ),
                 ])),

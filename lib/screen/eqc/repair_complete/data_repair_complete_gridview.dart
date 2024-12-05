@@ -65,10 +65,10 @@ class DataRepairCompleteSource extends DataGridSource {
                     ),
                     onTap: () {
                       getImage(
-                          cntr: _listEQC[dataGridRows.indexOf(row)].container!,
+                          cntr: row.getCells()[2].value,
                           inGateDate: changeStringDatetoSend(
-                              date: _listEQC[dataGridRows.indexOf(row)]
-                                  .inGateDate!));
+                              date: row.getCells()[3].value),
+                          completeDate: changeDatetoSend(date: DateTime.now()));
                     },
                   )
                 : dataGridCell.columnName == 'Request' ||
@@ -113,13 +113,10 @@ class DataRepairCompleteSource extends DataGridSource {
     _listEQC = _listEQC_original
         .where((element) =>
             element.depot!.toUpperCase().contains(depot.toUpperCase()) &&
+            element.quoteNo!.toUpperCase().contains(quoteNo.toUpperCase()) &&
             element.container!.toUpperCase().contains(cntr.toUpperCase()) &&
             element.size!.toUpperCase().contains(size.toUpperCase()) &&
-            element.quoteCcy!.toUpperCase().contains(quoteCcy.toUpperCase()) &&
-            // element.approveCode!
-            //     .toUpperCase()
-            //     .contains(approveCode.toUpperCase()) &&
-            element.quoteNo!.toUpperCase().contains(quoteNo.toUpperCase()))
+            element.quoteCcy!.toUpperCase().contains(quoteCcy.toUpperCase()))
         .toList();
     buildDataGridRows();
     notifyListeners();
@@ -268,7 +265,8 @@ class DataRepairCompleteSource extends DataGridSource {
       {
       // required ImageSource media,
       required String cntr,
-      required String inGateDate}) async {
+      required String inGateDate,
+      required String completeDate}) async {
     final ImagePicker _picker = ImagePicker();
     List<XFile> img = await _picker.pickMultiImage();
 
@@ -332,6 +330,7 @@ class DataRepairCompleteSource extends DataGridSource {
               PostImgQuote(
                 cntr: cntr,
                 inGateDate: inGateDate,
+                completeDate: completeDate,
               );
             },
             child: Text(
@@ -352,7 +351,9 @@ class DataRepairCompleteSource extends DataGridSource {
   }
 
   Future<void> PostImgQuote(
-      {required String cntr, required String inGateDate}) async {
+      {required String cntr,
+      required String inGateDate,
+      required String completeDate}) async {
     try {
       EasyLoading.show(
         status: 'Loading...',
@@ -363,7 +364,7 @@ class DataRepairCompleteSource extends DataGridSource {
       // Create a FormData object to store your files
       final formData = html.FormData();
       final url =
-          '$SERVER/EQCQuote/UploadCompleteImg?Container=$cntr&InGateDate=$inGateDate';
+          '$SERVER/EQCQuote/UploadCompleteImg?Container=$cntr&InGateDate=$inGateDate&CompleteDate=$completeDate';
       // Assuming a list of XFile objects in _listImage
       if (listImg != null) {
         for (int i = 0; i < listImg!.length; i++) {

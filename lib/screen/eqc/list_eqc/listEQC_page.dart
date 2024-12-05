@@ -375,12 +375,7 @@ class _ListEQCPageState extends State<ListEQCPage> {
     return Row(
       children: [
         WidgetContainerLabel(label: 'Size'),
-        Combobox<ChargeTypeQuotes>(
-          controllerCombobox: controller,
-          list: quoteController.listCharge,
-          valueName: (element) => element.chargeTypeCode!,
-          onChanged: (p0) {},
-        ),
+        WidgetTextField(controller: controller),
       ],
     );
   }
@@ -515,12 +510,12 @@ class _ListEQCPageState extends State<ListEQCPage> {
           ),
           onPressed: () {
             _dataListEQCSource.applyFilter(
+              quoteNo: _controller_quoteNo.text,
               depot: _controller_depo.text,
               cntr: _controller_cntr.text,
               size: _controller_size.text,
               quoteCcy: _controller_quoteCcy.text,
-              approveCode: _controller_approveCode.text,
-              quoteNo: _controller_quoteNo.text,
+              // approveCode: _controller_approveCode.text,
               //details
               charge: _controller_charge.text,
               component: _controller_component.text,

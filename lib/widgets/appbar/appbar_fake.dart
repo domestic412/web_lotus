@@ -277,6 +277,8 @@ class _MenuBarState extends State<MenuBar> {
               ),
               // SizedBox(width: 10),
               PopupMenuButton(
+                tooltip: '',
+                offset: Offset(40, 40),
                 child: Column(
                   children: [
                     Text(

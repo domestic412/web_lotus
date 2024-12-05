@@ -15,13 +15,12 @@ import 'package:universal_html/html.dart' as html;
 
 class DataDetailsEQCSource extends DataGridSource {
   DataDetailsEQCSource(this._detailsEQC) {
-    // _detailsEQC_original = _detailsEQC;
     buildDataGridRows();
   }
 
   List<Details> _detailsEQC = [];
-  // List<Details> _detailsEQC_original = [];
   List<DataGridRow> dataGridRows = [];
+  bool errorImg = false;
 
   void buildDataGridRows() {
     dataGridRows = _detailsEQC.map<DataGridRow>((DataGridRow) {
@@ -51,9 +50,13 @@ class DataDetailsEQCSource extends DataGridSource {
                     dataGridCell.value.toString().toUpperCase() == 'CANCEL' ||
                     dataGridCell.value.toString().toUpperCase() == 'NOT YET'
                 ? SizedBox()
-                : dataGridCell.columnName == 'Image'
+                : dataGridCell.columnName == 'Error Img' ||
+                        dataGridCell.columnName == 'Repair Img'
                     ? InkWell(
                         onTap: () {
+                          dataGridCell.columnName == 'Error Img'
+                              ? errorImg = true
+                              : errorImg = false;
                           downloadAndExtractZip(
                               cntr: row.getCells()[1].value,
                               esdate: changeDatetoSend(
@@ -72,49 +75,6 @@ class DataDetailsEQCSource extends DataGridSource {
     ].toList());
   }
 
-  // void applyFilter({
-  //   required String chargeType,
-  //   required String component,
-  //   required String category,
-  //   required String damageCode,
-  //   required String location,
-  //   required String payer,
-  //   required String approveCode,
-  // }) {
-  //   _detailsEQC = _detailsEQC_original
-  //       .where(
-  //         (element) =>
-  //             element.chargeType!
-  //                 .toUpperCase()
-  //                 .contains(chargeType.toUpperCase()) &&
-  //             element.component!
-  //                 .toUpperCase()
-  //                 .contains(component.toUpperCase()) &&
-  //             element.category!
-  //                 .toUpperCase()
-  //                 .contains(category.toUpperCase()) &&
-  //             element.damageCode!
-  //                 .toUpperCase()
-  //                 .contains(damageCode.toUpperCase()) &&
-  //             element.location!
-  //                 .toUpperCase()
-  //                 .contains(location.toUpperCase()) &&
-  //             element.payer!.toUpperCase().contains(payer.toUpperCase()) &&
-  //             element.approveCode!
-  //                 .toUpperCase()
-  //                 .contains(approveCode.toUpperCase()),
-  //       )
-  //       .toList();
-  //   buildDataGridRows();
-  //   notifyListeners();
-  // }
-
-  // void clear() {
-  //   _detailsEQC = _detailsEQC_original;
-  //   buildDataGridRows();
-  //   notifyListeners();
-  // }
-
   Future<void> downloadAndExtractZip(
       {required String cntr, required String esdate}) async {
     try {
@@ -123,8 +83,9 @@ class DataDetailsEQCSource extends DataGridSource {
         maskType: EasyLoadingMaskType.black,
         dismissOnTap: true,
       );
-      var url =
-          '$SERVER/EQCQuote/DownloadImage?Container=$cntr&EstimateDate=$esdate';
+      var url = errorImg == true
+          ? '$SERVER/EQCQuote/DownloadImage?Container=$cntr&EstimateDate=$esdate'
+          : '$SERVER/EQCQuote/DownloadImageComplete?Container=$cntr&EstimateDate=$esdate';
 
       final response = await http.get(Uri.parse(url), headers: {
         "Access-Control-Allow-Origin": "*",
@@ -171,7 +132,6 @@ class DataDetailsEQCSource extends DataGridSource {
                                       quoteController.nameImg.value =
                                           removeBeforeSlash(
                                               files[index]['name']);
-                                      // print(quoteController.pathImg.value);
                                     },
                                     child: Text(removeBeforeSlash(
                                         files[index]['name'])),

@@ -28,6 +28,8 @@ class _AEQuotePage1State extends State<AEQuotePage> {
     setState(() {});
   }
 
+  bool visible = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -11,7 +11,6 @@ import 'package:web_lotus/fetchdata/data_booking.dart';
 import 'package:web_lotus/model/model_tracking.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/combobox.dart';
-import 'package:web_lotus/widgets/footer.dart';
 
 class TrackingPage extends StatefulWidget {
   const TrackingPage({super.key});

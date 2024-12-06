@@ -82,3 +82,7 @@ Future<void> SelectFileZip(VoidCallback refresh) async {
     throw Exception('Error select file zip - $e');
   }
 }
+
+class UpIntent extends Intent {}
+
+class DownIntent extends Intent {}

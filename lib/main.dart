@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/screen/tracking/tracking_page.dart';
 

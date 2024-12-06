@@ -13,11 +13,11 @@ import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/model/model_listEQC.dart';
 import 'package:web_lotus/screen/eqc/add_quote_new/add_edit_quote.dart';
 import 'package:web_lotus/screen/eqc/list_eqc/data_listEQC_gridview.dart';
+import 'package:web_lotus/screen/eqc/widget/container.dart';
+import 'package:web_lotus/screen/eqc/widget/img/upload_image_zip.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/container/ContainerLabel.dart';
 import 'package:web_lotus/widgets/container/WidgetGridColumn.dart';
-import 'package:web_lotus/widgets/container/WidgetTextField.dart';
-import 'package:web_lotus/widgets/container/combobox.dart';
 
 import 'detail_eqc/widget_detail_eqc.dart';
 
@@ -59,6 +59,10 @@ class _ListEQCPageState extends State<ListEQCPage> {
         changeDatetoSend(date: DateTime.now().add(Duration(days: 1)));
     quoteController.toDate_text.value =
         changeDatetoShow(date: DateTime.now().add(Duration(days: 1)));
+  }
+
+  refresh() {
+    setState(() {});
   }
 
   @override
@@ -168,11 +172,14 @@ class _ListEQCPageState extends State<ListEQCPage> {
                   InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
                   Get.to(() => AEQuotePage());
                 },
-                style: ButtonStyle(
-                    backgroundColor:
-                        WidgetStatePropertyAll<Color>(Colors.orange),
-                    minimumSize: WidgetStateProperty.all(Size(100, 40))),
-                child: Text('Add Quote'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: haian,
+                  minimumSize: Size(150, 35),
+                ),
+                child: Text(
+                  'Create Quote',
+                  style: style11_white,
+                ),
               ),
             ],
           ),
@@ -205,9 +212,11 @@ class _ListEQCPageState extends State<ListEQCPage> {
                                 Column(
                                   children: [
                                     WidgetCntr(controller: _controller_cntr),
-                                    WidgetSize(controller: _controller_size),
+                                    // WidgetSize(controller: _controller_size),
                                     WidgetCurrency(
                                         controller: _controller_quoteCcy),
+                                    WidgetCharge(
+                                        controller: _controller_charge),
                                   ],
                                 ),
                                 SizedBox(
@@ -215,8 +224,6 @@ class _ListEQCPageState extends State<ListEQCPage> {
                                 ),
                                 Column(
                                   children: [
-                                    WidgetCharge(
-                                        controller: _controller_charge),
                                     WidgetComponent(
                                         controller: _controller_component),
                                     WidgetDamage(
@@ -353,46 +360,14 @@ class _ListEQCPageState extends State<ListEQCPage> {
     );
   }
 
-  Row WidgetDepo({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Depot'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
-  Row WidgetCntr({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Container'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
-  Row WidgetSize({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Size'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
-  Row WidgetCurrency({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Currency'),
-        Combobox<CurrencyQuotes>(
-          controllerCombobox: controller,
-          list: quoteController.listCurrency,
-          valueName: (element) => element.currency!,
-          onChanged: (p0) {},
-        ),
-      ],
-    );
-  }
+  // Row WidgetSize({required TextEditingController controller}) {
+  //   return Row(
+  //     children: [
+  //       WidgetContainerLabel(label: 'Size'),
+  //       WidgetTextField(controller: controller),
+  //     ],
+  //   );
+  // }
 
   // Row WidgetStatus({required TextEditingController controller}) {
   //   return Row(
@@ -408,98 +383,6 @@ class _ListEQCPageState extends State<ListEQCPage> {
   //   );
   // }
 
-  Row WidgetQuoteNo({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Quote No.'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
-  Row WidgetCharge({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Charge'),
-        Combobox<ChargeTypeQuotes>(
-          controllerCombobox: controller,
-          list: quoteController.listCharge,
-          valueName: (element) => element.chargeTypeCode!,
-          onChanged: (p0) {},
-        ),
-      ],
-    );
-  }
-
-  Row WidgetComponent({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Component'),
-        Combobox<ComponentQuotes>(
-          controllerCombobox: controller,
-          list: quoteController.listComponent,
-          valueName: (element) => element.componentCode!,
-          onChanged: (p0) {},
-        ),
-      ],
-    );
-  }
-
-  Row WidgetDamage({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Damage'),
-        Combobox<ErrorQuotes>(
-          controllerCombobox: controller,
-          list: quoteController.listError,
-          valueName: (element) => element.errorCode!,
-          onChanged: (p0) {},
-        ),
-      ],
-    );
-  }
-
-  Row WidgetDamageDetail({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Damage Detail'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
-  Row WidgetCategory({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Category'),
-        Combobox<CategoryQuotes>(
-          controllerCombobox: controller,
-          list: quoteController.listCategory,
-          valueName: (element) => element.categoryCode!,
-          onChanged: (p0) {},
-        ),
-      ],
-    );
-  }
-
-  Row WidgetLocation({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Location'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
-  Row WidgetPayer({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Payer'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
   WidgetButtonFilter() {
     return Container(
       margin: EdgeInsets.all(5),
@@ -513,7 +396,8 @@ class _ListEQCPageState extends State<ListEQCPage> {
               quoteNo: _controller_quoteNo.text,
               depot: _controller_depo.text,
               cntr: _controller_cntr.text,
-              size: _controller_size.text,
+              // size:
+              //     _controller_size.text == '' ? 'NULL' : _controller_size.text,
               quoteCcy: _controller_quoteCcy.text,
               // approveCode: _controller_approveCode.text,
               //details
@@ -571,7 +455,7 @@ class _ListEQCPageState extends State<ListEQCPage> {
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.orange, minimumSize: Size(150, 35)),
           onPressed: () {
-            // SelectFileZip(refresh);
+            SelectFileZip(refresh);
           },
           child: Text(
             'Upload Image (.zip)',

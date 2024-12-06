@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'dart:html' as html;
 
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';

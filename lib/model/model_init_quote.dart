@@ -1,5 +1,4 @@
 import 'dart:convert';
-// import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
@@ -348,7 +347,7 @@ class PostQuoteDetailModels {
   int? mrCost;
   int? totalCost;
   String? estimateDate;
-  Null? remark;
+  String? remark;
 
   PostQuoteDetailModels(
       {this.quoteDetailId,

@@ -7,7 +7,6 @@ import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/info_signin_controller.dart';
 import 'package:web_lotus/screen/eqc/list_eqc/listEQC_page.dart';
-import 'package:web_lotus/screen/eqc/quote_page.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 
 import 'popUpAlert/alert.dart';

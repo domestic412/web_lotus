@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:web_lotus/assets/style.dart';
-import 'package:web_lotus/screen/eqc/widget/upload_image_zip.dart';
+import 'package:web_lotus/screen/eqc/widget/img/upload_image_zip.dart';
 
 class UploadImageButton extends StatelessWidget {
   UploadImageButton(this.refresh);

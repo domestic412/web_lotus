@@ -104,7 +104,7 @@ class DataListEQCSource extends DataGridSource {
   void applyFilter({
     required String depot,
     required String cntr,
-    required String size,
+    // required String size,
     required String quoteCcy,
     // required String approveCode,
     required String quoteNo,
@@ -122,7 +122,10 @@ class DataListEQCSource extends DataGridSource {
             element.quoteNo!.toUpperCase().contains(quoteNo.toUpperCase()) &&
             element.depot!.toUpperCase().contains(depot.toUpperCase()) &&
             element.container!.toUpperCase().contains(cntr.toUpperCase()) &&
-            element.size!.toUpperCase().contains(size.toUpperCase()) &&
+            // element.size
+            //     .toString()
+            //     .toUpperCase()
+            //     .contains(size.toUpperCase()) &&
             element.quoteCcy!.toUpperCase().contains(quoteCcy.toUpperCase()) &&
             // element.approveCode!
             //     .toUpperCase()
@@ -148,7 +151,6 @@ class DataListEQCSource extends DataGridSource {
             element.details!
                 .any((value) => value.payer!.toUpperCase().contains(payer.toUpperCase())))
         .toList();
-    print(_listEQC);
     buildDataGridRows();
     notifyListeners();
   }
@@ -158,14 +160,6 @@ class DataListEQCSource extends DataGridSource {
     buildDataGridRows();
     notifyListeners();
   }
-
-  // @override
-  // Widget? buildGroupCaptionCellWidget(
-  //     RowColumnIndex rowColumnIndex, String summaryValue) {
-  //   return Container(
-  //       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-  //       child: Text(summaryValue));
-  // }
 
   Future<void> downloadAndExtractZip(
       {required String cntr, required String esdate}) async {
@@ -290,143 +284,4 @@ class DataListEQCSource extends DataGridSource {
     }
     return extractedFiles;
   }
-
-  // List<XFile>? listImg;
-  // Future getImage(
-  //     {required ImageSource media,
-  //     required String cntr,
-  //     required String esdate}) async {
-  //   final ImagePicker _picker = ImagePicker();
-  //   List<XFile> img = await _picker.pickMultiImage();
-
-  //   listImg = img;
-
-  //   if (listImg!.isNotEmpty) {
-  //     quoteController.pathImg.value = listImg![0].path;
-  //     return Get.defaultDialog(
-  //       title: 'Preview Image',
-  //       content: Container(
-  //         height: fullSizeHeight! * 0.8,
-  //         width: fullSizeWidth! * 0.8,
-  //         child: Row(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: [
-  //             Container(
-  //               height: fullSizeHeight! * 0.8,
-  //               width: fullSizeWidth! * 0.25,
-  //               decoration: BoxDecoration(border: Border.all()),
-  //               child: ListView.builder(
-  //                   scrollDirection: Axis.vertical,
-  //                   itemCount: listImg!.length,
-  //                   itemBuilder: (BuildContext context, index) {
-  //                     return Row(
-  //                       children: [
-  //                         Container(
-  //                           width: 50,
-  //                           color: white,
-  //                           child: Center(child: Text('${index + 1}.')),
-  //                         ),
-  //                         Container(
-  //                             margin: EdgeInsets.symmetric(vertical: 10),
-  //                             child: InkWell(
-  //                                 onTap: () {
-  //                                   quoteController.pathImg.value =
-  //                                       listImg![index].path;
-  //                                   // print(quoteController.pathImg.value);
-  //                                 },
-  //                                 child: Text(listImg![index].name))),
-  //                       ],
-  //                     );
-  //                   }),
-  //             ),
-  //             Obx(() => Container(
-  //                   height: fullSizeHeight! * 0.8,
-  //                   width: fullSizeWidth! * 0.5,
-  //                   decoration: BoxDecoration(border: Border.all()),
-  //                   child: Image.network(quoteController.pathImg.value,
-  //                       errorBuilder: (BuildContext context, Object error,
-  //                           StackTrace? stackTrace) {
-  //                     return const Center(
-  //                       child: Text('This image type is not supported:'),
-  //                     );
-  //                   }),
-  //                 ))
-  //           ],
-  //         ),
-  //       ),
-  //       confirm: ElevatedButton(
-  //           style: ElevatedButton.styleFrom(backgroundColor: haian),
-  //           onPressed: () {
-  //             PostImgQuote(
-  //               cntr: cntr,
-  //               date: esdate,
-  //             );
-  //           },
-  //           child: Text(
-  //             'Send',
-  //             style: TextStyle(color: white),
-  //           )),
-  //       cancel: ElevatedButton(
-  //           style: ElevatedButton.styleFrom(backgroundColor: grey),
-  //           onPressed: () {
-  //             Get.back();
-  //           },
-  //           child: Text(
-  //             'Cancel',
-  //             style: TextStyle(color: white),
-  //           )),
-  //     );
-  //   }
-  // }
-
-  // Future<void> PostImgQuote(
-  //     {required String cntr, required String date}) async {
-  //   try {
-  //     EasyLoading.show(
-  //       status: 'Loading...',
-  //       maskType: EasyLoadingMaskType.black,
-  //       dismissOnTap: true,
-  //     );
-  //     //PostRequest with multipartFile
-  //     // Create a FormData object to store your files
-  //     final formData = html.FormData();
-  //     final url =
-  //         '$SERVER/EQCQuote/CheckImage?Container=$cntr&EstimateDate=$date';
-  //     // Assuming a list of XFile objects in _listImage
-  //     if (listImg != null) {
-  //       for (int i = 0; i < listImg!.length; i++) {
-  //         final file = listImg![i];
-  //         //Convert XFile to Blob
-  //         final blob = html.Blob([await file.readAsBytes()], file.mimeType);
-  //         // Add the Blob to the FormData object
-  //         formData.appendBlob('uploadfile', blob, file.name);
-  //       }
-  //     }
-  //     final request = html.HttpRequest();
-  //     request.open(
-  //       'POST',
-  //       url,
-  //     );
-  //     request.send(formData);
-  //     request.onLoad.listen((html.ProgressEvent event) {
-  //       switch (request.status) {
-  //         case 200:
-  //           EasyLoading.showSuccess('Upload Success');
-  //           print('Success send Image quote');
-  //           if (Get.isDialogOpen == true) {
-  //             Get.back();
-  //           }
-  //           Get.to(SupportPage());
-  //           Get.to(() => QuoteDetailsPage());
-  //         default:
-  //           EasyLoading.showError('Upload Fail');
-  //           print('Error ${request.status} send Image quote ' + cntr);
-  //       }
-  //     });
-  //   } on Exception catch (e) {
-  //     EasyLoading.showError('Upload Fail');
-  //     print(e);
-  //     throw Exception('Error fetch Image - $e');
-  //   }
-  // }
 }

@@ -8,14 +8,12 @@ import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/info_signin_controller.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
-import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/model/model_listEQC.dart';
 import 'package:web_lotus/screen/eqc/list_eqc/detail_eqc/widget_detail_eqc.dart';
+import 'package:web_lotus/screen/eqc/widget/container.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/container/ContainerLabel.dart';
 import 'package:web_lotus/widgets/container/WidgetGridColumn.dart';
-import 'package:web_lotus/widgets/container/WidgetTextField.dart';
-import 'package:web_lotus/widgets/container/combobox.dart';
 
 import 'data_repair_complete_gridview.dart';
 
@@ -170,12 +168,16 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                               children: [
                                 WidgetQuoteNo(controller: _controller_quoteNo),
                                 WidgetCntr(controller: _controller_cntr),
-                                WidgetSize(controller: _controller_size),
+                                // WidgetSize(controller: _controller_size),
                                 WidgetCurrency(
                                     controller: _controller_quoteCcy),
                                 // WidgetStatus(
                                 //     controller: _controller_approveCode),
-
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
                                 WidgetButtonFilter(),
                                 WidgetButtonRemoveFilter(),
                               ],
@@ -293,7 +295,7 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
             _controller_depo.clear();
             _controller_quoteNo.clear();
             _controller_cntr.clear();
-            _controller_size.clear();
+            // _controller_size.clear();
             _controller_quoteCcy.clear();
             // _controller_approveCode.clear();
             _dataListEQCSource.clear();
@@ -318,7 +320,7 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
               quoteNo: _controller_quoteNo.text,
               depot: _controller_depo.text,
               cntr: _controller_cntr.text,
-              size: _controller_size.text,
+              // size: _controller_size.text,
               quoteCcy: _controller_quoteCcy.text,
               // approveCode:
               //     _controller_approveCode.text,
@@ -330,68 +332,4 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
           )),
     );
   }
-
-  Row WidgetDepo({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Depot'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
-  Row WidgetQuoteNo({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Quote No.'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
-  Row WidgetCntr({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Container'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
-  Row WidgetSize({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Size'),
-        WidgetTextField(controller: controller),
-      ],
-    );
-  }
-
-  Row WidgetCurrency({required TextEditingController controller}) {
-    return Row(
-      children: [
-        WidgetContainerLabel(label: 'Currency'),
-        Combobox<CurrencyQuotes>(
-          controllerCombobox: controller,
-          list: quoteController.listCurrency,
-          valueName: (element) => element.currency!,
-          onChanged: (p0) {},
-        ),
-      ],
-    );
-  }
-
-  // Row WidgetStatus({required TextEditingController controller}) {
-  //   return Row(
-  //     children: [
-  //       WidgetContainerLabel(label: 'Status'),
-  //       Combobox<CategoryQuotes>(
-  //         controllerCombobox: controller,
-  //         list: quoteController.listCategory,
-  //         valueName: (element) => element.categoryCode!,
-  //         onChanged: (p0) {},
-  //       ),
-  //     ],
-  //   );
-  // }
 }

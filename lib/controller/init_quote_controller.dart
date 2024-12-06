@@ -18,6 +18,7 @@ class QuoteController extends GetxController {
   RxList listCont = [].obs;
 
   var boolApprove = false.obs;
+  var hidden = true.obs;
 
   var currentDate_send = ''.obs;
   RxList<XFile>? listImg;

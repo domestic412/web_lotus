@@ -46,6 +46,15 @@ Row WidgetCurrency({required TextEditingController controller}) {
   );
 }
 
+Row WidgetStatus({required TextEditingController controller}) {
+  return Row(
+    children: [
+      WidgetContainerLabel(label: 'Status'),
+      WidgetTextField(controller: controller),
+    ],
+  );
+}
+
 Row WidgetCharge({required TextEditingController controller}) {
   return Row(
     children: [

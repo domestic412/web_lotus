@@ -7,6 +7,7 @@ import 'package:web_lotus/assets/color.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/info_signin_controller.dart';
 import 'package:web_lotus/screen/eqc/list_eqc/listEQC_page.dart';
+import 'package:web_lotus/screen/eqc/list_quote/listQuote_page.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 
 import 'popUpAlert/alert.dart';
@@ -206,8 +207,8 @@ class _SignInPageState extends State<SignInPage> {
                     //     Get.toNamed(GetRoutes.defaultRoute);
                     //     break;
                     // }
-                    // Get.to(QuoteListPage());
-                    Get.to(() => ListEQCPage());
+                    Get.to(() => ListQuotePage());
+                    // Get.to(() => ListEQCPage());
                     print('Login Success');
                   }
                 case 1:
@@ -237,8 +238,8 @@ class _SignInPageState extends State<SignInPage> {
                     //     Get.toNamed(GetRoutes.defaultRoute);
                     //     break;
                     // }
-                    // Get.to(() => QuoteListPage());
-                    Get.to(() => ListEQCPage());
+                    Get.to(() => ListQuotePage());
+                    // Get.to(() => ListEQCPage());
                   }
                 default:
                   LoginAlertDatabase(context);

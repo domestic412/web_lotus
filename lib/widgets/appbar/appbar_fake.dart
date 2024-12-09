@@ -10,6 +10,7 @@ import 'package:web_lotus/controller/init_quote_controller.dart';
 import 'package:web_lotus/model/model_init_quote.dart';
 import 'package:web_lotus/screen/eqc/add_quote_new/add_edit_quote.dart';
 import 'package:web_lotus/screen/eqc/list_eqc/listEQC_page.dart';
+import 'package:web_lotus/screen/eqc/list_quote/listQuote_page.dart';
 import 'package:web_lotus/screen/eqc/repair_complete/list_repair_complete_page.dart';
 import 'package:web_lotus/screen/signin/signin_page.dart';
 import 'package:web_lotus/screen/tracking/tracking_page.dart';
@@ -312,7 +313,8 @@ class _MenuBarState extends State<MenuBar> {
                         InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
                         Get.to(() => AEQuotePage());
                       case 'Management EQC':
-                        Get.to(() => ListEQCPage());
+                        // Get.to(() => ListEQCPage());
+                        Get.to(() => ListQuotePage());
                       case 'Repair Complete':
                         Get.to(() => ListRepairCompletePage());
                     }

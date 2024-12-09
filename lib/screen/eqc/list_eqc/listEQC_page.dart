@@ -68,294 +68,333 @@ class _ListEQCPageState extends State<ListEQCPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColor.contentColor,
-      body: Container(
-        color: Colors.white,
-        padding: const EdgeInsets.all(10),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      backgroundColor: MyColor.backgroundColor,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
           AppbarWidget(),
-          Text(
-            'Management EQC',
-            style: style20_blue,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.all(5.0),
-                child: Row(
-                  children: [
-                    WidgetContainerLabel(label: 'From Date'),
-                    // Text('From Date'),
-                    CustomPopup(
-                      showArrow: false,
-                      content: SizedBox(
-                        height: 270,
-                        width: 270,
-                        child: CalendarDatePicker(
-                          initialDate: dateFormat
-                              .parse(quoteController.fromDate_text.value),
-                          firstDate: DateTime(2024),
-                          lastDate: DateTime(2123),
-                          onDateChanged: (value) {
-                            quoteController.fromDate_text.value =
-                                DateFormat('dd/MM/yyyy').format(value);
-                            quoteController.fromDate_send.value =
-                                DateFormat('MM/dd/yyyy').format(value);
-                            setState(() {
-                              Navigator.pop(context);
-                            });
-                          },
-                        ),
-                      ),
-                      child: Container(
-                        decoration:
-                            BoxDecoration(border: Border.all(color: grey)),
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        padding:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                        child: Text(
-                          quoteController.fromDate_text.value,
-                          style: style11_black,
-                        ),
-                      ),
-                    ),
-                    // Text('To Date'),
-                    WidgetContainerLabel(label: 'To Date'),
-                    SizedBox(
-                      child: CustomPopup(
-                        showArrow: false,
-                        contentPadding: EdgeInsets.all(0),
-                        content: SizedBox(
-                          height: 270,
-                          width: 270,
-                          child: CalendarDatePicker(
-                            initialDate: dateFormat
-                                .parse(quoteController.toDate_text.value),
-                            firstDate: DateTime(2024),
-                            lastDate: DateTime(2123),
-                            onDateChanged: (value) {
-                              quoteController.toDate_text.value =
-                                  DateFormat('dd/MM/yyyy').format(value);
-                              quoteController.toDate_send.value =
-                                  DateFormat('MM/dd/yyyy').format(value);
-                              setState(() {
-                                Navigator.pop(context);
-                              });
-                            },
-                          ),
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: grey),
-                          ),
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                          padding:
-                              EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                          child: Text(
-                            quoteController.toDate_text.value,
-                            style: style11_black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  quoteController.listInputQuoteDetail.value = [];
-                  quoteController.listInputQuoteDetail_show.value = [];
-                  InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
-                  Get.to(() => AEQuotePage());
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: haian,
-                  minimumSize: Size(150, 35),
-                ),
-                child: Text(
-                  'Create Quote',
-                  style: style11_white,
-                ),
-              ),
-            ],
-          ),
           Expanded(
-            child: FutureBuilder<List<ListEQC>>(
-                future: ListEQC().fetchListEQC(
-                    fromDate: quoteController.fromDate_send.value,
-                    toDate: quoteController.toDate_send.value,
-                    userId: inforUserController.userId.value),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    _listEQC = snapshot.data;
-                    _dataListEQCSource = DataListEQCSource(_listEQC);
-                  }
-                  return snapshot.hasData
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Column(
-                                  children: [
-                                    WidgetQuoteNo(
-                                        controller: _controller_quoteNo),
-                                    WidgetDepo(controller: _controller_depo),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    WidgetCntr(controller: _controller_cntr),
-                                    // WidgetSize(controller: _controller_size),
-                                    WidgetCurrency(
-                                        controller: _controller_quoteCcy),
-                                    WidgetCharge(
-                                        controller: _controller_charge),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Column(
-                                  children: [
-                                    WidgetComponent(
-                                        controller: _controller_component),
-                                    WidgetDamage(
-                                        controller: _controller_damageCode),
-                                    WidgetDamageDetail(
-                                        controller: _controller_damageDetail),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    WidgetCategory(
-                                        controller: _controller_category),
-                                    WidgetLocation(
-                                        controller: _controller_location),
-                                    WidgetPayer(controller: _controller_payer),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    WidgetButtonFilter(),
-                                    WidgetButtonRemoveFilter(),
-                                    WidgetButtonUploadImg()
-                                  ],
-                                )
-                              ],
-                            ),
-                            Expanded(
-                              child: SfDataGridTheme(
-                                  data: SfDataGridThemeData(
-                                    headerColor: Colors.grey[200],
+            child: Container(
+              width: fullSizeWidth,
+              margin: EdgeInsets.fromLTRB(10, 0, 10, 20),
+              decoration: BoxDecoration(
+                  color: MyColor.contentColor,
+                  borderRadius: BorderRadius.circular(10)),
+              padding: const EdgeInsets.fromLTRB(5, 10, 5, 10),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Management EQC',
+                      style: style20_blue,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          // padding: EdgeInsets.all(5.0),
+                          child: Row(
+                            children: [
+                              WidgetContainerLabel(label: 'From Date'),
+                              // Text('From Date'),
+                              CustomPopup(
+                                showArrow: false,
+                                content: SizedBox(
+                                  height: 270,
+                                  width: 270,
+                                  child: CalendarDatePicker(
+                                    initialDate: dateFormat.parse(
+                                        quoteController.fromDate_text.value),
+                                    firstDate: DateTime(2024),
+                                    lastDate: DateTime(2123),
+                                    onDateChanged: (value) {
+                                      quoteController.fromDate_text.value =
+                                          DateFormat('dd/MM/yyyy')
+                                              .format(value);
+                                      quoteController.fromDate_send.value =
+                                          DateFormat('MM/dd/yyyy')
+                                              .format(value);
+                                      setState(() {
+                                        Navigator.pop(context);
+                                      });
+                                    },
                                   ),
-                                  child: SfDataGrid(
-                                      rowHeight: 30,
-                                      headerRowHeight: 40,
-                                      isScrollbarAlwaysShown: true,
-                                      columnWidthMode: ColumnWidthMode.fill,
-                                      selectionMode: SelectionMode.single,
-                                      gridLinesVisibility:
-                                          GridLinesVisibility.both,
-                                      headerGridLinesVisibility:
-                                          GridLinesVisibility.both,
-                                      controller: _dataGridController,
-                                      onSelectionChanged:
-                                          (addedRows, removedRows) {
-                                        quoteController.listDetails.value =
-                                            _dataGridController.selectedRow!
-                                                .getCells()[4]
-                                                .value;
+                                ),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: grey)),
+                                  margin: EdgeInsets.symmetric(horizontal: 10),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 10),
+                                  child: Text(
+                                    quoteController.fromDate_text.value,
+                                    style: style11_black,
+                                  ),
+                                ),
+                              ),
+                              // Text('To Date'),
+                              WidgetContainerLabel(label: 'To Date'),
+                              SizedBox(
+                                child: CustomPopup(
+                                  showArrow: false,
+                                  contentPadding: EdgeInsets.all(0),
+                                  content: SizedBox(
+                                    height: 270,
+                                    width: 270,
+                                    child: CalendarDatePicker(
+                                      initialDate: dateFormat.parse(
+                                          quoteController.toDate_text.value),
+                                      firstDate: DateTime(2024),
+                                      lastDate: DateTime(2123),
+                                      onDateChanged: (value) {
+                                        quoteController.toDate_text.value =
+                                            DateFormat('dd/MM/yyyy')
+                                                .format(value);
+                                        quoteController.toDate_send.value =
+                                            DateFormat('MM/dd/yyyy')
+                                                .format(value);
+                                        setState(() {
+                                          Navigator.pop(context);
+                                        });
                                       },
-                                      source: _dataListEQCSource,
-                                      columns: [
-                                        WidgetGridColumn(
-                                          label: 'Seq.',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Depot',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Container',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'inGateDate',
-                                          visible: false,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'completeImgUpload',
-                                          visible: false,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'details',
-                                          visible: false,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Size',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Ccy',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Total Cost',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Tarrif',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Status',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Request',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Approval',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Complete',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'isImgUpload',
-                                          visible: false,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Remarks',
-                                          visible: true,
-                                        ),
-                                        WidgetGridColumn(
-                                          label: 'Quote No',
-                                          visible: true,
-                                        ),
-                                      ])),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            DetailEQC()
-                          ],
-                        )
-                      : const Center(child: CircularProgressIndicator());
-                }),
+                                    ),
+                                  ),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: grey),
+                                    ),
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 10),
+                                    child: Text(
+                                      quoteController.toDate_text.value,
+                                      style: style11_black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            quoteController.listInputQuoteDetail.value = [];
+                            quoteController.listInputQuoteDetail_show.value =
+                                [];
+                            InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
+                            Get.to(() => AEQuotePage());
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: haian,
+                            minimumSize: Size(150, 35),
+                          ),
+                          child: Text(
+                            'Create Quote',
+                            style: style11_white,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: FutureBuilder<List<ListEQC>>(
+                          future: ListEQC().fetchListEQC(
+                              fromDate: quoteController.fromDate_send.value,
+                              toDate: quoteController.toDate_send.value,
+                              userId: inforUserController.userId.value),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              _listEQC = snapshot.data;
+                              _dataListEQCSource = DataListEQCSource(_listEQC);
+                            }
+                            return snapshot.hasData
+                                ? Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Column(
+                                            children: [
+                                              WidgetQuoteNo(
+                                                  controller:
+                                                      _controller_quoteNo),
+                                              WidgetDepo(
+                                                  controller: _controller_depo),
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              WidgetCntr(
+                                                  controller: _controller_cntr),
+                                              // WidgetSize(controller: _controller_size),
+                                              WidgetCurrency(
+                                                  controller:
+                                                      _controller_quoteCcy),
+                                              WidgetCharge(
+                                                  controller:
+                                                      _controller_charge),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Column(
+                                            children: [
+                                              WidgetComponent(
+                                                  controller:
+                                                      _controller_component),
+                                              WidgetDamage(
+                                                  controller:
+                                                      _controller_damageCode),
+                                              WidgetDamageDetail(
+                                                  controller:
+                                                      _controller_damageDetail),
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              WidgetCategory(
+                                                  controller:
+                                                      _controller_category),
+                                              WidgetLocation(
+                                                  controller:
+                                                      _controller_location),
+                                              WidgetPayer(
+                                                  controller:
+                                                      _controller_payer),
+                                            ],
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              WidgetButtonFilter(),
+                                              WidgetButtonRemoveFilter(),
+                                              WidgetButtonUploadImg()
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      Expanded(
+                                        child: SfDataGridTheme(
+                                            data: SfDataGridThemeData(
+                                              headerColor: Colors.grey[200],
+                                            ),
+                                            child: SfDataGrid(
+                                                rowHeight: 30,
+                                                headerRowHeight: 40,
+                                                isScrollbarAlwaysShown: true,
+                                                columnWidthMode:
+                                                    ColumnWidthMode.fill,
+                                                selectionMode:
+                                                    SelectionMode.single,
+                                                gridLinesVisibility:
+                                                    GridLinesVisibility.both,
+                                                headerGridLinesVisibility:
+                                                    GridLinesVisibility.both,
+                                                controller: _dataGridController,
+                                                onSelectionChanged:
+                                                    (addedRows, removedRows) {
+                                                  quoteController
+                                                          .listDetails.value =
+                                                      _dataGridController
+                                                          .selectedRow!
+                                                          .getCells()[4]
+                                                          .value;
+                                                },
+                                                source: _dataListEQCSource,
+                                                columns: [
+                                                  WidgetGridColumn(
+                                                    label: 'Seq.',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Depot',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Container',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'inGateDate',
+                                                    visible: false,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'completeImgUpload',
+                                                    visible: false,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'details',
+                                                    visible: false,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Size',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Ccy',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Total Cost',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Tarrif',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Status',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Request',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Approval',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Complete',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'isImgUpload',
+                                                    visible: false,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Remarks',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Quote No',
+                                                    visible: true,
+                                                  ),
+                                                ])),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      DetailEQC()
+                                    ],
+                                  )
+                                : const Center(
+                                    child: CircularProgressIndicator());
+                          }),
+                    ),
+                  ]),
+            ),
           ),
-        ]),
+        ],
       ),
     );
   }

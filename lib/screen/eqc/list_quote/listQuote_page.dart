@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_popup/flutter_popup.dart';
+import 'package:get/get.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:web_lotus/assets/color.dart';
@@ -8,32 +9,45 @@ import 'package:web_lotus/assets/style.dart';
 import 'package:web_lotus/assets/variable.dart';
 import 'package:web_lotus/controller/info_signin_controller.dart';
 import 'package:web_lotus/controller/init_quote_controller.dart';
-import 'package:web_lotus/model/model_listEQC.dart';
-import 'package:web_lotus/screen/eqc/list_eqc/detail_eqc/widget_detail_eqc.dart';
+import 'package:web_lotus/model/model_init_quote.dart';
+import 'package:web_lotus/model/model_quote_list.dart';
+import 'package:web_lotus/screen/eqc/add_quote_new/add_edit_quote.dart';
 import 'package:web_lotus/screen/eqc/widget/container.dart';
+import 'package:web_lotus/screen/eqc/widget/img/upload_image_zip.dart';
 import 'package:web_lotus/widgets/appbar/appbar_fake.dart';
 import 'package:web_lotus/widgets/container/ContainerLabel.dart';
 import 'package:web_lotus/widgets/container/WidgetGridColumn.dart';
 
-import 'data_repair_complete_gridview.dart';
+import 'data_listQuote_gridview.dart';
+import 'detail_quote/widget_detail_quote.dart';
 
-class ListRepairCompletePage extends StatefulWidget {
-  const ListRepairCompletePage({super.key});
+class ListQuotePage extends StatefulWidget {
+  const ListQuotePage({super.key});
 
   @override
-  State<ListRepairCompletePage> createState() => _ListRepairCompletePageState();
+  State<ListQuotePage> createState() => _ListQuotePageState();
 }
 
-class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
+class _ListQuotePageState extends State<ListQuotePage> {
   final DataGridController _dataGridController = DataGridController();
-  late DataRepairCompleteSource _dataListEQCSource;
-  List<ListEQC> _listEQC = <ListEQC>[];
+  late DataQuoteListSource _dataQuoteListSource;
+  List<QuoteList> _QuoteList = <QuoteList>[];
 
   TextEditingController _controller_depo = TextEditingController();
-  TextEditingController _controller_quoteNo = TextEditingController();
-  TextEditingController _controller_cntr = TextEditingController();
-  TextEditingController _controller_size = TextEditingController();
+  // TextEditingController _controller_cntr = TextEditingController();
+  // TextEditingController _controller_size = TextEditingController();
   TextEditingController _controller_quoteCcy = TextEditingController();
+  // TextEditingController _controller_approveCode = TextEditingController();
+  TextEditingController _controller_quoteNo = TextEditingController();
+  TextEditingController _controller_status = TextEditingController();
+  // // search details
+  // TextEditingController _controller_charge = TextEditingController();
+  // TextEditingController _controller_component = TextEditingController();
+  // TextEditingController _controller_damageCode = TextEditingController();
+  // TextEditingController _controller_damageDetail = TextEditingController();
+  // TextEditingController _controller_category = TextEditingController();
+  // TextEditingController _controller_location = TextEditingController();
+  // TextEditingController _controller_payer = TextEditingController();
 
   @override
   void initState() {
@@ -46,6 +60,10 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
         changeDatetoSend(date: DateTime.now().add(Duration(days: 1)));
     quoteController.toDate_text.value =
         changeDatetoShow(date: DateTime.now().add(Duration(days: 1)));
+  }
+
+  refresh() {
+    setState(() {});
   }
 
   @override
@@ -68,20 +86,21 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'Repair Complete',
+                      'Management EQC',
                       style: style20_blue,
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          padding: EdgeInsets.all(5.0),
+                          // padding: EdgeInsets.all(5.0),
                           child: Row(
                             children: [
                               WidgetContainerLabel(label: 'From Date'),
+                              // Text('From Date'),
                               CustomPopup(
                                 showArrow: false,
                                 content: SizedBox(
@@ -117,6 +136,7 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                                   ),
                                 ),
                               ),
+                              // Text('To Date'),
                               WidgetContainerLabel(label: 'To Date'),
                               SizedBox(
                                 child: CustomPopup(
@@ -161,47 +181,119 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                             ],
                           ),
                         ),
+                        ElevatedButton(
+                          onPressed: () {
+                            quoteController.listInputQuoteDetail.value = [];
+                            quoteController.listInputQuoteDetail_show.value =
+                                [];
+                            InitEQCQuote().fetchInitQuote(eqcQuoteId_new);
+                            Get.to(() => AEQuotePage());
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: haian,
+                            minimumSize: Size(150, 35),
+                          ),
+                          child: Text(
+                            'Create Quote',
+                            style: style11_white,
+                          ),
+                        ),
                       ],
                     ),
                     Expanded(
-                      child: FutureBuilder<List<ListEQC>>(
-                          future: ListEQC().fetchListEQC(
-                              fromDate: quoteController.fromDate_send.value,
-                              toDate: quoteController.toDate_send.value,
-                              userId: inforUserController.userId.value),
+                      child: FutureBuilder<List<QuoteList>>(
+                          future: QuoteList().fetchQuoteList(
+                            fromDate: quoteController.fromDate_send.value,
+                            toDate: quoteController.toDate_send.value,
+                            // userId: inforUserController.userId.value
+                          ),
                           builder:
                               (BuildContext context, AsyncSnapshot snapshot) {
                             if (snapshot.hasData) {
-                              _listEQC = snapshot.data;
-                              _dataListEQCSource =
-                                  DataRepairCompleteSource(_listEQC);
+                              _QuoteList = snapshot.data;
+                              _dataQuoteListSource =
+                                  DataQuoteListSource(_QuoteList);
                             }
                             return snapshot.hasData
                                 ? Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
+                                          WidgetDepo(
+                                              controller: _controller_depo),
                                           WidgetQuoteNo(
                                               controller: _controller_quoteNo),
-                                          WidgetCntr(
-                                              controller: _controller_cntr),
-                                          // WidgetSize(controller: _controller_size),
                                           WidgetCurrency(
                                               controller: _controller_quoteCcy),
-                                          // WidgetStatus(
-                                          //     controller: _controller_approveCode),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
+                                          WidgetStatus(
+                                              controller: _controller_status),
                                           WidgetButtonFilter(),
                                           WidgetButtonRemoveFilter(),
+                                          WidgetButtonUploadImg()
+                                          // Column(
+                                          //   children: [
+                                          //     WidgetDepo(
+                                          //         controller: _controller_depo),
+                                          //     WidgetQuoteNo(
+                                          //         controller:
+                                          //             _controller_quoteNo),
+                                          //   ],
+                                          // ),
+                                          // Column(
+                                          //   children: [
+                                          //     // WidgetCntr(
+                                          //     //     controller: _controller_cntr),
+                                          //     // WidgetSize(controller: _controller_size),
+                                          //     WidgetCurrency(
+                                          //         controller:
+                                          //             _controller_quoteCcy),
+                                          //     // WidgetCharge(
+                                          //     //     controller:
+                                          //     //         _controller_charge),
+                                          //   ],
+                                          // ),
+                                          // SizedBox(
+                                          //   width: 20,
+                                          // ),
+                                          // Column(
+                                          //   children: [
+                                          //     WidgetComponent(
+                                          //         controller:
+                                          //             _controller_component),
+                                          //     WidgetDamage(
+                                          //         controller:
+                                          //             _controller_damageCode),
+                                          //     WidgetDamageDetail(
+                                          //         controller:
+                                          //             _controller_damageDetail),
+                                          //   ],
+                                          // ),
+                                          // Column(
+                                          //   children: [
+                                          //     WidgetCategory(
+                                          //         controller:
+                                          //             _controller_category),
+                                          //     WidgetLocation(
+                                          //         controller:
+                                          //             _controller_location),
+                                          //     WidgetPayer(
+                                          //         controller:
+                                          //             _controller_payer),
+                                          //   ],
+                                          // ),
+                                          // Column(
+                                          //   crossAxisAlignment:
+                                          //       CrossAxisAlignment.start,
+                                          //   children: [
+                                          //     WidgetButtonFilter(),
+                                          //     WidgetButtonRemoveFilter(),
+                                          //     WidgetButtonUploadImg()
+                                          //   ],
+                                          // )
                                         ],
                                       ),
                                       Expanded(
@@ -225,20 +317,25 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                                                 onSelectionChanged:
                                                     (addedRows, removedRows) {
                                                   quoteController
-                                                          .listDetails.value =
+                                                          .eqcQuoteId.value =
                                                       _dataGridController
                                                           .selectedRow!
-                                                          .getCells()[6]
+                                                          .getCells()[0]
                                                           .value;
+                                                  setState(() {});
                                                 },
-                                                source: _dataListEQCSource,
+                                                source: _dataQuoteListSource,
                                                 columns: [
                                                   WidgetGridColumn(
                                                     label: 'Seq.',
                                                     visible: true,
                                                   ),
                                                   WidgetGridColumn(
-                                                    label: 'Depot',
+                                                    label: 'eqcQuoteId',
+                                                    visible: false,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Port/Depot',
                                                     visible: true,
                                                   ),
                                                   WidgetGridColumn(
@@ -246,39 +343,7 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                                                     visible: true,
                                                   ),
                                                   WidgetGridColumn(
-                                                    label: 'Container',
-                                                    visible: true,
-                                                  ),
-                                                  WidgetGridColumn(
-                                                    label: 'inGateDate',
-                                                    visible: false,
-                                                  ),
-                                                  WidgetGridColumn(
-                                                    label: 'isImgUpload',
-                                                    visible: false,
-                                                  ),
-                                                  WidgetGridColumn(
-                                                    label: 'completeImgUpload',
-                                                    visible: false,
-                                                  ),
-                                                  WidgetGridColumn(
-                                                    label: 'details',
-                                                    visible: false,
-                                                  ),
-                                                  WidgetGridColumn(
-                                                    label: 'Size',
-                                                    visible: true,
-                                                  ),
-                                                  WidgetGridColumn(
-                                                    label: 'Request',
-                                                    visible: true,
-                                                  ),
-                                                  WidgetGridColumn(
-                                                    label: 'Approval',
-                                                    visible: true,
-                                                  ),
-                                                  WidgetGridColumn(
-                                                    label: 'Complete',
+                                                    label: 'Estimate Date',
                                                     visible: true,
                                                   ),
                                                   WidgetGridColumn(
@@ -286,11 +351,23 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                                                     visible: true,
                                                   ),
                                                   WidgetGridColumn(
-                                                    label: 'Total Cost',
+                                                    label: 'exRate',
                                                     visible: true,
                                                   ),
                                                   WidgetGridColumn(
-                                                    label: 'Tarrif',
+                                                    label: 'Status',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'User',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Approve by',
+                                                    visible: true,
+                                                  ),
+                                                  WidgetGridColumn(
+                                                    label: 'Approve Date',
                                                     visible: true,
                                                   ),
                                                 ])),
@@ -298,7 +375,7 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
                                       SizedBox(
                                         height: 10,
                                       ),
-                                      DetailEQC()
+                                      DetailQuote()
                                     ],
                                   )
                                 : const Center(
@@ -313,7 +390,65 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
     );
   }
 
-  Container WidgetButtonRemoveFilter() {
+  // Row WidgetSize({required TextEditingController controller}) {
+  //   return Row(
+  //     children: [
+  //       WidgetContainerLabel(label: 'Size'),
+  //       WidgetTextField(controller: controller),
+  //     ],
+  //   );
+  // }
+
+  // Row WidgetStatus({required TextEditingController controller}) {
+  //   return Row(
+  //     children: [
+  //       WidgetContainerLabel(label: 'Status'),
+  //       Combobox<CategoryQuotes>(
+  //         controllerCombobox: controller,
+  //         list: quoteController.listCategory,
+  //         valueName: (element) => element.categoryCode!,
+  //         onChanged: (p0) {},
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  WidgetButtonFilter() {
+    return Container(
+      margin: EdgeInsets.all(5),
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: haian,
+            minimumSize: Size(150, 35),
+          ),
+          onPressed: () {
+            _dataQuoteListSource.applyFilter(
+              quoteNo: _controller_quoteNo.text,
+              portDepot: _controller_depo.text,
+              quoteCcy: _controller_quoteCcy.text,
+              quoteStatus: _controller_status.text,
+              // cntr: _controller_cntr.text,
+              // // size:
+              // //     _controller_size.text == '' ? 'NULL' : _controller_size.text,
+              // // approveCode: _controller_approveCode.text,
+              // //details
+              // charge: _controller_charge.text,
+              // component: _controller_component.text,
+              // damageCode: _controller_damageCode.text,
+              // damageDetail: _controller_damageDetail.text,
+              // category: _controller_category.text,
+              // location: _controller_location.text,
+              // payer: _controller_payer.text,
+            );
+          },
+          child: Text(
+            'Filter',
+            style: style11_white,
+          )),
+    );
+  }
+
+  WidgetButtonRemoveFilter() {
     return Container(
       margin: EdgeInsets.all(5),
       child: ElevatedButton(
@@ -324,11 +459,21 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
           onPressed: () {
             _controller_depo.clear();
             _controller_quoteNo.clear();
-            _controller_cntr.clear();
-            // _controller_size.clear();
             _controller_quoteCcy.clear();
+            _controller_status.clear();
+            // _controller_cntr.clear();
+            // _controller_size.clear();
+
             // _controller_approveCode.clear();
-            _dataListEQCSource.clear();
+
+            // _controller_charge.clear();
+            // _controller_component.clear();
+            // _controller_damageCode.clear();
+            // _controller_damageDetail.clear();
+            // _controller_category.clear();
+            // _controller_location.clear();
+            // _controller_payer.clear();
+            _dataQuoteListSource.clear();
           },
           child: Text(
             'Remove Filter',
@@ -337,27 +482,17 @@ class _ListRepairCompletePageState extends State<ListRepairCompletePage> {
     );
   }
 
-  Container WidgetButtonFilter() {
+  WidgetButtonUploadImg() {
     return Container(
       margin: EdgeInsets.all(5),
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: haian,
-            minimumSize: Size(150, 35),
-          ),
+              backgroundColor: Colors.orange, minimumSize: Size(150, 35)),
           onPressed: () {
-            _dataListEQCSource.applyFilter(
-              quoteNo: _controller_quoteNo.text,
-              depot: _controller_depo.text,
-              cntr: _controller_cntr.text,
-              // size: _controller_size.text,
-              quoteCcy: _controller_quoteCcy.text,
-              // approveCode:
-              //     _controller_approveCode.text,
-            );
+            SelectFileZip(refresh);
           },
           child: Text(
-            'Filter',
+            'Upload Image (.zip)',
             style: style11_white,
           )),
     );
